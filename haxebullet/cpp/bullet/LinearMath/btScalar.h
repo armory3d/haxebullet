@@ -180,7 +180,8 @@ inline int	btGetVersion()
                 #include <emmintrin.h>
             #endif
         #endif //BT_USE_SSE
-    #elif defined( __ARM_NEON__ )
+    //#elif defined( __ARM_NEON__ ) // breaks on iOS
+	#elif defined( __ARM_NEON__ ) && (!defined(__LP64__) && !defined(_LP64))
         #ifdef __clang__
             #define BT_USE_NEON 1
 			#define BT_USE_SIMD_VECTOR3

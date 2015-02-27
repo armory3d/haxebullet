@@ -1,23 +1,26 @@
 // Haxe Bullet
+// Based on haxe-ammo.js https://github.com/floppya/haxe-ammo.js
 
 package haxebullet;
 
-#if js
-// haxe-ammo.js 
-// https://github.com/floppya/haxe-ammo.js
-// ==============================================
-// This is a collection of Haxe extern definitions for [Ammo.js](http://github.com/kripken/ammo.js)
-// which is a machine generated javascript version of Bullet 3D physics engine.
-
-// Currently, this is far from comprehensive as I'm only adding the parts that
-// I need. Any help is appreciated!
-
 typedef BtScalar = Float;
 
+#if js
 @:native('Ammo.btVector3')
+#elseif cpp
+@:include("Kore/bullet/LinearMath/btVector3.h")
+@:native("::btVector3")
+@:structAccess
+@:unreflective
+#end
 extern class BtVector3
 {
-	public function new(?x:BtScalar=0, ?y:BtScalar=0, ?z:BtScalar=0):Void;
+	#if js
+	public function new(?x:BtScalar=0, ?y:BtScalar=0, ?z:BtScalar=0);
+	#elseif cpp
+	@:native("new btVector3")
+	public static function create(?x:BtScalar=0, ?y:BtScalar=0, ?z:BtScalar=0):cpp.Pointer<BtVector3>;
+	#end
 	public function setX(x:BtScalar):Void;
 	public function setY(y:BtScalar):Void;
 	public function setZ(z:BtScalar):Void;
@@ -28,6 +31,7 @@ extern class BtVector3
 	public function w():BtScalar;
 }
 
+#if js
 @:native('Ammo.btQuaternion')
 extern class BtQuaternion
 {
@@ -170,7 +174,6 @@ extern class BtConvexInternalShape extends BtConvexShape
 @:native('Ammo.btPolyhedralConvexShape')
 extern class BtPolyhedralConvexShape extends BtConvexInternalShape
 {
-	
 }
 
 @:native('Ammo.btBoxShape')
@@ -190,14 +193,24 @@ extern class Ammo
 {
 	public static function destroy(obj:Dynamic):Void;
 	
-	private static function __init__() : Void untyped {
+	private static function __init__():Void untyped {
         #if !noEmbedJS
             #if debug
-            haxe.macro.Tools.includeFile("js/ammo/ammo.js");
+            //haxe.macro.Compiler.includeFile("haxebullet/js/ammo/ammo.js");
             #else
-            haxe.macro.Tools.includeFile("js/ammo/ammo-min.js");
+            //haxe.macro.Compiler.includeFile("haxebullet/js/ammo/ammo-min.js");
             #end
         #end
     }
 }
 #end
+
+//#if cpp
+//@:buildXml("
+//	<files id='haxe'>
+//		<compilerflag value='-I/Users/lubos/Documents/Sublime/test/Sources/haxebullet/cpp/bullet/LinearMath'/>
+//		<file name='/Users/lubos/Documents/Sublime/test/Sources/haxebullet/cpp/bullet/LinearMath/btVector3.cpp'/>
+//	</files> ")
+//@:keep
+//class Include {}
+//#end
