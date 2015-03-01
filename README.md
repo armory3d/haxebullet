@@ -2,8 +2,6 @@
 
 Native [Bullet 3D Physics](http://bulletphysics.org/) for Haxe
 
-## Demo
-
 ## Docs
 Refer to original [Bullet documentation](http://bulletphysics.org/mediawiki-1.5.8/index.php/Main_Page)
 
