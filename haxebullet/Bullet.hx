@@ -1,4 +1,5 @@
 // Haxe Bullet
+// Native Bullet 2.82 physics for Haxe
 // Based on haxe-ammo.js https://github.com/floppya/haxe-ammo.js
 
 package haxebullet;
@@ -19,7 +20,7 @@ extern class BtVector3 {
 	public function new(x:BtScalar = 0, y:BtScalar = 0, z:BtScalar = 0):Void;
 	#elseif cpp
 	@:native("new btVector3")
-	public static function create(?x:BtScalar = 0, ?y:BtScalar = 0, ?z:BtScalar = 0):cpp.Pointer<BtVector3>;
+	public static function create(x:BtScalar = 0, y:BtScalar = 0, z:BtScalar = 0):cpp.Pointer<BtVector3>;
 	#end
 	public function setX(x:BtScalar):Void;
 	public function setY(y:BtScalar):Void;
@@ -79,9 +80,6 @@ extern class BtActionInterface {
 extern class BtTransform {
 	#if js
 	public function new():Void;
-	public static function create():BtTransform {
-		return new BtTransform();
-	}
 	#elseif cpp
 	@:native("new btTransform")
 	public static function create():cpp.Pointer<BtTransform>;
@@ -103,13 +101,8 @@ extern class BtTransform {
 @:unreflective
 #end
 extern class BtMotionState {
-	//#if js
 	public function getWorldTransform(centerOfMassWorldTrans:BtTransform):Void;
 	public function setWorldTransform(centerOfMassWorldTrans:BtTransform):Void;
-	//#elseif cpp
-	//public function getWorldTransform(centerOfMassWorldTrans:cpp.Pointer<BtTransform>):Void;
-	//public function setWorldTransform(centerOfMassWorldTrans:cpp.Pointer<BtTransform>):Void;
-	//#end
 }
 
 // ------------------------------------------------------
@@ -123,7 +116,7 @@ extern class BtMotionState {
 #end
 extern class BtDefaultMotionState extends BtMotionState {
 	#if js
-	public function new(?worldTrans:BtTransform, ?centerOfMassOffset:BtTransform):Void;
+	public function new(worldTrans:BtTransform, centerOfMassOffset:BtTransform):Void;
 	#elseif cpp
 	@:native("new btDefaultMotionState")
 	public static function create(worldTrans:BtTransform, centerOfMassOffset:BtTransform):cpp.Pointer<BtDefaultMotionState>;
@@ -141,7 +134,7 @@ extern class BtDefaultMotionState extends BtMotionState {
 #end
 extern class BtRigidBodyConstructionInfo {
 	#if js
-	public function new(mass:BtScalar, motionState:BtMotionState, collisionShape:BtCollisionShape, ?localInertia:BtVector3):Void;
+	public function new(mass:BtScalar, motionState:BtMotionState, collisionShape:BtCollisionShape, localInertia:BtVector3):Void;
 	#elseif cpp
 	@:native("new btRigidBody::btRigidBodyConstructionInfo")
 	public static function create(mass:BtScalar, motionState:cpp.Pointer<Dynamic>, collisionShape:cpp.Pointer<Dynamic>, localInertia:BtVector3):cpp.Pointer<BtRigidBodyConstructionInfo>;
@@ -173,19 +166,16 @@ extern class BtCollisionObject {
 extern class BtRigidBody extends BtCollisionObject {
 	#if js
 	public function new(constructionInfo:BtRigidBodyConstructionInfo):Void;
+	public function getMotionState():BtMotionState;
 	#elseif cpp
 	@:native("new btRigidBody")
 	public static function create(constructionInfo:BtRigidBodyConstructionInfo):cpp.Pointer<BtRigidBody>;
+	public function getMotionState():cpp.Pointer<BtMotionState>;
 	#end
 	public function applyCentralForce(force:BtVector3):Void;
 	public function applyCentralImpulse(impulse:BtVector3):Void;
 	public function clearForces():Void;
 	public function updateInertiaTensor():Void;
-	#if js
-	public function getMotionState():BtMotionState;
-	#elseif cpp
-	public function getMotionState():cpp.Pointer<BtMotionState>;
-	#end
 	public function getCenterOfMassPosition():BtVector3;
 }
 
@@ -333,20 +323,16 @@ extern class BtCollisionWorld {
 extern class BtDynamicsWorld extends BtCollisionWorld {
 	#if js
 	public function new(dispatcher:BtDispatcher, pairCache:BtBroadphaseInterface, constraintSolver:BtConstraintSolver, collisionConfiguration:BtCollisionConfiguration):Void;
+	public function addRigidBody(body:BtRigidBody /*, ?group:Int=0, ?mask:Int=0*/):Void;
 	#elseif cpp
 	@:native("new btDynamicsWorld")
 	public static function create(dispatcher:cpp.Pointer<Dynamic>, pairCache:cpp.Pointer<Dynamic>, constraintSolver:cpp.Pointer<Dynamic>, collisionConfiguration:cpp.Pointer<Dynamic>):cpp.Pointer<BtDynamicsWorld>;
+	public function addRigidBody(body:cpp.Pointer<BtRigidBody> /*, ?group:Int=0, ?mask:Int=0*/):Void;
 	#end
 	public function addAction(action:BtActionInterface):Void;
 	public function removeAction(action:BtActionInterface):Void;
-	#if js
-	public function addRigidBody(body:BtRigidBody /*, ?group:Int=0, ?mask:Int=0*/):Void;
-	#elseif cpp
-	public function addRigidBody(body:cpp.Pointer<BtRigidBody> /*, ?group:Int=0, ?mask:Int=0*/):Void;
-	#end
 	public function setGravity(v:BtVector3):Void;
-	public function stepSimulation(timeStep:BtScalar, ?maxSubSteps:BtScalar = 1, ?fixedTimeStep:BtScalar = 1.0 / 60.0):Void;
-
+	public function stepSimulation(timeStep:BtScalar, maxSubSteps:BtScalar = 1, fixedTimeStep:BtScalar = 1.0 / 60.0):Void;
 }
 
 // ------------------------------------------------------
@@ -365,7 +351,6 @@ extern class BtDiscreteDynamicsWorld extends BtDynamicsWorld {
 	@:native("new btDiscreteDynamicsWorld")
 	public static function create(dispatcher:cpp.Pointer<Dynamic>, pairCache:cpp.Pointer<Dynamic>, constraintSolver:cpp.Pointer<Dynamic>, collisionConfiguration:cpp.Pointer<Dynamic>):cpp.Pointer<BtDiscreteDynamicsWorld>;
 	#end
-	//public function synchronizeMotionStates():Void;
 }
 
 // ------------------------------------------------------
@@ -461,7 +446,7 @@ extern class BtBoxShape extends BtPolyhedralConvexShape {
 	public function new(boxHalfExtents:BtVector3):Void;
 	#elseif cpp
 	@:native("new btBoxShape")
-	public static function create(boxHalfExtents:BtVector3):cpp.Pointer<BtBoxShape>;
+	public static function create(boxHalfExtents:BtVector3):cpp.Pointer<BtCollisionShape>;
 	#end
 }
 
@@ -479,7 +464,7 @@ extern class BtSphereShape extends BtConvexInternalShape {
 	public function new(radius:BtScalar):Void;
 	#elseif cpp
 	@:native("new btSphereShape")
-	public static function create(radius:BtScalar):cpp.Pointer<BtSphereShape>;
+	public static function create(radius:BtScalar):cpp.Pointer<BtCollisionShape>;
 	#end
 }
 
