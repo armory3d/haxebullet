@@ -2,16 +2,23 @@
 
 Native [Bullet 3D Physics](http://bulletphysics.org/) for Haxe
 
-Based on Bullet 2.82, works on C++ and JS targets
-
 ## Demo
 
 ## Docs
 Refer to original [Bullet documentation](http://bulletphysics.org/mediawiki-1.5.8/index.php/Main_Page)
 
+## Remarks
+Based on Bullet 2.82, works on C++ and JS targets. Using original C++ sources of Bullet and Ammo.js for JavaScript respectively. The goal of this repository is to provide top class 3D physics solution for Haxe.
+
+There are differencies when accessing API on C++ and JS(refer to usage below) - this is because the externs for these languages work a bit differently. The purpose of this library is to be integrated in your own 3D library where these differences are easily solved by #if directives. If however there is a way to unify this without a performance hit please let me know.
+
+The bindings are not complete but it's very easy to add missing stuff based on what's already there. Feel free to contribute!
+
 ## Usage
 
 [Hello World](http://bulletphysics.org/mediawiki-1.5.8/index.php/Hello_World) for C++ targets
+
+In order to get C++ build to work you need to add 'haxebullet/cpp/bullet' directory into your build process so compiler is able to find it.
 
 ``` hx
 var groundShape = BtStaticPlaneShape.create(BtVector3.create(0, 1, 0).value, 1);
@@ -54,6 +61,8 @@ for (i in 0...3000) {
 ```
 
 [Hello World](http://bulletphysics.org/mediawiki-1.5.8/index.php/Hello_World) for JS target
+
+In order to get JS build to work you need to add 'haxebullet/js/ammo/ammo.js' script into your web page by either embedding or including it with a <script> tag.
 
 ``` hx
 var groundShape = new BtStaticPlaneShape(new BtVector3(0, 1, 0), 1);
