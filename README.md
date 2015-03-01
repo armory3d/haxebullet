@@ -62,7 +62,7 @@ for (i in 0...3000) {
 
 [Hello World](http://bulletphysics.org/mediawiki-1.5.8/index.php/Hello_World) for JS target
 
-In order to get JS build to work you need to add 'haxebullet/js/ammo/ammo.js' script into your web page by either embedding or including it with a <script> tag.
+In order to get JS build to work you need to add 'haxebullet/js/ammo/ammo.js' script either by embedding or including it with a script tag.
 
 ``` hx
 var groundShape = new BtStaticPlaneShape(new BtVector3(0, 1, 0), 1);
