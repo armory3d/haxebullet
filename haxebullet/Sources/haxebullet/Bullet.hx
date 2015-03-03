@@ -10,7 +10,7 @@ typedef BtScalar = Float;
 #if js
 @:native('Ammo.btVector3')
 #elseif cpp
-@:include("bullet/LinearMath/btVector3.h")
+@:include("LinearMath/btVector3.h")
 @:native("::btVector3")
 @:structAccess
 @:unreflective
@@ -36,7 +36,7 @@ extern class BtVector3 {
 #if js
 @:native('Ammo.btQuaternion')
 #elseif cpp
-@:include("bullet/LinearMath/btQuaternion.h")
+@:include("LinearMath/btQuaternion.h")
 @:native("::btQuaternion")
 @:structAccess
 @:unreflective
@@ -60,7 +60,7 @@ extern class BtQuaternion {
 #if js
 @:native('Ammo.btActionInterface')
 #elseif cpp
-@:include("bullet/BulletDynamics/Dynamics/btActionInterface.h")
+@:include("BulletDynamics/Dynamics/btActionInterface.h")
 @:native("::btActionInterface")
 @:structAccess
 @:unreflective
@@ -72,7 +72,7 @@ extern class BtActionInterface {
 #if js
 @:native('Ammo.btTransform')
 #elseif cpp
-@:include("bullet/LinearMath/btTransform.h")
+@:include("LinearMath/btTransform.h")
 @:native("::btTransform")
 @:structAccess
 @:unreflective
@@ -95,7 +95,7 @@ extern class BtTransform {
 #if js
 @:native('Ammo.btMotionState')
 #elseif cpp
-@:include("bullet/LinearMath/btMotionState.h")
+@:include("LinearMath/btMotionState.h")
 @:native("::btMotionState")
 @:structAccess
 @:unreflective
@@ -109,7 +109,7 @@ extern class BtMotionState {
 #if js
 @:native('Ammo.btDefaultMotionState')
 #elseif cpp
-@:include("bullet/LinearMath/btDefaultMotionState.h")
+@:include("LinearMath/btDefaultMotionState.h")
 @:native("::btDefaultMotionState")
 @:structAccess
 @:unreflective
@@ -127,7 +127,7 @@ extern class BtDefaultMotionState extends BtMotionState {
 #if js
 @:native('Ammo.btRigidBodyConstructionInfo')
 #elseif cpp
-@:include("bullet/BulletDynamics/Dynamics/btRigidBody.h")
+@:include("BulletDynamics/Dynamics/btRigidBody.h")
 @:native("::btRigidBody::btRigidBodyConstructionInfo")
 @:structAccess
 @:unreflective
@@ -145,7 +145,7 @@ extern class BtRigidBodyConstructionInfo {
 #if js
 @:native('Ammo.btCollisionObject')
 #elseif cpp
-@:include("bullet/BulletCollision/CollisionDispatch/btCollisionObject.h")
+@:include("BulletCollision/CollisionDispatch/btCollisionObject.h")
 @:native("::btCollisionObject")
 @:structAccess
 @:unreflective
@@ -158,7 +158,7 @@ extern class BtCollisionObject {
 #if js
 @:native('Ammo.btRigidBody')
 #elseif cpp
-@:include("bullet/BulletDynamics/Dynamics/btRigidBody.h")
+@:include("BulletDynamics/Dynamics/btRigidBody.h")
 @:native("::btRigidBody")
 @:structAccess
 @:unreflective
@@ -183,7 +183,7 @@ extern class BtRigidBody extends BtCollisionObject {
 #if js
 @:native('Ammo.btCollisionConfiguration')
 #elseif cpp
-@:include("bullet/BulletCollision/CollisionDispatch/btCollisionConfiguration.h")
+@:include("BulletCollision/CollisionDispatch/btCollisionConfiguration.h")
 @:native("::btCollisionConfiguration")
 @:structAccess
 @:unreflective
@@ -195,7 +195,7 @@ extern class BtCollisionConfiguration {
 #if js
 @:native('Ammo.btDefaultCollisionConfiguration')
 #elseif cpp
-@:include("bullet/BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h")
+@:include("BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h")
 @:native("::btDefaultCollisionConfiguration")
 @:structAccess
 @:unreflective
@@ -213,7 +213,7 @@ extern class BtDefaultCollisionConfiguration extends BtCollisionConfiguration {
 #if js
 @:native('Ammo.btDispatcher')
 #elseif cpp
-@:include("bullet/BulletCollision/BroadphaseCollision/btDispatcher.h")
+@:include("BulletCollision/BroadphaseCollision/btDispatcher.h")
 @:native("::btDispatcher")
 @:structAccess
 @:unreflective
@@ -225,7 +225,7 @@ extern class BtDispatcher {
 #if js
 @:native('Ammo.btCollisionDispatcher')
 #elseif cpp
-@:include("bullet/BulletCollision/CollisionDispatch/btCollisionDispatcher.h")
+@:include("BulletCollision/CollisionDispatch/btCollisionDispatcher.h")
 @:native("::btCollisionDispatcher")
 @:structAccess
 @:unreflective
@@ -243,7 +243,7 @@ extern class BtCollisionDispatcher extends BtDispatcher {
 #if js
 @:native('Ammo.btBroadphaseInterface')
 #elseif cpp
-@:include("bullet/BulletCollision/BroadphaseCollision/btBroadphaseInterface.h")
+@:include("BulletCollision/BroadphaseCollision/btBroadphaseInterface.h")
 @:native("::btBroadphaseInterface")
 @:structAccess
 @:unreflective
@@ -255,7 +255,7 @@ extern class BtBroadphaseInterface {
 #if js
 @:native('Ammo.btDbvtBroadphase')
 #elseif cpp
-@:include("bullet/BulletCollision/BroadphaseCollision/btDbvtBroadphase.h")
+@:include("BulletCollision/BroadphaseCollision/btDbvtBroadphase.h")
 @:native("::btDbvtBroadphase")
 @:structAccess
 @:unreflective
@@ -273,7 +273,7 @@ extern class BtDbvtBroadphase extends BtBroadphaseInterface {
 #if js
 @:native('Ammo.btConstraintSolver')
 #elseif cpp
-@:include("bullet/BulletDynamics/ConstraintSolver/btConstraintSolver.h")
+@:include("BulletDynamics/ConstraintSolver/btConstraintSolver.h")
 @:native("::btConstraintSolver")
 @:structAccess
 @:unreflective
@@ -285,7 +285,7 @@ extern class BtConstraintSolver {
 #if js
 @:native('Ammo.btSequentialImpulseConstraintSolver')
 #elseif cpp
-@:include("bullet/BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h")
+@:include("BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h")
 @:native("::btSequentialImpulseConstraintSolver")
 @:structAccess
 @:unreflective
@@ -303,7 +303,7 @@ extern class BtSequentialImpulseConstraintSolver extends BtConstraintSolver {
 #if js
 @:native('Ammo.btCollisionWorld')
 #elseif cpp
-@:include("bullet/BulletCollision/CollisionDispatch/btCollisionWorld.h")
+@:include("BulletCollision/CollisionDispatch/btCollisionWorld.h")
 @:native("::btCollisionWorld")
 @:structAccess
 @:unreflective
@@ -315,7 +315,7 @@ extern class BtCollisionWorld {
 #if js
 @:native('Ammo.btDynamicsWorld')
 #elseif cpp
-@:include("bullet/BulletDynamics/Dynamics/btDynamicsWorld.h")
+@:include("BulletDynamics/Dynamics/btDynamicsWorld.h")
 @:native("::btDynamicsWorld")
 @:structAccess
 @:unreflective
@@ -339,7 +339,7 @@ extern class BtDynamicsWorld extends BtCollisionWorld {
 #if js
 @:native('Ammo.btDiscreteDynamicsWorld')
 #elseif cpp
-@:include("bullet/BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h")
+@:include("BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h")
 @:native("::btDiscreteDynamicsWorld")
 @:structAccess
 @:unreflective
@@ -357,7 +357,7 @@ extern class BtDiscreteDynamicsWorld extends BtDynamicsWorld {
 #if js
 @:native('Ammo.btSimpleDynamicsWorld')
 #elseif cpp
-@:include("bullet/BulletDynamics/Dynamics/btSimpleDynamicsWorld.h")
+@:include("BulletDynamics/Dynamics/btSimpleDynamicsWorld.h")
 @:native("::btSimpleDynamicsWorld")
 @:structAccess
 @:unreflective
@@ -375,7 +375,7 @@ extern class BtSimpleDynamicsWorld extends BtDynamicsWorld {
 #if js
 @:native('Ammo.btCollisionShape')
 #elseif cpp
-@:include("bullet/BulletCollision/CollisionShapes/btCollisionShape.h")
+@:include("BulletCollision/CollisionShapes/btCollisionShape.h")
 @:native("::btCollisionShape")
 @:structAccess
 @:unreflective
@@ -388,7 +388,7 @@ extern class BtCollisionShape {
 #if js
 @:native('Ammo.btConvexShape')
 #elseif cpp
-@:include("bullet/BulletCollision/CollisionShapes/btConvexShape.h")
+@:include("BulletCollision/CollisionShapes/btConvexShape.h")
 @:native("::btConvexShape")
 @:structAccess
 @:unreflective
@@ -400,7 +400,7 @@ extern class BtConvexShape extends BtCollisionShape {
 #if js
 @:native('Ammo.btConcaveShape')
 #elseif cpp
-@:include("bullet/BulletCollision/CollisionShapes/btConcaveShape.h")
+@:include("BulletCollision/CollisionShapes/btConcaveShape.h")
 @:native("::btConcaveShape")
 @:structAccess
 @:unreflective
@@ -412,7 +412,7 @@ extern class BtConcaveShape extends BtCollisionShape {
 #if js
 @:native('Ammo.btConvexInternalShape')
 #elseif cpp
-@:include("bullet/BulletCollision/CollisionShapes/btConvexInternalShape.h")
+@:include("BulletCollision/CollisionShapes/btConvexInternalShape.h")
 @:native("::btConvexInternalShape")
 @:structAccess
 @:unreflective
@@ -424,7 +424,7 @@ extern class BtConvexInternalShape extends BtConvexShape {
 #if js
 @:native('Ammo.btPolyhedralConvexShape')
 #elseif cpp
-@:include("bullet/BulletCollision/CollisionShapes/btPolyhedralConvexShape.h")
+@:include("BulletCollision/CollisionShapes/btPolyhedralConvexShape.h")
 @:native("::btPolyhedralConvexShape")
 @:structAccess
 @:unreflective
@@ -436,7 +436,7 @@ extern class BtPolyhedralConvexShape extends BtConvexInternalShape {
 #if js
 @:native('Ammo.btBoxShape')
 #elseif cpp
-@:include("bullet/BulletCollision/CollisionShapes/btBoxShape.h")
+@:include("BulletCollision/CollisionShapes/btBoxShape.h")
 @:native("::btBoxShape")
 @:structAccess
 @:unreflective
@@ -454,7 +454,7 @@ extern class BtBoxShape extends BtPolyhedralConvexShape {
 #if js
 @:native('Ammo.btSphereShape')
 #elseif cpp
-@:include("bullet/BulletCollision/CollisionShapes/btSphereShape.h")
+@:include("BulletCollision/CollisionShapes/btSphereShape.h")
 @:native("::btSphereShape")
 @:structAccess
 @:unreflective
@@ -472,7 +472,7 @@ extern class BtSphereShape extends BtConvexInternalShape {
 #if js
 @:native('Ammo.btStaticPlaneShape')
 #elseif cpp
-@:include("bullet/BulletCollision/CollisionShapes/btStaticPlaneShape.h")
+@:include("BulletCollision/CollisionShapes/btStaticPlaneShape.h")
 @:native("::btStaticPlaneShape")
 @:structAccess
 @:unreflective
@@ -502,11 +502,4 @@ extern class Ammo {
         #end
     }
 }
-#elseif cpp
-//@:buildXml("
-//	<files id='haxe'>
-//		<compilerflag value='-Ihaxebullet/cpp/bullet'/>
-//	</files> ")
-//@:keep
-//class Include {}
 #end
