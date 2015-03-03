@@ -493,13 +493,8 @@ extern class Ammo {
 	public static function destroy(obj:Dynamic):Void;
 	
 	private static function __init__():Void untyped {
-        #if !noEmbedJS
-            #if debug
-            //haxe.macro.Compiler.includeFile("haxebullet/js/ammo/ammo.js");
-            #else
-            //haxe.macro.Compiler.includeFile("haxebullet/js/ammo/ammo-min.js");
-            #end
-        #end
+		// Set correct path to ammo.js file
+        //haxe.macro.Compiler.includeFile("../Libraries/haxebullet/js/ammo/ammo.js");
     }
 }
 #end
