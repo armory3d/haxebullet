@@ -152,6 +152,7 @@ extern class BtRigidBodyConstructionInfo {
 #end
 extern class BtCollisionObject {
 	public function getWorldTransform():BtTransform;
+	public function setWorldTransform(trans:BtTransform):Void;
 }
 
 // ------------------------------------------------------
@@ -177,6 +178,7 @@ extern class BtRigidBody extends BtCollisionObject {
 	public function clearForces():Void;
 	public function updateInertiaTensor():Void;
 	public function getCenterOfMassPosition():BtVector3;
+	public function setCenterOfMassTransform(trans:BtTransform):Void;
 }
 
 // ------------------------------------------------------
