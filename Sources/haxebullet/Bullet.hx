@@ -490,6 +490,37 @@ extern class BtStaticPlaneShape extends BtConcaveShape {
 
 // ------------------------------------------------------
 #if js
+@:native('Ammo.btPolyhedralConvexAabbCachingShape')
+#elseif cpp
+@:include("BulletCollision/CollisionShapes/btPolyhedralConvexShape.h")
+@:native("::btPolyhedralConvexAabbCachingShape")
+@:structAccess
+@:unreflective
+#end
+extern class BtPolyhedralConvexAabbCachingShape extends BtPolyhedralConvexShape {
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btConvexHullShape')
+#elseif cpp
+@:include("BulletCollision/CollisionShapes/btConvexHullShape.h")
+@:native("::btConvexHullShape")
+@:structAccess
+@:unreflective
+#end
+extern class BtConvexHullShape extends BtPolyhedralConvexAabbCachingShape {
+	#if js
+	public function new():Void;
+	#elseif cpp
+	@:native("new btConvexHullShape")
+	public static function create():cpp.Pointer<BtCollisionShape>;
+	#end
+	public function addPoint(point:BtVector3, recalculateLocalAabb:Bool = true):Void;
+}
+
+// ------------------------------------------------------
+#if js
 @:native('Ammo')
 extern class Ammo {
 	public static function destroy(obj:Dynamic):Void;
