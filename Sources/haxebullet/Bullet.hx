@@ -484,7 +484,7 @@ extern class BtStaticPlaneShape extends BtConcaveShape {
 	public function new(planeNormal:BtVector3, planeConstant:BtScalar):Void;
 	#elseif cpp
 	@:native("new btStaticPlaneShape")
-	public static function create(planeNormal:BtVector3, planeConstant:BtScalar):cpp.Pointer<BtStaticPlaneShape>;
+	public static function create(planeNormal:BtVector3, planeConstant:BtScalar):cpp.Pointer<BtCollisionShape>;
 	#end
 }
 
@@ -514,7 +514,7 @@ extern class BtConvexHullShape extends BtPolyhedralConvexAabbCachingShape {
 	public function new():Void;
 	#elseif cpp
 	@:native("new btConvexHullShape")
-	public static function create():cpp.Pointer<BtCollisionShape>;
+	public static function create():cpp.Pointer<BtConvexHullShape>;
 	#end
 	public function addPoint(point:BtVector3, recalculateLocalAabb:Bool = true):Void;
 }
