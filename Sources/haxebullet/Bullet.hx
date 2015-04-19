@@ -521,6 +521,168 @@ extern class BtConvexHullShape extends BtPolyhedralConvexAabbCachingShape {
 
 // ------------------------------------------------------
 #if js
+@:native('Ammo.btCapsuleShape')
+#elseif cpp
+@:include("BulletCollision/CollisionShapes/btCapsuleShape.h")
+@:native("::btCapsuleShape")
+@:structAccess
+@:unreflective
+#end
+extern class BtCapsuleShape extends BtConvexInternalShape {
+	#if js
+	public function new(radius:BtScalar, height:BtScalar):Void;
+	#elseif cpp
+	@:native("new btCapsuleShape")
+	public static function create(radius:BtScalar, height:BtScalar):cpp.Pointer<BtCollisionShape>;
+	#end
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btCapsuleShapeX')
+#elseif cpp
+@:include("BulletCollision/CollisionShapes/btCapsuleShape.h")
+@:native("::btCapsuleShapeX")
+@:structAccess
+@:unreflective
+#end
+extern class BtCapsuleShapeX extends BtCapsuleShape {
+	#if js
+	public function new(radius:BtScalar, height:BtScalar):Void;
+	#elseif cpp
+	@:native("new btCapsuleShapeX")
+	public static function create(radius:BtScalar, height:BtScalar):cpp.Pointer<BtCollisionShape>;
+	#end
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btCapsuleShapeZ')
+#elseif cpp
+@:include("BulletCollision/CollisionShapes/btCapsuleShape.h")
+@:native("::btCapsuleShapeZ")
+@:structAccess
+@:unreflective
+#end
+extern class BtCapsuleShapeZ extends BtCapsuleShape {
+	#if js
+	public function new(radius:BtScalar, height:BtScalar):Void;
+	#elseif cpp
+	@:native("new btCapsuleShapeZ")
+	public static function create(radius:BtScalar, height:BtScalar):cpp.Pointer<BtCollisionShape>;
+	#end
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btCylinderShape')
+#elseif cpp
+@:include("BulletCollision/CollisionShapes/btCylinderShape.h")
+@:native("::btCylinderShape")
+@:structAccess
+@:unreflective
+#end
+extern class BtCylinderShape extends BtConvexInternalShape {
+	#if js
+	public function new(halfExtents:BtVector3):Void;
+	#elseif cpp
+	@:native("new btCylinderShape")
+	public static function create(halfExtents:BtVector3):cpp.Pointer<BtCollisionShape>;
+	#end
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btCylinderShapeX')
+#elseif cpp
+@:include("BulletCollision/CollisionShapes/btCylinderShape.h")
+@:native("::btCylinderShapeX")
+@:structAccess
+@:unreflective
+#end
+extern class BtCylinderShapeX extends BtCylinderShape {
+	#if js
+	public function new(halfExtents:BtVector3):Void;
+	#elseif cpp
+	@:native("new btCylinderShapeX")
+	public static function create(halfExtents:BtVector3):cpp.Pointer<BtCollisionShape>;
+	#end
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btCylinderShapeZ')
+#elseif cpp
+@:include("BulletCollision/CollisionShapes/btCylinderShape.h")
+@:native("::btCylinderShapeZ")
+@:structAccess
+@:unreflective
+#end
+extern class BtCylinderShapeZ extends BtCylinderShape {
+	#if js
+	public function new(halfExtents:BtVector3):Void;
+	#elseif cpp
+	@:native("new btCylinderShapeZ")
+	public static function create(halfExtents:BtVector3):cpp.Pointer<BtCollisionShape>;
+	#end
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btConeShape')
+#elseif cpp
+@:include("BulletCollision/CollisionShapes/btConeShape.h")
+@:native("::btConeShape")
+@:structAccess
+@:unreflective
+#end
+extern class BtConeShape extends BtConvexInternalShape {
+	#if js
+	public function new(radius:BtScalar, height:BtScalar):Void;
+	#elseif cpp
+	@:native("new btConeShape")
+	public static function create(radius:BtScalar, height:BtScalar):cpp.Pointer<BtCollisionShape>;
+	#end
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btConeShapeX')
+#elseif cpp
+@:include("BulletCollision/CollisionShapes/btConeShape.h")
+@:native("::btConeShapeX")
+@:structAccess
+@:unreflective
+#end
+extern class BtConeShapeX extends BtConeShape {
+	#if js
+	public function new(radius:BtScalar, height:BtScalar):Void;
+	#elseif cpp
+	@:native("new btConeShapeX")
+	public static function create(radius:BtScalar, height:BtScalar):cpp.Pointer<BtCollisionShape>;
+	#end
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btConeShapeZ')
+#elseif cpp
+@:include("BulletCollision/CollisionShapes/btConeShape.h")
+@:native("::btConeShapeZ")
+@:structAccess
+@:unreflective
+#end
+extern class BtConeShapeZ extends BtConeShape {
+	#if js
+	public function new(radius:BtScalar, height:BtScalar):Void;
+	#elseif cpp
+	@:native("new btConeShapeZ")
+	public static function create(radius:BtScalar, height:BtScalar):cpp.Pointer<BtCollisionShape>;
+	#end
+}
+
+// ------------------------------------------------------
+#if js
 @:native('Ammo')
 extern class Ammo {
 	public static function destroy(obj:Dynamic):Void;
