@@ -750,7 +750,7 @@ extern class BtTriangleMesh extends BtTriangleIndexVertexArray {
 	public function new(use32bitIndices:Bool = true, use4componentVertices:Bool = true):Void;
 	#elseif cpp
 	@:native("new btTriangleMesh")
-	public static function create(use32bitIndices:Bool = true, use4componentVertices:Bool = true):cpp.Pointer<BtStridingMeshInterface>;
+	public static function create(use32bitIndices:Bool = true, use4componentVertices:Bool = true):cpp.Pointer<BtTriangleMesh>;
 	#end
 	public function addTriangle(vertex0:BtVector3, vertex1:BtVector3, vertex2:BtVector3, removeDuplicateVertices:Bool = false):Void;
 }
