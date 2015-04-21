@@ -770,7 +770,7 @@ extern class BtTriangleMeshShape extends BtConcaveShape {
 	public function new(meshInterface:BtStridingMeshInterface):Void;
 	#elseif cpp
 	@:native("new btTriangleMeshShape")
-	public static function create(meshInterface:cpp.Pointer<BtStridingMeshInterface>):cpp.Pointer<BtCollisionShape>;
+	public static function create(meshInterface:cpp.Pointer<Dynamic>):cpp.Pointer<BtCollisionShape>;
 	#end
 }
 
@@ -788,7 +788,7 @@ extern class BtBvhTriangleMeshShape extends BtTriangleMeshShape {
 	public function new(meshInterface:BtStridingMeshInterface, useQuantizedAabbCompression:Bool, buildBvh:Bool = true):Void;
 	#elseif cpp
 	@:native("new btBvhTriangleMeshShape")
-	public static function create(meshInterface:cpp.Pointer<BtStridingMeshInterface>, useQuantizedAabbCompression:Bool, buildBvh:Bool = true):cpp.Pointer<BtCollisionShape>;
+	public static function create(meshInterface:cpp.Pointer<Dynamic>, useQuantizedAabbCompression:Bool, buildBvh:Bool = true):cpp.Pointer<BtCollisionShape>;
 	#end
 }
 
