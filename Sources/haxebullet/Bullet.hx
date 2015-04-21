@@ -683,6 +683,117 @@ extern class BtConeShapeZ extends BtConeShape {
 
 // ------------------------------------------------------
 #if js
+@:native('Ammo.btHeightfieldTerrainShape')
+#elseif cpp
+@:include("BulletCollision/CollisionShapes/btHeightfieldTerrainShape.h")
+@:native("::btHeightfieldTerrainShape")
+@:structAccess
+@:unreflective
+#end
+extern class BtHeightfieldTerrainShape extends BtConcaveShape {
+	// heightDataType - float, double, integet, short, fixedpoint88, uchar
+	#if js
+	public function new(heightStickWidth:Int, heightStickLength:Int, heightfieldData:Array<Dynamic>, heightScale:BtScalar, minHeight:BtScalar, maxHeight:BtScalar, upAxis:Int, heightDataType:Int, flipQuadEdges:Bool):Void;
+	#elseif cpp
+	@:native("new btHeightfieldTerrainShape")
+	public static function create(heightStickWidth:Int, heightStickLength:Int, heightfieldData:Array<Dynamic>, heightScale:BtScalar, minHeight:BtScalar, maxHeight:BtScalar, upAxis:Int, heightDataType:Int, flipQuadEdges:Bool):cpp.Pointer<BtCollisionShape>;
+	#end
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btStridingMeshInterface')
+#elseif cpp
+@:include("BulletCollision/CollisionShapes/btStridingMeshInterface.h")
+@:native("::btStridingMeshInterface")
+@:structAccess
+@:unreflective
+#end
+extern class BtStridingMeshInterface {
+	#if js
+	public function new():Void;
+	#elseif cpp
+	@:native("new btStridingMeshInterface")
+	public static function create():cpp.Pointer<BtStridingMeshInterface>;
+	#end
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btTriangleIndexVertexArray')
+#elseif cpp
+@:include("BulletCollision/CollisionShapes/btTriangleIndexVertexArray.h")
+@:native("::btTriangleIndexVertexArray")
+@:structAccess
+@:unreflective
+#end
+extern class BtTriangleIndexVertexArray extends BtStridingMeshInterface {
+	#if js
+	public function new():Void;
+	#elseif cpp
+	@:native("new btTriangleIndexVertexArray")
+	public static function create():cpp.Pointer<BtStridingMeshInterface>;
+	#end
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btTriangleMesh')
+#elseif cpp
+@:include("BulletCollision/CollisionShapes/btTriangleMesh.h")
+@:native("::btTriangleMesh")
+@:structAccess
+@:unreflective
+#end
+extern class BtTriangleMesh extends BtTriangleIndexVertexArray {
+	#if js
+	public function new(use32bitIndices:Bool = true, use4componentVertices:Bool = true):Void;
+	#elseif cpp
+	@:native("new btTriangleMesh")
+	public static function create(use32bitIndices:Bool = true, use4componentVertices:Bool = true):cpp.Pointer<BtStridingMeshInterface>;
+	#end
+	public function addTriangle(vertex0:BtVector3, vertex1:BtVector3, vertex2:BtVector3, removeDuplicateVertices:Bool = false):Void;
+}
+
+// ------------------------------------------------------
+// Don't use this class directly, use BtBvhTriangleMeshShape instead
+#if js
+@:native('Ammo.btTriangleMeshShape')
+#elseif cpp
+@:include("BulletCollision/CollisionShapes/btTriangleMeshShape.h")
+@:native("::btTriangleMeshShape")
+@:structAccess
+@:unreflective
+#end
+extern class BtTriangleMeshShape extends BtConcaveShape {
+	#if js
+	public function new(meshInterface:BtStridingMeshInterface):Void;
+	#elseif cpp
+	@:native("new btTriangleMeshShape")
+	public static function create(meshInterface:cpp.Pointer<BtStridingMeshInterface>):cpp.Pointer<BtCollisionShape>;
+	#end
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btBvhTriangleMeshShape')
+#elseif cpp
+@:include("BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h")
+@:native("::btBvhTriangleMeshShape")
+@:structAccess
+@:unreflective
+#end
+extern class BtBvhTriangleMeshShape extends BtTriangleMeshShape {
+	#if js
+	public function new(meshInterface:BtStridingMeshInterface, useQuantizedAabbCompression:Bool, buildBvh:Bool = true):Void;
+	#elseif cpp
+	@:native("new btBvhTriangleMeshShape")
+	public static function create(meshInterface:cpp.Pointer<BtStridingMeshInterface>, useQuantizedAabbCompression:Bool, buildBvh:Bool = true):cpp.Pointer<BtCollisionShape>;
+	#end
+}
+
+// ------------------------------------------------------
+#if js
 @:native('Ammo')
 extern class Ammo {
 	public static function destroy(obj:Dynamic):Void;
