@@ -1,6 +1,7 @@
 // Haxe Bullet
 // Native Bullet 2.82 physics for Haxe
 // Based on haxe-ammo.js https://github.com/floppya/haxe-ammo.js
+// TODO: Hxcpp seems to ignore default values!
 
 package haxebullet;
 
@@ -753,6 +754,24 @@ extern class BtStridingMeshInterface {
 	#elseif cpp
 	@:native("new btStridingMeshInterface")
 	public static function create():cpp.Pointer<BtStridingMeshInterface>;
+	#end
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btIndexedMesh')
+#elseif cpp
+@:include("BulletCollision/CollisionShapes/btTriangleIndexVertexArray.h")
+@:native("::btIndexedMesh")
+@:structAccess
+@:unreflective
+#end
+extern class BtIndexedMesh {
+	#if js
+	public function new():Void;
+	#elseif cpp
+	@:native("new btIndexedMesh")
+	public static function create():cpp.Pointer<BtIndexedMesh>;
 	#end
 }
 
