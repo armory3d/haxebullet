@@ -273,6 +273,24 @@ extern class BtDbvtBroadphase extends BtBroadphaseInterface {
 
 // ------------------------------------------------------
 #if js
+@:native('Ammo.btAxisSweep3')
+#elseif cpp
+@:include("BulletCollision/BroadphaseCollision/btAxisSweep3.h")
+@:native("::btAxisSweep3")
+@:structAccess
+@:unreflective
+#end
+extern class BtAxisSweep3 extends BtBroadphaseInterface {
+	#if js
+	public function new(worldAabbMin:BtVector3, worldAabbMax:BtVector3):Void;
+	#elseif cpp
+	@:native("new btAxisSweep3")
+	public static function create(worldAabbMin:BtVector3, worldAabbMax:BtVector3):cpp.Pointer<BtAxisSweep3>;
+	#end
+}
+
+// ------------------------------------------------------
+#if js
 @:native('Ammo.btConstraintSolver')
 #elseif cpp
 @:include("BulletDynamics/ConstraintSolver/btConstraintSolver.h")
@@ -384,6 +402,26 @@ extern class BtSimpleDynamicsWorld extends BtDynamicsWorld {
 #end
 extern class BtCollisionShape {
 	public function calculateLocalInertia(mass:BtScalar, inertia:BtVector3):Void;
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btCompoundShape')
+#elseif cpp
+@:include("BulletCollision/CollisionShapes/btCompoundShape.h")
+@:native("::btCompoundShape")
+@:structAccess
+@:unreflective
+#end
+extern class BtCompoundShape extends BtCollisionShape {
+	#if js
+	public function new(enableDynamicAabbTree:Bool = true):Void;
+	public function addChildShape(localTransform:BtTransform, shape:BtCollisionShape):Void;
+	#elseif cpp
+	@:native("new btCompoundShape")
+	public static function create(enableDynamicAabbTree:Bool = true):cpp.Pointer<BtCollisionShape>;
+	public function addChildShape(localTransform:BtTransform, shape:cpp.Pointer<BtCollisionShape>):Void;
+	#end
 }
 
 // ------------------------------------------------------
@@ -789,6 +827,72 @@ extern class BtBvhTriangleMeshShape extends BtTriangleMeshShape {
 	#elseif cpp
 	@:native("new btBvhTriangleMeshShape")
 	public static function create(meshInterface:cpp.Pointer<Dynamic>, useQuantizedAabbCompression:Bool, buildBvh:Bool = true):cpp.Pointer<BtCollisionShape>;
+	#end
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btVehicleTuning')
+#elseif cpp
+@:include("BulletDynamics/Vehicle/btRaycastVehicle.h")
+@:native("::btRaycastVehicle::btVehicleTuning")
+@:structAccess
+@:unreflective
+#end
+extern class BtVehicleTuning extends BtActionInterface {
+	#if js
+	public function new():Void;
+	#elseif cpp
+	@:native("new btVehicleTuning")
+	public static function create():cpp.Pointer<BtVehicleTuning>;
+	#end
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btVehicleRaycaster')
+#elseif cpp
+@:include("BulletDynamics/Vehicle/btVehicleRaycaster.h")
+@:native("::btRaycastVehicle::btVehicleRaycaster")
+@:structAccess
+@:unreflective
+#end
+extern class BtVehicleRaycaster {
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btDefaultVehicleRaycaster')
+#elseif cpp
+@:include("BulletDynamics/Vehicle/btRaycastVehicle.h")
+@:native("::btDefaultVehicleRaycaster")
+@:structAccess
+@:unreflective
+#end
+extern class BtDefaultVehicleRaycaster extends BtVehicleRaycaster {
+	#if js
+	public function new(world:BtDynamicsWorld):Void;
+	#elseif cpp
+	@:native("new btDefaultVehicleRaycaster")
+	public static function create(world:cpp.Pointer<Dynamic>):cpp.Pointer<BtDefaultVehicleRaycaster>;
+	#end
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btRaycastVehicle')
+#elseif cpp
+@:include("BulletDynamics/Vehicle/btRaycastVehicle.h")
+@:native("::btRaycastVehicle")
+@:structAccess
+@:unreflective
+#end
+extern class BtRaycastVehicle extends BtActionInterface {
+	#if js
+	public function new(tuning:BtVehicleTuning, chassis:BtRigidBody, raycaster:BtVehicleRaycaster):Void;
+	#elseif cpp
+	@:native("new btRaycastVehicle")
+	public static function create():cpp.Pointer<BtRaycastVehicle>;
 	#end
 }
 
