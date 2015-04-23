@@ -1,6 +1,6 @@
 # haxebullet
 
-Native [Bullet 3D Physics](http://bulletphysics.org/) for Haxe. Includes library file for [Kha](https://github.com/KTXSoftware/Kha).
+Native [Bullet 3D Physics](http://bulletphysics.org/) for Haxe. Includes library file for [Kha](https://github.com/KTXSoftware/Kha). If you are having trouble getting generated c++ code to work, please use Haxe 3.2.0 or newer.
 
 ## Docs
 Refer to original [Bullet documentation](http://bulletphysics.org/mediawiki-1.5.8/index.php/Main_Page)
