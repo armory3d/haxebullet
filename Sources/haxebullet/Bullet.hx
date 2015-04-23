@@ -899,6 +899,60 @@ extern class BtDefaultVehicleRaycaster extends BtVehicleRaycaster {
 
 // ------------------------------------------------------
 #if js
+@:native('Ammo.btWheelInfoConstructionInfo')
+#elseif cpp
+@:include("BulletDynamics/Vehicle/btWheelInfo.h")
+@:native("::btWheelInfoConstructionInfo")
+@:structAccess
+@:unreflective
+#end
+extern class BtWheelInfoConstructionInfo {
+	#if js
+	public function new():Void;
+	#elseif cpp
+	@:native("new btWheelInfoConstructionInfo")
+	public static function create():cpp.Pointer<BtWheelInfoConstructionInfo>;
+	#end
+	public var m_chassisConnectionCS:BtVector3;
+	public var m_wheelDirectionCS:BtVector3;
+	public var m_wheelAxleCS:BtVector3;
+	public var m_suspensionRestLength:BtScalar;
+	public var m_maxSuspensionTravelCm:BtScalar;
+	public var m_wheelRadius:BtScalar;
+	
+	public var m_suspensionStiffness:BtScalar;
+	public var m_wheelsDampingCompression:BtScalar;
+	public var m_wheelsDampingRelaxation:BtScalar;
+	public var m_frictionSlip:BtScalar;
+	public var m_maxSuspensionForce:BtScalar;
+	public var m_bIsFrontWheel:Bool;
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btWheelInfo')
+#elseif cpp
+@:include("BulletDynamics/Vehicle/btWheelInfo.h")
+@:native("::btWheelInfo")
+@:structAccess
+@:unreflective
+#end
+extern class BtWheelInfo {
+	#if js
+	public function new(ci:BtWheelInfoConstructionInfo):Void;
+	#elseif cpp
+	@:native("new btWheelInfo")
+	public static function create(ci:BtWheelInfoConstructionInfo):cpp.Pointer<BtWheelInfo>;
+	#end
+	public var m_suspensionStiffness:BtScalar;
+	public var m_wheelsDampingCompression:BtScalar;
+	public var m_wheelsDampingRelaxation:BtScalar;
+	public var m_frictionSlip:BtScalar;
+	public var m_rollInfluence:BtScalar;
+}
+
+// ------------------------------------------------------
+#if js
 @:native('Ammo.btRaycastVehicle')
 #elseif cpp
 @:include("BulletDynamics/Vehicle/btRaycastVehicle.h")
@@ -911,8 +965,17 @@ extern class BtRaycastVehicle extends BtActionInterface {
 	public function new(tuning:BtVehicleTuning, chassis:BtRigidBody, raycaster:BtVehicleRaycaster):Void;
 	#elseif cpp
 	@:native("new btRaycastVehicle")
-	public static function create():cpp.Pointer<BtRaycastVehicle>;
+	public static function create(tuning:BtVehicleTuning, chassis:cpp.Pointer<BtRigidBody>, raycaster:cpp.Pointer<BtVehicleRaycaster>):cpp.Pointer<BtRaycastVehicle>;
 	#end
+	public function setCoordinateSystem(rightIndex:Int, upIndex:Int, forwardIndex:Int):Void
+	public function	addWheel(connectionPointCS0:BtVector3, wheelDirectionCS0:BtVector3, wheelAxleCSBtVector3, suspensionRestLength:BtScalar, wheelRadius:BtScalar, tuning:BtVehicleTuning, isFrontWheel:Bool):BtWheelInfo;
+	public function	getNumWheels():Int;
+	public function getWheelInfo(index:Int):BtWheelInfo;
+	public function resetSuspension():Void;
+	public function updateWheelTransform(wheelIndex:Int, interpolatedTransform:Bool = true):Void;
+	public function	applyEngineForce(force:BtScalar, wheel:Int):Void;
+	public function setBrake(brake:BtScalar, wheelIndex:Int):Void;
+	public function setSteeringValue(steering:BtScalar, wheel:Int):Void;
 }
 
 // ------------------------------------------------------
