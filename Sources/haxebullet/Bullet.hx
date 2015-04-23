@@ -967,8 +967,8 @@ extern class BtRaycastVehicle extends BtActionInterface {
 	@:native("new btRaycastVehicle")
 	public static function create(tuning:BtVehicleTuning, chassis:cpp.Pointer<BtRigidBody>, raycaster:cpp.Pointer<BtVehicleRaycaster>):cpp.Pointer<BtRaycastVehicle>;
 	#end
-	public function setCoordinateSystem(rightIndex:Int, upIndex:Int, forwardIndex:Int):Void
-	public function	addWheel(connectionPointCS0:BtVector3, wheelDirectionCS0:BtVector3, wheelAxleCSBtVector3, suspensionRestLength:BtScalar, wheelRadius:BtScalar, tuning:BtVehicleTuning, isFrontWheel:Bool):BtWheelInfo;
+	public function setCoordinateSystem(rightIndex:Int, upIndex:Int, forwardIndex:Int):Void;
+	public function	addWheel(connectionPointCS0:BtVector3, wheelDirectionCS0:BtVector3, wheelAxleCS:BtVector3, suspensionRestLength:BtScalar, wheelRadius:BtScalar, tuning:BtVehicleTuning, isFrontWheel:Bool):BtWheelInfo;
 	public function	getNumWheels():Int;
 	public function getWheelInfo(index:Int):BtWheelInfo;
 	public function resetSuspension():Void;
