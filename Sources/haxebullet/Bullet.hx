@@ -9,6 +9,18 @@ typedef BtScalar = Float;
 
 // ------------------------------------------------------
 #if js
+@:native('Ammo.btTypedObject')
+#elseif cpp
+@:include("LinearMath/btScalar.h")
+@:native("::btTypedObject")
+@:structAccess
+@:unreflective
+#end
+extern class BtTypedObject {
+}
+
+// ------------------------------------------------------
+#if js
 @:native('Ammo.btVector3')
 #elseif cpp
 @:include("LinearMath/btVector3.h")
@@ -245,10 +257,13 @@ extern class BtDispatcher {
 extern class BtCollisionDispatcher extends BtDispatcher {
 	#if js
 	public function new(collisionConfiguration:BtCollisionConfiguration):Void;
+	public function getManifoldByIndexInternal(index:Int):BtPersistentManifold;
 	#elseif cpp
 	@:native("new btCollisionDispatcher")
 	public static function create(collisionConfiguration:cpp.Pointer<Dynamic>):cpp.Pointer<BtCollisionDispatcher>;
+	public function getManifoldByIndexInternal(index:Int):cpp.Pointer<BtPersistentManifold>;
 	#end
+	public function	getNumManifolds():Int;
 }
 
 // ------------------------------------------------------
@@ -985,6 +1000,51 @@ extern class BtRaycastVehicle extends BtActionInterface {
 	public function	applyEngineForce(force:BtScalar, wheel:Int):Void;
 	public function setBrake(brake:BtScalar, wheelIndex:Int):Void;
 	public function setSteeringValue(steering:BtScalar, wheel:Int):Void;
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btPersistentManifold')
+#elseif cpp
+@:include("BulletCollision/NarrowPhaseCollision/btPersistentManifold.h")
+@:native("::btPersistentManifold")
+@:structAccess
+@:unreflective
+#end
+extern class BtPersistentManifold extends BtTypedObject {
+	#if js
+	public function new():Void;
+	public function getBody0():BtCollisionObject;
+	public function getBody1():BtCollisionObject;
+	#elseif cpp
+	@:native("new btPersistentManifold")
+	public static function create():cpp.Pointer<BtPersistentManifold>;
+	public function getBody0():cpp.Pointer<BtCollisionObject>;
+	public function getBody1():cpp.Pointer<BtCollisionObject>;
+	#end
+	public function getNumContacts():Int;
+	public function getContactPoint(index:Int):BtManifoldPoint;
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btManifoldPoint')
+#elseif cpp
+@:include("BulletCollision/NarrowPhaseCollision/btManifoldPoint.h")
+@:native("::btManifoldPoint")
+@:structAccess
+@:unreflective
+#end
+extern class BtManifoldPoint {
+	#if js
+	public function new():Void;
+	#elseif cpp
+	@:native("new btManifoldPoint")
+	public static function create():cpp.Pointer<BtPersistentManifold>;
+	#end
+	public function getDistance():BtScalar;
+	public function getPositionWorldOnA():BtVector3;
+	public function getPositionWorldOnB():BtVector3;
 }
 
 // ------------------------------------------------------
