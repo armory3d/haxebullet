@@ -174,6 +174,15 @@ extern class BtCollisionObject {
 	public function setWorldTransform(trans:BtTransform):Void;
 	public function activate(forceActivation:Bool = false):Void;
 	//public function setActivationState(newState:Int):Void;
+	public function getUserIndex():Int;
+	public function setUserIndex(index:Int):Void;
+	#if js
+	public function getUserPointer():Dynamic;
+	public function setUserPointer(userPointer:Dynamic):Void;
+	#elseif cpp
+	public function getUserPointer():cpp.Pointer<Dynamic>;
+	public function setUserPointer(userPointer:cpp.Pointer<Dynamic>):Void;
+	#end
 }
 
 // ------------------------------------------------------
