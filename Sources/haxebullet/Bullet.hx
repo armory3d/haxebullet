@@ -152,8 +152,16 @@ extern class BtRigidBodyConstructionInfo {
 @:unreflective
 #end
 extern class BtCollisionObject {
+	public static inline var ACTIVE_TAG = 1;
+	public static inline var ISLAND_SLEEPING = 2;
+	public static inline var WANTS_DEACTIVATION = 3;
+	public static inline var DISABLE_DEACTIVATION = 4;
+	public static inline var DISABLE_SIMULATION = 5;
+
 	public function getWorldTransform():BtTransform;
 	public function setWorldTransform(trans:BtTransform):Void;
+	public function activate(forceActivation:Bool = false):Void;
+	//public function setActivationState(newState:Int):Void;
 }
 
 // ------------------------------------------------------
@@ -176,6 +184,7 @@ extern class BtRigidBody extends BtCollisionObject {
 	#end
 	public function applyCentralForce(force:BtVector3):Void;
 	public function applyCentralImpulse(impulse:BtVector3):Void;
+	public function applyImpulse(impulse:BtVector3, rel_pos:BtVector3):Void;
 	public function clearForces():Void;
 	public function updateInertiaTensor():Void;
 	public function getCenterOfMassPosition():BtVector3;
