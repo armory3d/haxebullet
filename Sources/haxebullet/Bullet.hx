@@ -378,10 +378,12 @@ extern class BtDynamicsWorld extends BtCollisionWorld {
 	#if js
 	public function new(dispatcher:BtDispatcher, pairCache:BtBroadphaseInterface, constraintSolver:BtConstraintSolver, collisionConfiguration:BtCollisionConfiguration):Void;
 	public function addRigidBody(body:BtRigidBody /*, ?group:Int=0, ?mask:Int=0*/):Void;
+	public function removeRigidBody(body:BtRigidBody):Void;
 	#elseif cpp
 	@:native("new btDynamicsWorld")
 	public static function create(dispatcher:cpp.Pointer<Dynamic>, pairCache:cpp.Pointer<Dynamic>, constraintSolver:cpp.Pointer<Dynamic>, collisionConfiguration:cpp.Pointer<Dynamic>):cpp.Pointer<BtDynamicsWorld>;
 	public function addRigidBody(body:cpp.Pointer<BtRigidBody> /*, ?group:Int=0, ?mask:Int=0*/):Void;
+	public function removeRigidBody(body:cpp.Pointer<BtRigidBody>):Void;
 	#end
 	public function addAction(action:BtActionInterface):Void;
 	public function removeAction(action:BtActionInterface):Void;
