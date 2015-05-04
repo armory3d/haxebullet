@@ -152,6 +152,8 @@ extern class BtRigidBodyConstructionInfo {
 	@:native("new btRigidBody::btRigidBodyConstructionInfo")
 	public static function create(mass:BtScalar, motionState:cpp.Pointer<Dynamic>, collisionShape:cpp.Pointer<Dynamic>, localInertia:BtVector3):cpp.Pointer<BtRigidBodyConstructionInfo>;
 	#end
+	public var m_friction:BtScalar;
+	public var m_rollingFriction:BtScalar;
 }
 
 // ------------------------------------------------------
@@ -183,6 +185,8 @@ extern class BtCollisionObject {
 	public function getUserPointer():cpp.Pointer<Dynamic>;
 	public function setUserPointer(userPointer:cpp.Pointer<Dynamic>):Void;
 	#end
+	public function	setFriction(frict:BtScalar):Void;
+	public function	setRollingFriction(frict:BtScalar):Void;
 }
 
 // ------------------------------------------------------
