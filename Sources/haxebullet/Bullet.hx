@@ -173,7 +173,7 @@ extern class BtCollisionObject {
 	public function getWorldTransform():BtTransform;
 	public function setWorldTransform(trans:BtTransform):Void;
 	public function activate(forceActivation:Bool = false):Void;
-	//public function setActivationState(newState:Int):Void;
+	public function setActivationState(newState:Int):Void;
 	public function getUserIndex():Int;
 	public function setUserIndex(index:Int):Void;
 	#if js
@@ -210,6 +210,8 @@ extern class BtRigidBody extends BtCollisionObject {
 	public function updateInertiaTensor():Void;
 	public function getCenterOfMassPosition():BtVector3;
 	public function setCenterOfMassTransform(trans:BtTransform):Void;
+	//public function setGravity(acceleration:BtVector3):Void; // not available in ammo
+	public function setAngularVelocity(ang_vel:BtVector3):Void;
 }
 
 // ------------------------------------------------------
