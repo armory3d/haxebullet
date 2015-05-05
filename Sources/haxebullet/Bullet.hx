@@ -364,6 +364,42 @@ extern class BtSequentialImpulseConstraintSolver extends BtConstraintSolver {
 
 // ------------------------------------------------------
 #if js
+@:native('Ammo.RayResultCallback')
+#elseif cpp
+@:include("BulletCollision/CollisionDispatch/btCollisionWorld.h")
+@:native("::btCollisionWorld::RayResultCallback")
+@:structAccess
+@:unreflective
+#end
+extern class RayResultCallback {
+	public function hasHit():Bool;
+	#if js
+	public var m_collisionObject:BtCollisionObject;
+	#elseif cpp
+	public var m_collisionObject:cpp.Pointer<BtCollisionObject>;
+	#end
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.ClosestRayResultCallback')
+#elseif cpp
+@:include("BulletCollision/CollisionDispatch/btCollisionWorld.h")
+@:native("::btCollisionWorld::ClosestRayResultCallback")
+@:structAccess
+@:unreflective
+#end
+extern class ClosestRayResultCallback extends RayResultCallback {
+	#if js
+	public function new(rayFromWorld:BtVector3, rayToWorld:BtVector3):Void;
+	#elseif cpp
+	@:native("new btCollisionWorld::ClosestRayResultCallback")
+	public static function create(rayFromWorld:BtVector3, rayToWorld:BtVector3):cpp.Pointer<ClosestRayResultCallback>;
+	#end
+}
+
+// ------------------------------------------------------
+#if js
 @:native('Ammo.btCollisionWorld')
 #elseif cpp
 @:include("BulletCollision/CollisionDispatch/btCollisionWorld.h")
@@ -372,6 +408,7 @@ extern class BtSequentialImpulseConstraintSolver extends BtConstraintSolver {
 @:unreflective
 #end
 extern class BtCollisionWorld {
+	public function rayTest(rayFromWorld:BtVector3, rayToWorld:BtVector3, resultCallback:RayResultCallback):Void;
 }
 
 // ------------------------------------------------------
