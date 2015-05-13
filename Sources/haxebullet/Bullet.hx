@@ -1030,6 +1030,8 @@ extern class BtWheelInfo {
 	public var m_wheelsDampingRelaxation:BtScalar;
 	public var m_frictionSlip:BtScalar;
 	public var m_rollInfluence:BtScalar;
+	
+	public var m_worldTransform:BtTransform;
 }
 
 // ------------------------------------------------------
@@ -1053,6 +1055,7 @@ extern class BtRaycastVehicle extends BtActionInterface {
 	public function	getNumWheels():Int;
 	public function getWheelInfo(index:Int):BtWheelInfo;
 	public function resetSuspension():Void;
+	public function getWheelTransformWS(wheelIndex:Int):BtTransform;
 	public function updateWheelTransform(wheelIndex:Int, interpolatedTransform:Bool = true):Void;
 	public function	applyEngineForce(force:BtScalar, wheel:Int):Void;
 	public function setBrake(brake:BtScalar, wheelIndex:Int):Void;
