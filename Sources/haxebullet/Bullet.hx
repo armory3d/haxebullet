@@ -1030,8 +1030,6 @@ extern class BtWheelInfo {
 	public var m_wheelsDampingRelaxation:BtScalar;
 	public var m_frictionSlip:BtScalar;
 	public var m_rollInfluence:BtScalar;
-	
-	public var m_worldTransform:BtTransform;
 }
 
 // ------------------------------------------------------
