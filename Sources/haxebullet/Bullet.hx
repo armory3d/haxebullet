@@ -187,6 +187,7 @@ extern class BtCollisionObject {
 	#end
 	public function	setFriction(frict:BtScalar):Void;
 	public function	setRollingFriction(frict:BtScalar):Void;
+	public function setContactProcessingThreshold(contactProcessingThreshold:BtScalar):Void;
 }
 
 // ------------------------------------------------------
@@ -501,7 +502,7 @@ extern class BtCompoundShape extends BtCollisionShape {
 	public function addChildShape(localTransform:BtTransform, shape:BtCollisionShape):Void;
 	#elseif cpp
 	@:native("new btCompoundShape")
-	public static function create(enableDynamicAabbTree:Bool = true):cpp.Pointer<BtCollisionShape>;
+	public static function create(enableDynamicAabbTree:Bool = true):cpp.Pointer<BtCompoundShape>;
 	public function addChildShape(localTransform:BtTransform, shape:cpp.Pointer<BtCollisionShape>):Void;
 	#end
 }
@@ -974,7 +975,7 @@ extern class BtDefaultVehicleRaycaster extends BtVehicleRaycaster {
 	public function new(world:BtDynamicsWorld):Void;
 	#elseif cpp
 	@:native("new btDefaultVehicleRaycaster")
-	public static function create(world:cpp.Pointer<Dynamic>):cpp.Pointer<BtDefaultVehicleRaycaster>;
+	public static function create(world:cpp.Pointer<Dynamic>):cpp.Pointer<BtVehicleRaycaster>;
 	#end
 }
 
