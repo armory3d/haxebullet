@@ -426,14 +426,16 @@ extern class BtDynamicsWorld extends BtCollisionWorld {
 	public function new(dispatcher:BtDispatcher, pairCache:BtBroadphaseInterface, constraintSolver:BtConstraintSolver, collisionConfiguration:BtCollisionConfiguration):Void;
 	public function addRigidBody(body:BtRigidBody /*, ?group:Int=0, ?mask:Int=0*/):Void;
 	public function removeRigidBody(body:BtRigidBody):Void;
+	public function addAction(action:BtActionInterface):Void;
+	public function removeAction(action:BtActionInterface):Void;
 	#elseif cpp
 	@:native("new btDynamicsWorld")
 	public static function create(dispatcher:cpp.Pointer<Dynamic>, pairCache:cpp.Pointer<Dynamic>, constraintSolver:cpp.Pointer<Dynamic>, collisionConfiguration:cpp.Pointer<Dynamic>):cpp.Pointer<BtDynamicsWorld>;
 	public function addRigidBody(body:cpp.Pointer<BtRigidBody> /*, ?group:Int=0, ?mask:Int=0*/):Void;
 	public function removeRigidBody(body:cpp.Pointer<BtRigidBody>):Void;
+	public function addAction(action:cpp.Pointer<Dynamic>):Void;
+	public function removeAction(action:cpp.Pointer<Dynamic>):Void;
 	#end
-	public function addAction(action:BtActionInterface):Void;
-	public function removeAction(action:BtActionInterface):Void;
 	public function setGravity(v:BtVector3):Void;
 	public function stepSimulation(timeStep:BtScalar, maxSubSteps:BtScalar = 1, fixedTimeStep:BtScalar = 1.0 / 60.0):Void;
 }
@@ -944,7 +946,7 @@ extern class BtVehicleTuning extends BtActionInterface {
 	#if js
 	public function new():Void;
 	#elseif cpp
-	@:native("new btVehicleTuning")
+	@:native("new btRaycastVehicle::btVehicleTuning")
 	public static function create():cpp.Pointer<BtVehicleTuning>;
 	#end
 }
@@ -954,7 +956,7 @@ extern class BtVehicleTuning extends BtActionInterface {
 @:native('Ammo.btVehicleRaycaster')
 #elseif cpp
 @:include("BulletDynamics/Vehicle/btVehicleRaycaster.h")
-@:native("::btRaycastVehicle::btVehicleRaycaster")
+@:native("::btVehicleRaycaster")
 @:structAccess
 @:unreflective
 #end
