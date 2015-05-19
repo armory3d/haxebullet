@@ -380,7 +380,8 @@ extern class BtSequentialImpulseConstraintSolver extends BtConstraintSolver {
 extern class RayResultCallback {
 	public function hasHit():Bool;
 	#if js
-	public var m_collisionObject:BtCollisionObject;
+	//public var m_collisionObject:BtCollisionObject;
+	public function get_m_collisionObject():BtCollisionObject;
 	#elseif cpp
 	public var m_collisionObject:cpp.Pointer<BtCollisionObject>;
 	#end
