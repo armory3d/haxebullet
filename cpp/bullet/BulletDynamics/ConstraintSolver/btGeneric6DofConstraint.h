@@ -410,6 +410,11 @@ public:
     	return m_frameInB;
     }
 
+    void setFrameOffsetAOrigin(btVector3 v)
+    {
+        m_frameInA.setOrigin(v);
+    }
+
 
 	//! performs Jacobian calculation, and also calculates angle differences and axis
     virtual void	buildJacobian();

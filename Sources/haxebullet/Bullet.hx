@@ -43,6 +43,8 @@ extern class BtVector3 {
 	public function y():BtScalar;
 	public function z():BtScalar;
 	public function w():BtScalar;
+	public function length():BtScalar;
+	public function normalize():BtVector3;
 }
 
 // ------------------------------------------------------
@@ -93,6 +95,7 @@ extern class BtActionInterface {
 extern class BtTransform {
 	#if js
 	public function new():Void;
+	public function mulVec(v:BtVector3):BtVector3; // TODO: TEMP - cannot overload '*' operator in JS
 	#elseif cpp
 	@:native("new btTransform")
 	public static function create():cpp.Pointer<BtTransform>;
@@ -182,16 +185,17 @@ extern class BtCollisionObject {
 	#if js
 	public function getUserPointer():Dynamic;
 	public function setUserPointer(userPointer:Dynamic):Void;
+	public function isKinematicObject():Bool;
 	#elseif cpp
 	public function getUserPointer():cpp.Pointer<Dynamic>;
 	public function setUserPointer(userPointer:cpp.Pointer<Dynamic>):Void;
+	public function isKinematicObject():Bool;
+	//public function isStaticObject():Bool; // Not available in JS
+	//public function isStaticOrKinematicObject():Bool;
 	#end
 	public function	setFriction(frict:BtScalar):Void;
 	public function	setRollingFriction(frict:BtScalar):Void;
 	public function setContactProcessingThreshold(contactProcessingThreshold:BtScalar):Void;
-	public function isStaticObject():Bool;
-	public function isKinematicObject():Bool;
-	public function isStaticOrKinematicObject():Bool;
 }
 
 // ------------------------------------------------------
@@ -399,12 +403,14 @@ extern class RayResultCallback {
 extern class ClosestRayResultCallback extends RayResultCallback {
 	#if js
 	public function new(rayFromWorld:BtVector3, rayToWorld:BtVector3):Void;
+	public function get_m_hitNormalWorld():BtVector3;
+	public function get_m_hitPointWorld():BtVector3;
 	#elseif cpp
 	@:native("new btCollisionWorld::ClosestRayResultCallback")
 	public static function create(rayFromWorld:BtVector3, rayToWorld:BtVector3):cpp.Pointer<ClosestRayResultCallback>;
-	#end
 	public var m_hitNormalWorld:BtVector3;
 	public var m_hitPointWorld:BtVector3;
+	#end
 }
 
 // ------------------------------------------------------
@@ -445,8 +451,8 @@ extern class BtDynamicsWorld extends BtCollisionWorld {
 	public function removeRigidBody(body:cpp.Pointer<BtRigidBody>):Void;
 	public function addAction(action:cpp.Pointer<Dynamic>):Void;
 	public function removeAction(action:cpp.Pointer<Dynamic>):Void;
-	public function addConstraint(constraint:cpp.Pointer<BtTypedConstraint>, disableCollisionsBetweenLinkedBodies:Bool = false):Void;
-	public function removeConstraint(constraint:cpp.Pointer<BtTypedConstraint>):Void;
+	public function addConstraint(constraint:cpp.Pointer<Dynamic>, disableCollisionsBetweenLinkedBodies:Bool = false):Void;
+	public function removeConstraint(constraint:cpp.Pointer<Dynamic>):Void;
 	#end
 	public function setGravity(v:BtVector3):Void;
 	public function stepSimulation(timeStep:BtScalar, maxSubSteps:BtScalar = 1, fixedTimeStep:BtScalar = 1.0 / 60.0):Void;
@@ -1141,7 +1147,7 @@ extern class BtTypedConstraint extends BtTypedObject {
 @:structAccess
 @:unreflective
 #end
-extern class BtGeneric6DofConstraint extends BtTypedObject {
+extern class BtGeneric6DofConstraint extends BtTypedConstraint {
 	//BT_CONSTRAINT_ERP=1,
 	//BT_CONSTRAINT_STOP_ERP,
 	//BT_CONSTRAINT_CFM,
@@ -1151,6 +1157,7 @@ extern class BtGeneric6DofConstraint extends BtTypedObject {
 	#elseif cpp
 	@:native("new btGeneric6DofConstraint")
 	public static function create(rbB:BtRigidBody, frameInB:BtTransform, useLinearReferenceFrameB:Bool):cpp.Pointer<BtGeneric6DofConstraint>;
+	public function setFrameOffsetAOrigin(v:BtVector3):Void; // TODO: TEMP
 	#end
 	public function setLinearLowerLimit(linearLower:BtVector3):Void;
 	public function setLinearUpperLimit(linearUpper:BtVector3):Void;
