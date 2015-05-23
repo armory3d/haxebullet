@@ -225,7 +225,9 @@ extern class BtRigidBody extends BtCollisionObject {
 	public function getCenterOfMassTransform():BtTransform; 
 	public function setCenterOfMassTransform(trans:BtTransform):Void;
 	//public function setGravity(acceleration:BtVector3):Void; // not available in ammo
+	public function getLinearVelocity():BtVector3;
 	public function setLinearVelocity(lin_vel:BtVector3):Void;
+	public function getAngularVelocity():BtVector3;
 	public function setAngularVelocity(ang_vel:BtVector3):Void;
 	public function setLinearFactor(linearFactor:BtVector3):Void;
 	public function setAngularFactor(angFac:BtVector3):Void;
