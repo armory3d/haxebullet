@@ -410,7 +410,7 @@ public:
     	return m_frameInB;
     }
 
-    void setFrameOffsetAOrigin(btVector3 v)
+    void setFrameOffsetAOrigin(const btVector3& v)
     {
         m_frameInA.setOrigin(v);
     }
