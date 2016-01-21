@@ -5,7 +5,7 @@
   "tags": ["physics", "3d"],
   "description": "Bullet physics for Haxe",
   "version": "1.0.0",
-  "classPath": "",
+  "classPath": "Sources",
   "releasenote": "Initial release.",
   "contributors": ["Lubos"],
   "dependencies": {
