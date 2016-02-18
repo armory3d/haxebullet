@@ -1314,6 +1314,8 @@ extern class BtGeneric6DofConstraint extends BtTypedConstraint {
 	public static inline function create(rbB:BtRigidBody, frameInB:BtTransform, useLinearReferenceFrameB:Bool):BtGeneric6DofConstraint {
 		return new BtGeneric6DofConstraint(rbB, frameInB, useLinearReferenceFrameB);
 	}
+	var value(get, never):BtGeneric6DofConstraint;
+	public inline function get_value():BtGeneric6DofConstraint { return this; }
 	#elseif cpp
 	@:native("new btGeneric6DofConstraint")
 	public static function create(rbB:BtRigidBody, frameInB:BtTransform, useLinearReferenceFrameB:Bool):cpp.Pointer<BtGeneric6DofConstraint>;
@@ -1350,6 +1352,7 @@ typedef BtTriangleMeshPointer = BtTriangleMesh;
 typedef BtDiscreteDynamicsWorldPointer = BtDiscreteDynamicsWorld;
 typedef BtCollisionDispatcherPointer = BtCollisionDispatcher;
 typedef ClosestRayResultCallbackPointer = ClosestRayResultCallback;
+typedef BtGeneric6DofConstraintPointer = BtGeneric6DofConstraint;
 #elseif cpp
 typedef BtVector3Pointer = cpp.Pointer<BtVector3>;
 typedef BtRigidBodyPointer = cpp.Pointer<BtRigidBody>;
@@ -1359,4 +1362,5 @@ typedef BtTriangleMeshPointer = cpp.Pointer<BtTriangleMesh>;
 typedef BtDiscreteDynamicsWorldPointer = cpp.Pointer<BtDiscreteDynamicsWorld>;
 typedef BtCollisionDispatcherPointer = cpp.Pointer<BtCollisionDispatcher>;
 typedef ClosestRayResultCallbackPointer = cpp.Pointer<ClosestRayResultCallback>;
+typedef BtGeneric6DofConstraintPointer = cpp.Pointer<BtGeneric6DofConstraint>;
 #end
