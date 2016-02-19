@@ -1100,6 +1100,8 @@ extern class BtVehicleTuning extends BtActionInterface {
 	public static inline function create():BtVehicleTuning {
 		return new BtVehicleTuning();
 	}
+	var value(get, never):BtVehicleTuning;
+	public inline function get_value():BtVehicleTuning { return this; }
 	#elseif cpp
 	@:native("new btRaycastVehicle::btVehicleTuning")
 	public static function create():cpp.Pointer<BtVehicleTuning>;
@@ -1214,6 +1216,8 @@ extern class BtRaycastVehicle extends BtActionInterface {
 	public static inline function create(tuning:BtVehicleTuning, chassis:BtRigidBody, raycaster:BtVehicleRaycaster):BtRaycastVehicle {
 		return new BtRaycastVehicle(tuning, chassis, raycaster);
 	}
+	var value(get, never):BtRaycastVehicle;
+	public inline function get_value():BtRaycastVehicle { return this; }
 	#elseif cpp
 	@:native("new btRaycastVehicle")
 	public static function create(tuning:BtVehicleTuning, chassis:cpp.Pointer<BtRigidBody>, raycaster:cpp.Pointer<BtVehicleRaycaster>):cpp.Pointer<BtRaycastVehicle>;
@@ -1345,22 +1349,28 @@ extern class Ammo {
 // ------------------------------------------------------
 #if js
 typedef BtVector3Pointer = BtVector3;
+typedef BtTransformPointer = BtTransform;
 typedef BtRigidBodyPointer = BtRigidBody;
 typedef BtCollisionShapePointer = BtCollisionShape;
 typedef BtConvexHullShapePointer = BtConvexHullShape;
+typedef BtCompoundShapePointer = BtCompoundShape;
 typedef BtTriangleMeshPointer = BtTriangleMesh;
 typedef BtDiscreteDynamicsWorldPointer = BtDiscreteDynamicsWorld;
 typedef BtCollisionDispatcherPointer = BtCollisionDispatcher;
 typedef ClosestRayResultCallbackPointer = ClosestRayResultCallback;
 typedef BtGeneric6DofConstraintPointer = BtGeneric6DofConstraint;
+typedef BtRaycastVehiclePointer = BtRaycastVehicle;
 #elseif cpp
 typedef BtVector3Pointer = cpp.Pointer<BtVector3>;
+typedef BtTransformPointer = cpp.Pointer<BtTransform>;
 typedef BtRigidBodyPointer = cpp.Pointer<BtRigidBody>;
 typedef BtCollisionShapePointer = cpp.Pointer<BtCollisionShape>;
 typedef BtConvexHullShapePointer = cpp.Pointer<BtConvexHullShape>;
+typedef BtCompoundShapePointer = cpp.Pointer<BtCompoundShape>;
 typedef BtTriangleMeshPointer = cpp.Pointer<BtTriangleMesh>;
 typedef BtDiscreteDynamicsWorldPointer = cpp.Pointer<BtDiscreteDynamicsWorld>;
 typedef BtCollisionDispatcherPointer = cpp.Pointer<BtCollisionDispatcher>;
 typedef ClosestRayResultCallbackPointer = cpp.Pointer<ClosestRayResultCallback>;
 typedef BtGeneric6DofConstraintPointer = cpp.Pointer<BtGeneric6DofConstraint>;
+typedef BtRaycastVehiclePointer = cpp.Pointer<BtRaycastVehicle>;
 #end
