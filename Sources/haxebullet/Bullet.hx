@@ -259,6 +259,7 @@ extern class BtRigidBody extends BtCollisionObject {
 	public function setAngularVelocity(ang_vel:BtVector3):Void;
 	public function setLinearFactor(linearFactor:BtVector3):Void;
 	public function setAngularFactor(angFac:BtVector3):Void;
+	// public function setSleepingTresholds(linear:BtScalar, angular:BtScalar):Void; // not available in ammo
 }
 
 // ------------------------------------------------------
