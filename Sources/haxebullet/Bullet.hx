@@ -190,8 +190,8 @@ extern class BtDefaultMotionState extends BtMotionState {
 @:native('Ammo.btRigidBodyConstructionInfo')
 #elseif cpp
 @:include("BulletDynamics/Dynamics/btRigidBody.h")
-@:native("btRigidBody::btRigidBodyConstructionInfo")
-@:structAccess
+@:native("cpp::Struct<btRigidBody::btRigidBodyConstructionInfo>")
+// @:structAccess
 @:unreflective
 #end
 extern class BtRigidBodyConstructionInfo {
@@ -203,11 +203,15 @@ extern class BtRigidBodyConstructionInfo {
 	var value(get, never):BtRigidBodyConstructionInfo;
 	public inline function get_value():BtRigidBodyConstructionInfo { return this; }
 	#elseif cpp
-	@:native("new btRigidBody::btRigidBodyConstructionInfo")
-	static function _new(mass:BtScalar, motionState:cpp.Pointer<Dynamic>, collisionShape:cpp.Pointer<Dynamic>, localInertia:BtVector3):cpp.RawPointer<BtRigidBodyConstructionInfo>;
-	inline public static function create(mass:BtScalar, motionState:cpp.Pointer<Dynamic>, collisionShape:cpp.Pointer<Dynamic>, localInertia:BtVector3):cpp.Pointer<BtRigidBodyConstructionInfo> {
-		return cpp.Pointer.fromRaw(_new(mass, motionState, collisionShape, localInertia));
-	}
+	// @:native("new btRigidBody::btRigidBodyConstructionInfo")
+	// static function _new(mass:BtScalar, motionState:cpp.Pointer<Dynamic>, collisionShape:cpp.Pointer<Dynamic>, localInertia:BtVector3):cpp.RawPointer<BtRigidBodyConstructionInfo>;
+	// inline public static function create(mass:BtScalar, motionState:cpp.Pointer<Dynamic>, collisionShape:cpp.Pointer<Dynamic>, localInertia:BtVector3):cpp.Pointer<BtRigidBodyConstructionInfo> {
+	// 	return cpp.Pointer.fromRaw(_new(mass, motionState, collisionShape, localInertia));
+	// }
+	@:native("btRigidBody::btRigidBodyConstructionInfo")
+	public static function create(mass:BtScalar, motionState:cpp.Pointer<Dynamic>, collisionShape:cpp.Pointer<Dynamic>, localInertia:BtVector3):BtRigidBodyConstructionInfo;
+	var value(get, never):BtRigidBodyConstructionInfo;
+	public inline function get_value():BtRigidBodyConstructionInfo { return this; }
 	#end
 	public var m_friction:BtScalar;
 	public var m_rollingFriction:BtScalar;
@@ -246,8 +250,8 @@ extern class BtCollisionObject {
 	//public function isStaticObject():Bool; // Not available in JS
 	//public function isStaticOrKinematicObject():Bool;
 	#end
-	public function	setFriction(frict:BtScalar):Void;
-	public function	setRollingFriction(frict:BtScalar):Void;
+	public function setFriction(frict:BtScalar):Void;
+	public function setRollingFriction(frict:BtScalar):Void;
 	public function setContactProcessingThreshold(contactProcessingThreshold:BtScalar):Void;
 }
 
