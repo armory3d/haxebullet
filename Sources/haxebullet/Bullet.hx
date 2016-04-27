@@ -24,24 +24,28 @@ extern class BtTypedObject {
 @:native('Ammo.btVector3')
 #elseif cpp
 @:include("LinearMath/btVector3.h")
-@:native("btVector3")
-@:structAccess
+@:native("cpp::Struct<btVector3>")
+// @:structAccess
 @:unreflective
 #end
 extern class BtVector3 {
 	#if js
-	public function new(x:BtScalar = 0, y:BtScalar = 0, z:BtScalar = 0):Void;
-	public static inline function create(x:BtScalar = 0, y:BtScalar = 0, z:BtScalar = 0):BtVector3 {
+	public function new(x:BtScalar, y:BtScalar, z:BtScalar):Void;
+	public static inline function create(x:BtScalar, y:BtScalar, z:BtScalar):BtVector3 {
 		return new BtVector3(x, y, z);
 	}
 	var value(get, never):BtVector3;
 	public inline function get_value():BtVector3 { return this; }
 	#elseif cpp
-	@:native("new btVector3")
-	static function _new(x:BtScalar = 0, y:BtScalar = 0, z:BtScalar = 0):cpp.RawPointer<BtVector3>;
-	inline public static function create(x:BtScalar = 0, y:BtScalar = 0, z:BtScalar = 0):cpp.Pointer<BtVector3> {
-		return cpp.Pointer.fromRaw(_new(x, y, z));
-	}
+	// @:native("new btVector3")
+	// static function _new(x:BtScalar, y:BtScalar, z:BtScalar):cpp.RawPointer<BtVector3>;
+	// inline public static function create(x:BtScalar, y:BtScalar, z:BtScalar):cpp.Pointer<BtVector3> {
+	// 	return cpp.Pointer.fromRaw(_new(x, y, z));
+	// }
+	@:native("btVector3")
+	public static function create(x:BtScalar, y:BtScalar, z:BtScalar):BtVector3;
+	var value(get, never):BtVector3;
+	public inline function get_value():BtVector3 { return this; }
 	#end
 	public function setX(x:BtScalar):Void;
 	public function setY(y:BtScalar):Void;
@@ -60,24 +64,28 @@ extern class BtVector3 {
 @:native('Ammo.btQuaternion')
 #elseif cpp
 @:include("LinearMath/btQuaternion.h")
-@:native("btQuaternion")
-@:structAccess
+@:native("cpp::Struct<btQuaternion>")
+// @:structAccess
 @:unreflective
 #end
 extern class BtQuaternion {
 	#if js
-	public function new(x:BtScalar = 0, y:BtScalar = 0, z:BtScalar = 0, w:BtScalar = 0):Void;
-	public static inline function create(x:BtScalar = 0, y:BtScalar = 0, z:BtScalar = 0, w:BtScalar = 0):BtQuaternion {
+	public function new(x:BtScalar, y:BtScalar, z:BtScalar, w:BtScalar):Void;
+	public static inline function create(x:BtScalar, y:BtScalar, z:BtScalar, w:BtScalar):BtQuaternion {
 		return new BtQuaternion(x, y, z, w);
 	}
 	var value(get, never):BtQuaternion;
 	public inline function get_value():BtQuaternion { return this; }
 	#elseif cpp
-	@:native("new btQuaternion")
-	static function _new(x:BtScalar = 0, y:BtScalar = 0, z:BtScalar = 0, w:BtScalar = 0):cpp.RawPointer<BtQuaternion>;
-	inline public static function create(x:BtScalar = 0, y:BtScalar = 0, z:BtScalar = 0, w:BtScalar = 0):cpp.Pointer<BtQuaternion> {
-		return cpp.Pointer.fromRaw(_new(x, y, z, w));
-	}
+	// @:native("new btQuaternion")
+	// static function _new(x:BtScalar, y:BtScalar, z:BtScalar, w:BtScalar):cpp.RawPointer<BtQuaternion>;
+	// inline public static function create(x:BtScalar, y:BtScalar, z:BtScalar, w:BtScalar):cpp.Pointer<BtQuaternion> {
+		// return cpp.Pointer.fromRaw(_new(x, y, z, w));
+	// }
+	@:native("btQuaternion")
+	public static function create(x:BtScalar, y:BtScalar, z:BtScalar, w:BtScalar):BtQuaternion;
+	var value(get, never):BtQuaternion;
+	public inline function get_value():BtQuaternion { return this; }
 	#end
 	public function setEuler(yaw:BtScalar, pitch:BtScalar, roll:BtScalar):Void;
 	public function slerp(q:BtQuaternion, t:BtScalar):BtQuaternion;
@@ -104,8 +112,9 @@ extern class BtActionInterface {
 @:native('Ammo.btTransform')
 #elseif cpp
 @:include("LinearMath/btTransform.h")
-@:native("btTransform")
-@:structAccess
+// @:native("btTransform")
+@:native("cpp::Struct<btTransform>")
+// @:structAccess
 @:unreflective
 #end
 extern class BtTransform {
@@ -114,15 +123,21 @@ extern class BtTransform {
 	public static inline function create():BtTransform {
 		return new BtTransform();
 	}
+	// var ptr(get, never):BtTransform;
+	// public inline function get_ptr():BtTransform { return this; }
 	var value(get, never):BtTransform;
 	public inline function get_value():BtTransform { return this; }
 	public function mulVec(v:BtVector3):BtVector3; // TODO: TEMP - cannot overload '*' operator in JS
 	#elseif cpp
-	@:native("new btTransform")
-	static function _new():cpp.RawPointer<BtTransform>;
-	inline public static function create():cpp.Pointer<BtTransform> {
-		return cpp.Pointer.fromRaw(_new());
-	}
+	// @:native("new btTransform")
+	// static function _new():cpp.RawPointer<BtTransform>;
+	// inline public static function create():cpp.Pointer<BtTransform> {
+	// 	return cpp.Pointer.fromRaw(_new());
+	// }
+	@:native("btTransform")
+	public static function create():BtTransform;
+	var value(get, never):BtTransform;
+	public inline function get_value():BtTransform { return this; }
 	#end
 	public function setIdentity():Void;
 	public function setOrigin(inVec:BtVector3):Void;
@@ -1505,9 +1520,12 @@ typedef ClosestRayResultCallbackPointer = ClosestRayResultCallback;
 typedef BtGeneric6DofConstraintPointer = BtGeneric6DofConstraint;
 typedef BtRaycastVehiclePointer = BtRaycastVehicle;
 #elseif cpp
-typedef BtVector3Pointer = cpp.Pointer<BtVector3>;
-typedef BtQuaternionPointer = cpp.Pointer<BtQuaternion>;
-typedef BtTransformPointer = cpp.Pointer<BtTransform>;
+// typedef BtVector3Pointer = cpp.Pointer<BtVector3>;
+typedef BtVector3Pointer = BtVector3;
+// typedef BtQuaternionPointer = cpp.Pointer<BtQuaternion>;
+typedef BtQuaternionPointer = BtQuaternion;
+// typedef BtTransformPointer = cpp.Pointer<BtTransform>;
+typedef BtTransformPointer = BtTransform;
 typedef BtRigidBodyPointer = cpp.Pointer<BtRigidBody>;
 typedef BtCollisionShapePointer = cpp.Pointer<BtCollisionShape>;
 typedef BtConvexHullShapePointer = cpp.Pointer<BtConvexHullShape>;

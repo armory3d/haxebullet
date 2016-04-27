@@ -736,8 +736,7 @@ void	btDiscreteDynamicsWorld::calculateSimulationIslands()
 {
 	BT_PROFILE("calculateSimulationIslands");
 
-	getSimulationIslandManager()->updateActivationState(getCollisionWorld()
-                                                        ,getCollisionWorld()->getDispatcher());
+	getSimulationIslandManager()->updateActivationState(getCollisionWorld(),getCollisionWorld()->getDispatcher());
 
     {
         //merge islands based on speculative contact manifolds too
