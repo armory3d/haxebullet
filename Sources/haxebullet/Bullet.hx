@@ -1149,7 +1149,7 @@ extern class BtTriangleIndexVertexArray extends BtStridingMeshInterface {
 #elseif cpp
 @:include("BulletCollision/CollisionShapes/btTriangleMesh.h")
 @:native("btTriangleMesh")
-@:structAccess
+// @:structAccess
 @:unreflective
 #end
 extern class BtTriangleMesh extends BtTriangleIndexVertexArray {
@@ -1158,6 +1158,8 @@ extern class BtTriangleMesh extends BtTriangleIndexVertexArray {
 	public static inline function create(use32bitIndices:Bool = true, use4componentVertices:Bool = true):BtTriangleMesh {
 		return new BtTriangleMesh(use32bitIndices, use4componentVertices);
 	}
+	var ptr(get, never):BtTriangleMesh;
+	public inline function get_ptr():BtTriangleMesh { return this; }
 	var value(get, never):BtTriangleMesh;
 	public inline function get_value():BtTriangleMesh { return this; }
 	#elseif cpp
