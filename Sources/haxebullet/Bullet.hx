@@ -809,7 +809,7 @@ extern class BtPolyhedralConvexAabbCachingShape extends BtPolyhedralConvexShape 
 #elseif cpp
 @:include("BulletCollision/CollisionShapes/btConvexHullShape.h")
 @:native("btConvexHullShape")
-@:structAccess
+// @:structAccess
 @:unreflective
 #end
 extern class BtConvexHullShape extends BtPolyhedralConvexAabbCachingShape {
