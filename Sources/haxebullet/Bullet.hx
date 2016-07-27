@@ -1,5 +1,5 @@
 // Haxe Bullet
-// Native Bullet 2.82 physics for Haxe
+// Native Bullet physics for Haxe
 // Based on haxe-ammo.js https://github.com/floppya/haxe-ammo.js
 // TODO: Hxcpp seems to ignore default values!
 
