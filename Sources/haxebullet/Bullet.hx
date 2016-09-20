@@ -144,7 +144,7 @@ extern class BtTransform {
 	public function getOrigin():BtVector3;
 	public function setRotation(inQuat:BtQuaternion):Void;
 	public function getRotation():BtQuaternion;
-	public function inverse():BtTransform;
+	public function inverse():BtTransform; // TODO: Missing in new ammo
 }
 
 // ------------------------------------------------------
