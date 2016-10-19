@@ -1,0 +1,13 @@
+{
+  "name": "haxebullet",
+  "url" : "https://github.com/luboslenco/haxebullet/",
+  "license": "MIT",
+  "tags": ["physics", "3d"],
+  "description": "Bullet physics for Haxe",
+  "version": "1.1.0",
+  "classPath": "Sources",
+  "releasenote": "Unified cpp/js usage.",
+  "contributors": ["Lubos"],
+  "dependencies": {
+  }
+}
