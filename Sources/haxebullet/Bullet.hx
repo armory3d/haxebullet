@@ -178,8 +178,8 @@ extern class BtDefaultMotionState extends BtMotionState {
 	}
 	#elseif cpp
 	@:native("new btDefaultMotionState")
-	static function _new(worldTrans:BtTransform, centerOfMassOffset:BtTransform):cpp.RawPointer<BtDefaultMotionState>;
-	inline public static function create(worldTrans:BtTransform, centerOfMassOffset:BtTransform):cpp.Pointer<BtDefaultMotionState> {
+	static function _new(worldTrans:BtTransform, centerOfMassOffset:BtTransform):cpp.RawPointer<BtMotionState>;
+	inline public static function create(worldTrans:BtTransform, centerOfMassOffset:BtTransform):cpp.Pointer<BtMotionState> {
 		return cpp.Pointer.fromRaw(_new(worldTrans, centerOfMassOffset));
 	}
 	#end
@@ -1525,6 +1525,7 @@ typedef BtCollisionDispatcherPointer = BtCollisionDispatcher;
 typedef ClosestRayResultCallbackPointer = ClosestRayResultCallback;
 typedef BtGeneric6DofConstraintPointer = BtGeneric6DofConstraint;
 typedef BtRaycastVehiclePointer = BtRaycastVehicle;
+typedef BtMotionStatePointer = BtMotionState;
 #elseif cpp
 // typedef BtVector3Pointer = cpp.Pointer<BtVector3>;
 typedef BtVector3Pointer = BtVector3;
@@ -1542,4 +1543,5 @@ typedef BtCollisionDispatcherPointer = cpp.Pointer<BtCollisionDispatcher>;
 typedef ClosestRayResultCallbackPointer = cpp.Pointer<ClosestRayResultCallback>;
 typedef BtGeneric6DofConstraintPointer = cpp.Pointer<BtGeneric6DofConstraint>;
 typedef BtRaycastVehiclePointer = cpp.Pointer<BtRaycastVehicle>;
+typedef BtMotionStatePointer = cpp.Pointer<BtMotionState>;
 #end
