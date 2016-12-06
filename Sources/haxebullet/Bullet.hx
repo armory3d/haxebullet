@@ -1502,11 +1502,6 @@ extern class BtGeneric6DofConstraint extends BtTypedConstraint {
 @:native('Ammo')
 extern class Ammo {
 	public static function destroy(obj:Dynamic):Void;
-	
-	private static function __init__():Void untyped {
-		// Set correct path to ammo.js file
-        //haxe.macro.Compiler.includeFile("../Libraries/haxebullet/js/ammo/ammo.js");
-    }
 }
 #end
 
