@@ -287,6 +287,7 @@ extern class BtRigidBody extends BtCollisionObject {
 	public function applyCentralImpulse(impulse:BtVector3):Void;
 	public function applyImpulse(impulse:BtVector3, rel_pos:BtVector3):Void;
 	public function clearForces():Void;
+	public function setDamping(linear:Float, angular:Float):Void;
 	public function updateInertiaTensor():Void;
 	public function getCenterOfMassPosition():BtVector3;
 	public function getCenterOfMassTransform():BtTransform; 
