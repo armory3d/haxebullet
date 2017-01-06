@@ -1437,21 +1437,18 @@ extern class BtManifoldPoint {
 	public static inline function create():BtManifoldPoint {
 		return new BtManifoldPoint();
 	}
-	@:native("get_m_positionWorldOnA")
-	public function getPositionWorldOnA():BtVector3;
-	@:native("get_m_positionWorldOnB")
-	public function getPositionWorldOnB():BtVector3;
-	@:native("get_m_normalWorldOnB")
-	public function getNormalWorldOnB():BtVector3;
+	public function get_m_positionWorldOnA():BtVector3;
+	public function get_m_positionWorldOnB():BtVector3;
+	public function get_m_normalWorldOnB():BtVector3;
 	#elseif cpp
 	@:native("new btManifoldPoint")
 	static function _new():cpp.RawPointer<BtPersistentManifold>;
 	inline public static function create():cpp.Pointer<BtPersistentManifold> {
 		return cpp.Pointer.fromRaw(_new());
 	}
-	public function getPositionWorldOnA():BtVector3;
-	public function getPositionWorldOnB():BtVector3;
-	public function getNormalWorldOnB():BtVector3;
+	public var m_positionWorldOnA:BtVector3;
+	public var m_positionWorldOnB:BtVector3;
+	public var m_normalWorldOnB:BtVector3;
 	#end
 	public function getDistance():BtScalar;
 	public function getAppliedImpulse():BtScalar; // missing in ammo_old.js
