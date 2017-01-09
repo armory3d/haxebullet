@@ -253,6 +253,7 @@ extern class BtCollisionObject {
 	public function setFriction(frict:BtScalar):Void;
 	public function setRollingFriction(frict:BtScalar):Void;
 	public function setContactProcessingThreshold(contactProcessingThreshold:BtScalar):Void;
+	public function getCollisionShape():BtCollisionShape;
 }
 
 // ------------------------------------------------------
@@ -333,6 +334,30 @@ extern class BtDefaultCollisionConfiguration extends BtCollisionConfiguration {
 	@:native("new btDefaultCollisionConfiguration")
 	static function _new():cpp.RawPointer<BtDefaultCollisionConfiguration>;
 	inline public static function create():cpp.Pointer<BtDefaultCollisionConfiguration> {
+		return cpp.Pointer.fromRaw(_new());
+	}
+	#end
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btSoftBodyRigidBodyCollisionConfiguration')
+#elseif cpp
+@:include("BulletSoftBody/btSoftBodyRigidBodyCollisionConfiguration.h")
+@:native("btSoftBodyRigidBodyCollisionConfiguration")
+@:structAccess
+@:unreflective
+#end
+extern class BtSoftBodyRigidBodyCollisionConfiguration extends BtCollisionConfiguration {
+	#if js
+	public function new():Void;
+	public static inline function create():BtSoftBodyRigidBodyCollisionConfiguration {
+		return new BtSoftBodyRigidBodyCollisionConfiguration();
+	}
+	#elseif cpp
+	@:native("new btSoftBodyRigidBodyCollisionConfiguration")
+	static function _new():cpp.RawPointer<BtSoftBodyRigidBodyCollisionConfiguration>;
+	inline public static function create():cpp.Pointer<BtSoftBodyRigidBodyCollisionConfiguration> {
 		return cpp.Pointer.fromRaw(_new());
 	}
 	#end
@@ -477,6 +502,30 @@ extern class BtSequentialImpulseConstraintSolver extends BtConstraintSolver {
 
 // ------------------------------------------------------
 #if js
+@:native('Ammo.btDefaultSoftBodySolver')
+#elseif cpp
+@:include("BulletSoftBody/btDefaultSoftBodySolver.h")
+@:native("btDefaultSoftBodySolver")
+@:structAccess
+@:unreflective
+#end
+extern class BtDefaultSoftBodySolver extends BtConstraintSolver {
+	#if js
+	public function new():Void;
+	public static inline function create():BtDefaultSoftBodySolver {
+		return new BtDefaultSoftBodySolver();
+	}
+	#elseif cpp
+	@:native("new btDefaultSoftBodySolver")
+	static function _new():cpp.RawPointer<BtDefaultSoftBodySolver>;
+	inline public static function create():cpp.Pointer<BtDefaultSoftBodySolver> {
+		return cpp.Pointer.fromRaw(_new());
+	}
+	#end
+}
+
+// ------------------------------------------------------
+#if js
 @:native('Ammo.RayResultCallback')
 #elseif cpp
 @:include("BulletCollision/CollisionDispatch/btCollisionWorld.h")
@@ -605,6 +654,56 @@ extern class BtDiscreteDynamicsWorld extends BtDynamicsWorld {
 
 // ------------------------------------------------------
 #if js
+@:native('Ammo.btSoftBodyWorldInfo')
+#elseif cpp
+@:include("BulletSoftBody/btSoftBody.h")
+@:native("btSoftBodyWorldInfo")
+@:structAccess
+@:unreflective
+#end
+extern class BtSoftBodyWorldInfo {
+	#if js
+	public function set_m_gravity(v:BtVector3):Void;
+	#elseif cpp
+	public var m_gravity:BtVector3;
+	#end
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btSoftRigidDynamicsWorld')
+#elseif cpp
+@:include("BulletSoftBody/btSoftRigidDynamicsWorld.h")
+@:native("btSoftRigidDynamicsWorld")
+// @:structAccess
+@:unreflective
+#end
+extern class BtSoftRigidDynamicsWorld extends BtDynamicsWorld {
+	#if js
+	public function new(dispatcher:BtDispatcher, pairCache:BtBroadphaseInterface, constraintSolver:BtConstraintSolver, collisionConfiguration:BtCollisionConfiguration, softConstraintSolver:BtConstraintSolver):Void;
+	public static inline function create(dispatcher:BtDispatcher, pairCache:BtBroadphaseInterface, constraintSolver:BtConstraintSolver, collisionConfiguration:BtCollisionConfiguration, softConstraintSolver:BtConstraintSolver):BtSoftRigidDynamicsWorld {
+		return new BtSoftRigidDynamicsWorld(dispatcher, pairCache, constraintSolver, collisionConfiguration, softConstraintSolver);
+	}
+	var ptr(get, never):BtSoftRigidDynamicsWorld;
+	public inline function get_ptr():BtSoftRigidDynamicsWorld { return this; }
+	var value(get, never):BtSoftRigidDynamicsWorld;
+	public inline function get_value():BtSoftRigidDynamicsWorld { return this; }
+	public function addSoftBody(body:BtSoftBody, collisionFilterGroup:Int, collisionFilterMask:Int):Void;
+	public function removeSoftBody(body:BtSoftBody):Void;
+	#elseif cpp
+	@:native("new btSoftRigidDynamicsWorld")
+	static function _new(dispatcher:cpp.Pointer<Dynamic>, pairCache:cpp.Pointer<Dynamic>, constraintSolver:cpp.Pointer<Dynamic>, collisionConfiguration:cpp.Pointer<Dynamic>, softConstraintSolver:cpp.Pointer<Dynamic>):cpp.RawPointer<BtSoftRigidDynamicsWorld>;
+	inline public static function create(dispatcher:cpp.Pointer<Dynamic>, pairCache:cpp.Pointer<Dynamic>, constraintSolver:cpp.Pointer<Dynamic>, collisionConfiguration:cpp.Pointer<Dynamic>, softConstraintSolver:cpp.Pointer<Dynamic>):cpp.Pointer<BtSoftRigidDynamicsWorld> {
+		return cpp.Pointer.fromRaw(_new(dispatcher, pairCache, constraintSolver, collisionConfiguration, softConstraintSolver));
+	}
+	public function addSoftBody(body:cpp.Pointer<BtSoftBody>, collisionFilterGroup:Int, collisionFilterMask:Int):Void;
+	public function removeSoftBody(body:cpp.Pointer<BtSoftBody>):Void;
+	#end
+	public function getWorldInfo():BtSoftBodyWorldInfo;
+}
+
+// ------------------------------------------------------
+#if js
 @:native('Ammo.btSimpleDynamicsWorld')
 #elseif cpp
 @:include("BulletDynamics/Dynamics/btSimpleDynamicsWorld.h")
@@ -644,6 +743,7 @@ extern class BtCollisionShape {
 	public inline function get_ptr():BtCollisionShape { return this; }
 	#end
 	public function calculateLocalInertia(mass:BtScalar, inertia:BtVector3):Void;
+	public function setMargin(margin:Float):Void;
 }
 
 // ------------------------------------------------------
@@ -1505,9 +1605,119 @@ extern class BtGeneric6DofConstraint extends BtTypedConstraint {
 
 // ------------------------------------------------------
 #if js
+@:native('Ammo.Config')
+#elseif cpp
+@:include("BulletSoftBody/btSoftBody.h")
+@:native("btSoftBody::Config")
+@:structAccess
+@:unreflective
+#end
+extern class Config {
+	#if js
+	public function set_viterations(i:Int):Void;
+	public function set_piterations(i:Int):Void;
+	public function set_collisions(i:Int):Void;
+	public function set_kDF(f:Float):Void;
+	public function set_kDP(f:Float):Void;
+	public function set_kPR(f:Float):Void;
+	#elseif cpp
+	public var viterations:Int;
+	public var piterations:Int;
+	public var collisions:Int;
+	public var kDF:Float;
+	public var kDP:Float;
+	public var kPR:Float;
+	#end
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.tNodeArray')
+#elseif cpp
+@:include("BulletSoftBody/btSoftBody.h")
+@:native("btAlignedObjectArray<btSoftBody::Node>")
+@:structAccess
+@:unreflective
+#end
+extern class TNodeArray {
+	public function at(i:Int):Node;
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.Node')
+#elseif cpp
+@:include("BulletSoftBody/btSoftBody.h")
+@:native("btSoftBody::Node")
+@:structAccess
+@:unreflective
+#end
+extern class Node {
+	#if js
+	public function get_m_x():BtVector3;
+	public function get_m_n():BtVector3;
+	#elseif cpp
+	public var m_x:BtVector3;
+	public var m_n:BtVector3;
+	#end
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btSoftBody')
+#elseif cpp
+@:include("BulletSoftBody/btSoftBody.h")
+@:native("btSoftBody")
+@:structAccess
+@:unreflective
+#end
+extern class BtSoftBody extends BtCollisionObject {
+	#if js
+	var ptr(get, never):BtSoftBody;
+	public inline function get_ptr():BtSoftBody { return this; }
+	public function get_m_nodes():TNodeArray;
+	public function get_m_cfg():Config;
+	#elseif cpp
+	var m_nodes:TNodeArray;
+	var m_cfg:Config;
+	#end
+	public function setTotalMass(mass:BtScalar, fromfaces:Bool = false):Void;
+	public function generateClusters(k:Int, maxiterations:Int = 8192):Void;
+	// public function generateBendingConstraints(distance:Int, mat:Dynamic = 0):Void;
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btSoftBodyHelpers')
+#elseif cpp
+@:include("BulletSoftBody/btSoftBodyHelpers.h")
+@:native("cpp::Struct<btSoftBodyHelpers>")
+// @:structAccess
+@:unreflective
+#end
+extern class BtSoftBodyHelpers {
+	#if js
+	public function new():Void;
+	public static inline function create():BtSoftBodyHelpers {
+		return new BtSoftBodyHelpers();
+	}
+	var value(get, never):BtSoftBodyHelpers;
+	public inline function get_value():BtSoftBodyHelpers { return this; }
+	#elseif cpp
+	@:native("btSoftBodyHelpers")
+	public static function create():BtSoftBodyHelpers;
+	var value(get, never):BtSoftBodyHelpers;
+	public inline function get_value():BtSoftBodyHelpers { return this; }
+	#end
+	function CreateFromTriMesh(worldInfo:BtSoftBodyWorldInfo, vertices:haxe.ds.Vector<BtScalar>, triangles:haxe.ds.Vector<Int>, ntriangles:Int, randomizeConstraints:Bool = true):BtSoftBodyPointer;
+}
+
+// ------------------------------------------------------
+#if js
 @:native('Ammo')
 extern class Ammo {
 	public static function destroy(obj:Dynamic):Void;
+	public static function castObject(obj:Dynamic, to:Class<Dynamic>):Dynamic;
 }
 #end
 
@@ -1517,29 +1727,30 @@ typedef BtVector3Pointer = BtVector3;
 typedef BtQuaternionPointer = BtQuaternion;
 typedef BtTransformPointer = BtTransform;
 typedef BtRigidBodyPointer = BtRigidBody;
+typedef BtSoftBodyPointer = BtSoftBody;
 typedef BtCollisionShapePointer = BtCollisionShape;
 typedef BtConvexHullShapePointer = BtConvexHullShape;
 typedef BtCompoundShapePointer = BtCompoundShape;
 typedef BtTriangleMeshPointer = BtTriangleMesh;
 typedef BtDiscreteDynamicsWorldPointer = BtDiscreteDynamicsWorld;
+typedef BtSoftRigidDynamicsWorldPointer = BtSoftRigidDynamicsWorld;
 typedef BtCollisionDispatcherPointer = BtCollisionDispatcher;
 typedef ClosestRayResultCallbackPointer = ClosestRayResultCallback;
 typedef BtGeneric6DofConstraintPointer = BtGeneric6DofConstraint;
 typedef BtRaycastVehiclePointer = BtRaycastVehicle;
 typedef BtMotionStatePointer = BtMotionState;
 #elseif cpp
-// typedef BtVector3Pointer = cpp.Pointer<BtVector3>;
 typedef BtVector3Pointer = BtVector3;
-// typedef BtQuaternionPointer = cpp.Pointer<BtQuaternion>;
 typedef BtQuaternionPointer = BtQuaternion;
-// typedef BtTransformPointer = cpp.Pointer<BtTransform>;
 typedef BtTransformPointer = BtTransform;
 typedef BtRigidBodyPointer = cpp.Pointer<BtRigidBody>;
+typedef BtSoftBodyPointer = cpp.Pointer<BtSoftBody>;
 typedef BtCollisionShapePointer = cpp.Pointer<BtCollisionShape>;
 typedef BtConvexHullShapePointer = cpp.Pointer<BtConvexHullShape>;
 typedef BtCompoundShapePointer = cpp.Pointer<BtCompoundShape>;
 typedef BtTriangleMeshPointer = cpp.Pointer<BtTriangleMesh>;
 typedef BtDiscreteDynamicsWorldPointer = cpp.Pointer<BtDiscreteDynamicsWorld>;
+typedef BtSoftRigidDynamicsWorldPointer = cpp.Pointer<BtSoftRigidDynamicsWorld>;
 typedef BtCollisionDispatcherPointer = cpp.Pointer<BtCollisionDispatcher>;
 typedef ClosestRayResultCallbackPointer = cpp.Pointer<ClosestRayResultCallback>;
 typedef BtGeneric6DofConstraintPointer = cpp.Pointer<BtGeneric6DofConstraint>;
