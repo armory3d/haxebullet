@@ -575,6 +575,19 @@ extern class ClosestRayResultCallback extends RayResultCallback {
 
 // ------------------------------------------------------
 #if js
+@:native('Ammo.ConcreteContactResultCallback')
+extern class ConcreteContactResultCallback extends RayResultCallback {
+	public function new():Void;
+	public static inline function create():ConcreteContactResultCallback {
+		return new ConcreteContactResultCallback();
+	}
+	var value(get, never):ConcreteContactResultCallback;
+	public inline function get_value():ConcreteContactResultCallback { return this; }
+}
+#end
+
+// ------------------------------------------------------
+#if js
 @:native('Ammo.btCollisionWorld')
 #elseif cpp
 @:include("BulletCollision/CollisionDispatch/btCollisionWorld.h")
