@@ -13,8 +13,8 @@ typedef BtScalar = Float;
 #elseif cpp
 @:include("LinearMath/btScalar.h")
 @:native("btTypedObject")
-@:structAccess
 @:unreflective
+@:structAccess
 #end
 extern class BtTypedObject {
 }
@@ -24,9 +24,9 @@ extern class BtTypedObject {
 @:native('Ammo.btVector3')
 #elseif cpp
 @:include("LinearMath/btVector3.h")
-@:native("cpp::Struct<btVector3>")
-// @:structAccess
+@:native("btVector3")
 @:unreflective
+@:structAccess
 #end
 extern class BtVector3 {
 	#if js
@@ -34,18 +34,9 @@ extern class BtVector3 {
 	public static inline function create(x:BtScalar, y:BtScalar, z:BtScalar):BtVector3 {
 		return new BtVector3(x, y, z);
 	}
-	var value(get, never):BtVector3;
-	public inline function get_value():BtVector3 { return this; }
 	#elseif cpp
-	// @:native("new btVector3")
-	// static function _new(x:BtScalar, y:BtScalar, z:BtScalar):cpp.RawPointer<BtVector3>;
-	// inline public static function create(x:BtScalar, y:BtScalar, z:BtScalar):cpp.Pointer<BtVector3> {
-	// 	return cpp.Pointer.fromRaw(_new(x, y, z));
-	// }
 	@:native("btVector3")
 	public static function create(x:BtScalar, y:BtScalar, z:BtScalar):BtVector3;
-	var value(get, never):BtVector3;
-	public inline function get_value():BtVector3 { return this; }
 	#end
 	public function setX(x:BtScalar):Void;
 	public function setY(y:BtScalar):Void;
@@ -64,9 +55,9 @@ extern class BtVector3 {
 @:native('Ammo.btQuaternion')
 #elseif cpp
 @:include("LinearMath/btQuaternion.h")
-@:native("cpp::Struct<btQuaternion>")
-// @:structAccess
+@:native("btQuaternion")
 @:unreflective
+@:structAccess
 #end
 extern class BtQuaternion {
 	#if js
@@ -74,18 +65,9 @@ extern class BtQuaternion {
 	public static inline function create(x:BtScalar, y:BtScalar, z:BtScalar, w:BtScalar):BtQuaternion {
 		return new BtQuaternion(x, y, z, w);
 	}
-	var value(get, never):BtQuaternion;
-	public inline function get_value():BtQuaternion { return this; }
 	#elseif cpp
-	// @:native("new btQuaternion")
-	// static function _new(x:BtScalar, y:BtScalar, z:BtScalar, w:BtScalar):cpp.RawPointer<BtQuaternion>;
-	// inline public static function create(x:BtScalar, y:BtScalar, z:BtScalar, w:BtScalar):cpp.Pointer<BtQuaternion> {
-		// return cpp.Pointer.fromRaw(_new(x, y, z, w));
-	// }
 	@:native("btQuaternion")
 	public static function create(x:BtScalar, y:BtScalar, z:BtScalar, w:BtScalar):BtQuaternion;
-	var value(get, never):BtQuaternion;
-	public inline function get_value():BtQuaternion { return this; }
 	#end
 	public function setEuler(yaw:BtScalar, pitch:BtScalar, roll:BtScalar):Void;
 	public function slerp(q:BtQuaternion, t:BtScalar):BtQuaternion;
@@ -101,7 +83,6 @@ extern class BtQuaternion {
 #elseif cpp
 @:include("BulletDynamics/Dynamics/btActionInterface.h")
 @:native("btActionInterface")
-@:structAccess
 @:unreflective
 #end
 extern class BtActionInterface {
@@ -112,10 +93,9 @@ extern class BtActionInterface {
 @:native('Ammo.btTransform')
 #elseif cpp
 @:include("LinearMath/btTransform.h")
-// @:native("btTransform")
-@:native("cpp::Struct<btTransform>")
-// @:structAccess
+@:native("btTransform")
 @:unreflective
+@:structAccess
 #end
 extern class BtTransform {
 	#if js
@@ -123,21 +103,10 @@ extern class BtTransform {
 	public static inline function create():BtTransform {
 		return new BtTransform();
 	}
-	// var ptr(get, never):BtTransform;
-	// public inline function get_ptr():BtTransform { return this; }
-	var value(get, never):BtTransform;
-	public inline function get_value():BtTransform { return this; }
 	public function mulVec(v:BtVector3):BtVector3; // TODO: TEMP - cannot overload '*' operator in JS
 	#elseif cpp
-	// @:native("new btTransform")
-	// static function _new():cpp.RawPointer<BtTransform>;
-	// inline public static function create():cpp.Pointer<BtTransform> {
-	// 	return cpp.Pointer.fromRaw(_new());
-	// }
 	@:native("btTransform")
 	public static function create():BtTransform;
-	var value(get, never):BtTransform;
-	public inline function get_value():BtTransform { return this; }
 	#end
 	public function setIdentity():Void;
 	public function setOrigin(inVec:BtVector3):Void;
@@ -153,8 +122,8 @@ extern class BtTransform {
 #elseif cpp
 @:include("LinearMath/btMotionState.h")
 @:native("btMotionState")
-@:structAccess
 @:unreflective
+@:structAccess
 #end
 extern class BtMotionState {
 	public function getWorldTransform(centerOfMassWorldTrans:BtTransform):Void;
@@ -167,7 +136,6 @@ extern class BtMotionState {
 #elseif cpp
 @:include("LinearMath/btDefaultMotionState.h")
 @:native("btDefaultMotionState")
-@:structAccess
 @:unreflective
 #end
 extern class BtDefaultMotionState extends BtMotionState {
@@ -178,10 +146,7 @@ extern class BtDefaultMotionState extends BtMotionState {
 	}
 	#elseif cpp
 	@:native("new btDefaultMotionState")
-	static function _new(worldTrans:BtTransform, centerOfMassOffset:BtTransform):cpp.RawPointer<BtMotionState>;
-	inline public static function create(worldTrans:BtTransform, centerOfMassOffset:BtTransform):cpp.Pointer<BtMotionState> {
-		return cpp.Pointer.fromRaw(_new(worldTrans, centerOfMassOffset));
-	}
+	public static function create(worldTrans:BtTransform, centerOfMassOffset:BtTransform):cpp.Star<BtMotionState>;
 	#end
 }
 
@@ -190,9 +155,9 @@ extern class BtDefaultMotionState extends BtMotionState {
 @:native('Ammo.btRigidBodyConstructionInfo')
 #elseif cpp
 @:include("BulletDynamics/Dynamics/btRigidBody.h")
-@:native("cpp::Struct<btRigidBody::btRigidBodyConstructionInfo>")
-// @:structAccess
+@:native("btRigidBody::btRigidBodyConstructionInfo")
 @:unreflective
+@:structAccess
 #end
 extern class BtRigidBodyConstructionInfo {
 	#if js
@@ -200,18 +165,9 @@ extern class BtRigidBodyConstructionInfo {
 	public static inline function create(mass:BtScalar, motionState:BtMotionState, collisionShape:BtCollisionShape, localInertia:BtVector3):BtRigidBodyConstructionInfo {
 		return new BtRigidBodyConstructionInfo(mass, motionState, collisionShape, localInertia);
 	}
-	var value(get, never):BtRigidBodyConstructionInfo;
-	public inline function get_value():BtRigidBodyConstructionInfo { return this; }
 	#elseif cpp
-	// @:native("new btRigidBody::btRigidBodyConstructionInfo")
-	// static function _new(mass:BtScalar, motionState:cpp.Pointer<Dynamic>, collisionShape:cpp.Pointer<Dynamic>, localInertia:BtVector3):cpp.RawPointer<BtRigidBodyConstructionInfo>;
-	// inline public static function create(mass:BtScalar, motionState:cpp.Pointer<Dynamic>, collisionShape:cpp.Pointer<Dynamic>, localInertia:BtVector3):cpp.Pointer<BtRigidBodyConstructionInfo> {
-	// 	return cpp.Pointer.fromRaw(_new(mass, motionState, collisionShape, localInertia));
-	// }
 	@:native("btRigidBody::btRigidBodyConstructionInfo")
-	public static function create(mass:BtScalar, motionState:cpp.Pointer<Dynamic>, collisionShape:cpp.Pointer<Dynamic>, localInertia:BtVector3):BtRigidBodyConstructionInfo;
-	var value(get, never):BtRigidBodyConstructionInfo;
-	public inline function get_value():BtRigidBodyConstructionInfo { return this; }
+	public static function create(mass:BtScalar, motionState:cpp.Star<BtMotionState>, collisionShape:cpp.Star<BtCollisionShape>, localInertia:BtVector3):BtRigidBodyConstructionInfo;
 	#end
 	public var m_friction:BtScalar;
 	public var m_rollingFriction:BtScalar;
@@ -223,7 +179,6 @@ extern class BtRigidBodyConstructionInfo {
 #elseif cpp
 @:include("BulletCollision/CollisionDispatch/btCollisionObject.h")
 @:native("btCollisionObject")
-@:structAccess
 @:unreflective
 #end
 extern class BtCollisionObject {
@@ -244,8 +199,8 @@ extern class BtCollisionObject {
 	public function setUserPointer(userPointer:Dynamic):Void;
 	public function isKinematicObject():Bool;
 	#elseif cpp
-	public function getUserPointer():cpp.Pointer<Dynamic>;
-	public function setUserPointer(userPointer:cpp.Pointer<Dynamic>):Void;
+	public function getUserPointer():cpp.Star<Dynamic>;
+	public function setUserPointer(userPointer:cpp.Star<Dynamic>):Void;
 	public function isKinematicObject():Bool;
 	//public function isStaticObject():Bool; // Not available in JS
 	//public function isStaticOrKinematicObject():Bool;
@@ -262,7 +217,6 @@ extern class BtCollisionObject {
 #elseif cpp
 @:include("BulletDynamics/Dynamics/btRigidBody.h")
 @:native("btRigidBody")
-// @:structAccess
 @:unreflective
 #end
 extern class BtRigidBody extends BtCollisionObject {
@@ -271,18 +225,11 @@ extern class BtRigidBody extends BtCollisionObject {
 	public static inline function create(constructionInfo:BtRigidBodyConstructionInfo):BtRigidBody {
 		return new BtRigidBody(constructionInfo);
 	}
-	var ptr(get, never):BtRigidBody;
-	public inline function get_ptr():BtRigidBody { return this; }
-	var value(get, never):BtRigidBody;
-	public inline function get_value():BtRigidBody { return this; }
 	public function getMotionState():BtMotionState;
 	#elseif cpp
 	@:native("new btRigidBody")
-	static function _new(constructionInfo:BtRigidBodyConstructionInfo):cpp.RawPointer<BtRigidBody>;
-	inline public static function create(constructionInfo:BtRigidBodyConstructionInfo):cpp.Pointer<BtRigidBody> {
-		return cpp.Pointer.fromRaw(_new(constructionInfo));
-	}
-	public function getMotionState():cpp.Pointer<BtMotionState>;
+	public static function create(constructionInfo:BtRigidBodyConstructionInfo):cpp.Star<BtRigidBody>;
+	public function getMotionState():cpp.Star<BtMotionState>;
 	#end
 	public function applyCentralForce(force:BtVector3):Void;
 	public function applyCentralImpulse(impulse:BtVector3):Void;
@@ -309,7 +256,6 @@ extern class BtRigidBody extends BtCollisionObject {
 #elseif cpp
 @:include("BulletCollision/CollisionDispatch/btCollisionConfiguration.h")
 @:native("btCollisionConfiguration")
-@:structAccess
 @:unreflective
 #end
 extern class BtCollisionConfiguration {
@@ -321,7 +267,6 @@ extern class BtCollisionConfiguration {
 #elseif cpp
 @:include("BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h")
 @:native("btDefaultCollisionConfiguration")
-@:structAccess
 @:unreflective
 #end
 extern class BtDefaultCollisionConfiguration extends BtCollisionConfiguration {
@@ -332,10 +277,7 @@ extern class BtDefaultCollisionConfiguration extends BtCollisionConfiguration {
 	}
 	#elseif cpp
 	@:native("new btDefaultCollisionConfiguration")
-	static function _new():cpp.RawPointer<BtDefaultCollisionConfiguration>;
-	inline public static function create():cpp.Pointer<BtDefaultCollisionConfiguration> {
-		return cpp.Pointer.fromRaw(_new());
-	}
+	public static function create():cpp.Star<BtDefaultCollisionConfiguration>;
 	#end
 }
 
@@ -345,7 +287,6 @@ extern class BtDefaultCollisionConfiguration extends BtCollisionConfiguration {
 #elseif cpp
 @:include("BulletSoftBody/btSoftBodyRigidBodyCollisionConfiguration.h")
 @:native("btSoftBodyRigidBodyCollisionConfiguration")
-@:structAccess
 @:unreflective
 #end
 extern class BtSoftBodyRigidBodyCollisionConfiguration extends BtCollisionConfiguration {
@@ -356,10 +297,7 @@ extern class BtSoftBodyRigidBodyCollisionConfiguration extends BtCollisionConfig
 	}
 	#elseif cpp
 	@:native("new btSoftBodyRigidBodyCollisionConfiguration")
-	static function _new():cpp.RawPointer<BtSoftBodyRigidBodyCollisionConfiguration>;
-	inline public static function create():cpp.Pointer<BtSoftBodyRigidBodyCollisionConfiguration> {
-		return cpp.Pointer.fromRaw(_new());
-	}
+	public static function create():cpp.Star<BtSoftBodyRigidBodyCollisionConfiguration>;
 	#end
 }
 
@@ -369,7 +307,6 @@ extern class BtSoftBodyRigidBodyCollisionConfiguration extends BtCollisionConfig
 #elseif cpp
 @:include("BulletCollision/BroadphaseCollision/btDispatcher.h")
 @:native("btDispatcher")
-@:structAccess
 @:unreflective
 #end
 extern class BtDispatcher {
@@ -381,7 +318,6 @@ extern class BtDispatcher {
 #elseif cpp
 @:include("BulletCollision/CollisionDispatch/btCollisionDispatcher.h")
 @:native("btCollisionDispatcher")
-@:structAccess
 @:unreflective
 #end
 extern class BtCollisionDispatcher extends BtDispatcher {
@@ -390,16 +326,11 @@ extern class BtCollisionDispatcher extends BtDispatcher {
 	public static inline function create(collisionConfiguration:BtCollisionConfiguration):BtCollisionDispatcher {
 		return new BtCollisionDispatcher(collisionConfiguration);
 	}
-	var value(get, never):BtCollisionDispatcher;
-	public inline function get_value():BtCollisionDispatcher { return this; }
 	public function getManifoldByIndexInternal(index:Int):BtPersistentManifold;
 	#elseif cpp
 	@:native("new btCollisionDispatcher")
-	static function _new(collisionConfiguration:cpp.Pointer<Dynamic>):cpp.RawPointer<BtCollisionDispatcher>;
-	inline public static function create(collisionConfiguration:cpp.Pointer<Dynamic>):cpp.Pointer<BtCollisionDispatcher> {
-		return cpp.Pointer.fromRaw(_new(collisionConfiguration));
-	}
-	public function getManifoldByIndexInternal(index:Int):cpp.Pointer<BtPersistentManifold>;
+	public static function create(collisionConfiguration:cpp.Star<BtCollisionConfiguration>):cpp.Star<BtCollisionDispatcher>;
+	public function getManifoldByIndexInternal(index:Int):cpp.Star<BtPersistentManifold>;
 	#end
 	public function	getNumManifolds():Int;
 }
@@ -410,7 +341,6 @@ extern class BtCollisionDispatcher extends BtDispatcher {
 #elseif cpp
 @:include("BulletCollision/BroadphaseCollision/btBroadphaseInterface.h")
 @:native("btBroadphaseInterface")
-@:structAccess
 @:unreflective
 #end
 extern class BtBroadphaseInterface {
@@ -422,7 +352,6 @@ extern class BtBroadphaseInterface {
 #elseif cpp
 @:include("BulletCollision/BroadphaseCollision/btDbvtBroadphase.h")
 @:native("btDbvtBroadphase")
-@:structAccess
 @:unreflective
 #end
 extern class BtDbvtBroadphase extends BtBroadphaseInterface {
@@ -433,10 +362,7 @@ extern class BtDbvtBroadphase extends BtBroadphaseInterface {
 	}
 	#elseif cpp
 	@:native("new btDbvtBroadphase")
-	static function _new():cpp.RawPointer<BtDbvtBroadphase>;
-	inline public static function create():cpp.Pointer<BtDbvtBroadphase> {
-		return cpp.Pointer.fromRaw(_new());
-	}
+	public static function create():cpp.Star<BtDbvtBroadphase>;
 	#end
 }
 
@@ -446,7 +372,6 @@ extern class BtDbvtBroadphase extends BtBroadphaseInterface {
 #elseif cpp
 @:include("BulletCollision/BroadphaseCollision/btAxisSweep3.h")
 @:native("btAxisSweep3")
-@:structAccess
 @:unreflective
 #end
 extern class BtAxisSweep3 extends BtBroadphaseInterface {
@@ -457,10 +382,7 @@ extern class BtAxisSweep3 extends BtBroadphaseInterface {
 	}
 	#elseif cpp
 	@:native("new btAxisSweep3")
-	static function _new(worldAabbMin:BtVector3, worldAabbMax:BtVector3):cpp.RawPointer<BtAxisSweep3>;
-	inline public static function create(worldAabbMin:BtVector3, worldAabbMax:BtVector3):cpp.Pointer<BtAxisSweep3> {
-		return cpp.Pointer.fromRaw(_new(worldAabbMin, worldAabbMax));
-	}
+	public static function create(worldAabbMin:BtVector3, worldAabbMax:BtVector3):cpp.Star<BtAxisSweep3>;
 	#end
 }
 
@@ -470,7 +392,6 @@ extern class BtAxisSweep3 extends BtBroadphaseInterface {
 #elseif cpp
 @:include("BulletDynamics/ConstraintSolver/btConstraintSolver.h")
 @:native("btConstraintSolver")
-@:structAccess
 @:unreflective
 #end
 extern class BtConstraintSolver {
@@ -482,7 +403,6 @@ extern class BtConstraintSolver {
 #elseif cpp
 @:include("BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h")
 @:native("btSequentialImpulseConstraintSolver")
-@:structAccess
 @:unreflective
 #end
 extern class BtSequentialImpulseConstraintSolver extends BtConstraintSolver {
@@ -493,10 +413,7 @@ extern class BtSequentialImpulseConstraintSolver extends BtConstraintSolver {
 	}
 	#elseif cpp
 	@:native("new btSequentialImpulseConstraintSolver")
-	static function _new():cpp.RawPointer<BtSequentialImpulseConstraintSolver>;
-	inline public static function create():cpp.Pointer<BtSequentialImpulseConstraintSolver> {
-		return cpp.Pointer.fromRaw(_new());
-	}
+	public static function create():cpp.Star<BtSequentialImpulseConstraintSolver>;
 	#end
 }
 
@@ -506,7 +423,6 @@ extern class BtSequentialImpulseConstraintSolver extends BtConstraintSolver {
 #elseif cpp
 @:include("BulletSoftBody/btDefaultSoftBodySolver.h")
 @:native("btDefaultSoftBodySolver")
-@:structAccess
 @:unreflective
 #end
 extern class BtDefaultSoftBodySolver extends BtConstraintSolver {
@@ -517,10 +433,7 @@ extern class BtDefaultSoftBodySolver extends BtConstraintSolver {
 	}
 	#elseif cpp
 	@:native("new btDefaultSoftBodySolver")
-	static function _new():cpp.RawPointer<BtDefaultSoftBodySolver>;
-	inline public static function create():cpp.Pointer<BtDefaultSoftBodySolver> {
-		return cpp.Pointer.fromRaw(_new());
-	}
+	public static function create():cpp.Star<BtDefaultSoftBodySolver>;
 	#end
 }
 
@@ -530,16 +443,19 @@ extern class BtDefaultSoftBodySolver extends BtConstraintSolver {
 #elseif cpp
 @:include("BulletCollision/CollisionDispatch/btCollisionWorld.h")
 @:native("btCollisionWorld::RayResultCallback")
-@:structAccess
 @:unreflective
+@:structAccess
 #end
 extern class RayResultCallback {
 	public function hasHit():Bool;
 	#if js
+	public function new():Void;
 	//public var m_collisionObject:BtCollisionObject;
 	public function get_m_collisionObject():BtCollisionObject;
 	#elseif cpp
-	public var m_collisionObject:cpp.Pointer<BtCollisionObject>;
+	@:native("btCollisionWorld::RayResultCallback")
+	public static function create():RayResultCallback;
+	public var m_collisionObject:cpp.Star<BtCollisionObject>;
 	#end
 }
 
@@ -549,8 +465,8 @@ extern class RayResultCallback {
 #elseif cpp
 @:include("BulletCollision/CollisionDispatch/btCollisionWorld.h")
 @:native("btCollisionWorld::ClosestRayResultCallback")
-@:structAccess
 @:unreflective
+@:structAccess
 #end
 extern class ClosestRayResultCallback extends RayResultCallback {
 	#if js
@@ -558,16 +474,11 @@ extern class ClosestRayResultCallback extends RayResultCallback {
 	public static inline function create(rayFromWorld:BtVector3, rayToWorld:BtVector3):ClosestRayResultCallback {
 		return new ClosestRayResultCallback(rayFromWorld, rayToWorld);
 	}
-	var value(get, never):ClosestRayResultCallback;
-	public inline function get_value():ClosestRayResultCallback { return this; }
 	public function get_m_hitNormalWorld():BtVector3;
 	public function get_m_hitPointWorld():BtVector3;
 	#elseif cpp
-	@:native("new btCollisionWorld::ClosestRayResultCallback")
-	static function _new(rayFromWorld:BtVector3, rayToWorld:BtVector3):cpp.RawPointer<ClosestRayResultCallback>;
-	inline public static function create(rayFromWorld:BtVector3, rayToWorld:BtVector3):cpp.Pointer<ClosestRayResultCallback> {
-		return cpp.Pointer.fromRaw(_new(rayFromWorld, rayToWorld));
-	}
+	@:native("btCollisionWorld::ClosestRayResultCallback")
+	public static function create(rayFromWorld:BtVector3, rayToWorld:BtVector3):ClosestRayResultCallback;
 	public var m_hitNormalWorld:BtVector3;
 	public var m_hitPointWorld:BtVector3;
 	#end
@@ -581,8 +492,6 @@ extern class ConcreteContactResultCallback extends RayResultCallback {
 	public static inline function create():ConcreteContactResultCallback {
 		return new ConcreteContactResultCallback();
 	}
-	var value(get, never):ConcreteContactResultCallback;
-	public inline function get_value():ConcreteContactResultCallback { return this; }
 }
 #end
 
@@ -592,7 +501,6 @@ extern class ConcreteContactResultCallback extends RayResultCallback {
 #elseif cpp
 @:include("BulletCollision/CollisionDispatch/btCollisionWorld.h")
 @:native("btCollisionWorld")
-@:structAccess
 @:unreflective
 #end
 extern class BtCollisionWorld {
@@ -605,7 +513,6 @@ extern class BtCollisionWorld {
 #elseif cpp
 @:include("BulletDynamics/Dynamics/btDynamicsWorld.h")
 @:native("btDynamicsWorld")
-// @:structAccess
 @:unreflective
 #end
 extern class BtDynamicsWorld extends BtCollisionWorld {
@@ -622,16 +529,13 @@ extern class BtDynamicsWorld extends BtCollisionWorld {
 	public function removeConstraint(constraint:BtTypedConstraint):Void;
 	#elseif cpp
 	@:native("new btDynamicsWorld")
-	static function _new(dispatcher:cpp.Pointer<Dynamic>, pairCache:cpp.Pointer<Dynamic>, constraintSolver:cpp.Pointer<Dynamic>, collisionConfiguration:cpp.Pointer<Dynamic>):cpp.RawPointer<BtDynamicsWorld>;
-	inline public static function create(dispatcher:cpp.Pointer<Dynamic>, pairCache:cpp.Pointer<Dynamic>, constraintSolver:cpp.Pointer<Dynamic>, collisionConfiguration:cpp.Pointer<Dynamic>):cpp.Pointer<BtDynamicsWorld> {
-		return cpp.Pointer.fromRaw(_new(dispatcher, pairCache, constraintSolver, collisionConfiguration));
-	}
-	public function addRigidBody(body:cpp.Pointer<BtRigidBody> /*, ?group:Int=0, ?mask:Int=0*/):Void;
-	public function removeRigidBody(body:cpp.Pointer<BtRigidBody>):Void;
-	public function addAction(action:cpp.Pointer<Dynamic>):Void;
-	public function removeAction(action:cpp.Pointer<Dynamic>):Void;
-	public function addConstraint(constraint:cpp.Pointer<Dynamic>, disableCollisionsBetweenLinkedBodies:Bool = false):Void;
-	public function removeConstraint(constraint:cpp.Pointer<Dynamic>):Void;
+	public static function create(dispatcher:cpp.Star<BtDispatcher>, pairCache:cpp.Star<BtBroadphaseInterface>, constraintSolver:cpp.Star<BtConstraintSolver>, collisionConfiguration:cpp.Star<BtCollisionConfiguration>):cpp.Star<BtDynamicsWorld>;
+	public function addRigidBody(body:cpp.Star<BtRigidBody> /*, ?group:Int=0, ?mask:Int=0*/):Void;
+	public function removeRigidBody(body:cpp.Star<BtRigidBody>):Void;
+	public function addAction(action:cpp.Star<BtActionInterface>):Void;
+	public function removeAction(action:cpp.Star<BtActionInterface>):Void;
+	public function addConstraint(constraint:cpp.Star<BtTypedConstraint>, disableCollisionsBetweenLinkedBodies:Bool = false):Void;
+	public function removeConstraint(constraint:cpp.Star<BtTypedConstraint>):Void;
 	#end
 	public function setGravity(v:BtVector3):Void;
 	public function stepSimulation(timeStep:BtScalar, maxSubSteps:BtScalar = 1, fixedTimeStep:BtScalar = 1.0 / 60.0):Void;
@@ -643,7 +547,6 @@ extern class BtDynamicsWorld extends BtCollisionWorld {
 #elseif cpp
 @:include("BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h")
 @:native("btDiscreteDynamicsWorld")
-// @:structAccess
 @:unreflective
 #end
 extern class BtDiscreteDynamicsWorld extends BtDynamicsWorld {
@@ -652,16 +555,9 @@ extern class BtDiscreteDynamicsWorld extends BtDynamicsWorld {
 	public static inline function create(dispatcher:BtDispatcher, pairCache:BtBroadphaseInterface, constraintSolver:BtConstraintSolver, collisionConfiguration:BtCollisionConfiguration):BtDiscreteDynamicsWorld {
 		return new BtDiscreteDynamicsWorld(dispatcher, pairCache, constraintSolver, collisionConfiguration);
 	}
-	var ptr(get, never):BtDiscreteDynamicsWorld;
-	public inline function get_ptr():BtDiscreteDynamicsWorld { return this; }
-	var value(get, never):BtDiscreteDynamicsWorld;
-	public inline function get_value():BtDiscreteDynamicsWorld { return this; }
 	#elseif cpp
 	@:native("new btDiscreteDynamicsWorld")
-	static function _new(dispatcher:cpp.Pointer<Dynamic>, pairCache:cpp.Pointer<Dynamic>, constraintSolver:cpp.Pointer<Dynamic>, collisionConfiguration:cpp.Pointer<Dynamic>):cpp.RawPointer<BtDiscreteDynamicsWorld>;
-	inline public static function create(dispatcher:cpp.Pointer<Dynamic>, pairCache:cpp.Pointer<Dynamic>, constraintSolver:cpp.Pointer<Dynamic>, collisionConfiguration:cpp.Pointer<Dynamic>):cpp.Pointer<BtDiscreteDynamicsWorld> {
-		return cpp.Pointer.fromRaw(_new(dispatcher, pairCache, constraintSolver, collisionConfiguration));
-	}
+	public static function create(dispatcher:cpp.Star<BtDispatcher>, pairCache:cpp.Star<BtBroadphaseInterface>, constraintSolver:cpp.Star<BtConstraintSolver>, collisionConfiguration:cpp.Star<BtCollisionConfiguration>):cpp.Star<BtDiscreteDynamicsWorld>;
 	#end
 }
 
@@ -671,7 +567,6 @@ extern class BtDiscreteDynamicsWorld extends BtDynamicsWorld {
 #elseif cpp
 @:include("BulletSoftBody/btSoftBody.h")
 @:native("btSoftBodyWorldInfo")
-@:structAccess
 @:unreflective
 #end
 extern class BtSoftBodyWorldInfo {
@@ -688,7 +583,6 @@ extern class BtSoftBodyWorldInfo {
 #elseif cpp
 @:include("BulletSoftBody/btSoftRigidDynamicsWorld.h")
 @:native("btSoftRigidDynamicsWorld")
-// @:structAccess
 @:unreflective
 #end
 extern class BtSoftRigidDynamicsWorld extends BtDynamicsWorld {
@@ -697,20 +591,13 @@ extern class BtSoftRigidDynamicsWorld extends BtDynamicsWorld {
 	public static inline function create(dispatcher:BtDispatcher, pairCache:BtBroadphaseInterface, constraintSolver:BtConstraintSolver, collisionConfiguration:BtCollisionConfiguration, softConstraintSolver:BtConstraintSolver):BtSoftRigidDynamicsWorld {
 		return new BtSoftRigidDynamicsWorld(dispatcher, pairCache, constraintSolver, collisionConfiguration, softConstraintSolver);
 	}
-	var ptr(get, never):BtSoftRigidDynamicsWorld;
-	public inline function get_ptr():BtSoftRigidDynamicsWorld { return this; }
-	var value(get, never):BtSoftRigidDynamicsWorld;
-	public inline function get_value():BtSoftRigidDynamicsWorld { return this; }
 	public function addSoftBody(body:BtSoftBody, collisionFilterGroup:Int, collisionFilterMask:Int):Void;
 	public function removeSoftBody(body:BtSoftBody):Void;
 	#elseif cpp
 	@:native("new btSoftRigidDynamicsWorld")
-	static function _new(dispatcher:cpp.Pointer<Dynamic>, pairCache:cpp.Pointer<Dynamic>, constraintSolver:cpp.Pointer<Dynamic>, collisionConfiguration:cpp.Pointer<Dynamic>, softConstraintSolver:cpp.Pointer<Dynamic>):cpp.RawPointer<BtSoftRigidDynamicsWorld>;
-	inline public static function create(dispatcher:cpp.Pointer<Dynamic>, pairCache:cpp.Pointer<Dynamic>, constraintSolver:cpp.Pointer<Dynamic>, collisionConfiguration:cpp.Pointer<Dynamic>, softConstraintSolver:cpp.Pointer<Dynamic>):cpp.Pointer<BtSoftRigidDynamicsWorld> {
-		return cpp.Pointer.fromRaw(_new(dispatcher, pairCache, constraintSolver, collisionConfiguration, softConstraintSolver));
-	}
-	public function addSoftBody(body:cpp.Pointer<BtSoftBody>, collisionFilterGroup:Int, collisionFilterMask:Int):Void;
-	public function removeSoftBody(body:cpp.Pointer<BtSoftBody>):Void;
+	public static function create(dispatcher:cpp.Star<BtDispatcher>, pairCache:cpp.Star<BtBroadphaseInterface>, constraintSolver:cpp.Star<BtConstraintSolver>, collisionConfiguration:cpp.Star<BtCollisionConfiguration>, softConstraintSolver:cpp.Star<BtConstraintSolver>):cpp.Star<BtSoftRigidDynamicsWorld>;
+	public function addSoftBody(body:cpp.Star<BtSoftBody>, collisionFilterGroup:Int, collisionFilterMask:Int):Void;
+	public function removeSoftBody(body:cpp.Star<BtSoftBody>):Void;
 	#end
 	public function getWorldInfo():BtSoftBodyWorldInfo;
 }
@@ -721,7 +608,6 @@ extern class BtSoftRigidDynamicsWorld extends BtDynamicsWorld {
 #elseif cpp
 @:include("BulletDynamics/Dynamics/btSimpleDynamicsWorld.h")
 @:native("btSimpleDynamicsWorld")
-// @:structAccess
 @:unreflective
 #end
 extern class BtSimpleDynamicsWorld extends BtDynamicsWorld {
@@ -732,10 +618,7 @@ extern class BtSimpleDynamicsWorld extends BtDynamicsWorld {
 	}
 	#elseif cpp
 	@:native("new btSimpleDynamicsWorld")
-	static function _new(dispatcher:cpp.Pointer<Dynamic>, pairCache:cpp.Pointer<Dynamic>, constraintSolver:cpp.Pointer<Dynamic>, collisionConfiguration:cpp.Pointer<Dynamic>):cpp.RawPointer<BtSimpleDynamicsWorld>;
-	inline public static function create(dispatcher:cpp.Pointer<Dynamic>, pairCache:cpp.Pointer<Dynamic>, constraintSolver:cpp.Pointer<Dynamic>, collisionConfiguration:cpp.Pointer<Dynamic>):cpp.Pointer<BtSimpleDynamicsWorld> {
-		return cpp.Pointer.fromRaw(_new(dispatcher, pairCache, constraintSolver, collisionConfiguration));
-	}
+	public static function create(dispatcher:cpp.Star<BtDispatcher>, pairCache:cpp.Star<BtBroadphaseInterface>, constraintSolver:cpp.Star<BtConstraintSolver>, collisionConfiguration:cpp.Star<BtCollisionConfiguration>):cpp.Star<BtSimpleDynamicsWorld>;
 	#end
 }
 
@@ -745,16 +628,9 @@ extern class BtSimpleDynamicsWorld extends BtDynamicsWorld {
 #elseif cpp
 @:include("BulletCollision/CollisionShapes/btCollisionShape.h")
 @:native("btCollisionShape")
-// @:structAccess
 @:unreflective
 #end
 extern class BtCollisionShape {
-	#if js
-	var value(get, never):BtCollisionShape;
-	public inline function get_value():BtCollisionShape { return this; }
-	var ptr(get, never):BtCollisionShape;
-	public inline function get_ptr():BtCollisionShape { return this; }
-	#end
 	public function calculateLocalInertia(mass:BtScalar, inertia:BtVector3):Void;
 	public function setMargin(margin:Float):Void;
 }
@@ -765,7 +641,6 @@ extern class BtCollisionShape {
 #elseif cpp
 @:include("BulletCollision/CollisionShapes/btCompoundShape.h")
 @:native("btCompoundShape")
-@:structAccess
 @:unreflective
 #end
 extern class BtCompoundShape extends BtCollisionShape {
@@ -777,11 +652,8 @@ extern class BtCompoundShape extends BtCollisionShape {
 	public function addChildShape(localTransform:BtTransform, shape:BtCollisionShape):Void;
 	#elseif cpp
 	@:native("new btCompoundShape")
-	static function _new(enableDynamicAabbTree:Bool = true):cpp.RawPointer<BtCompoundShape>;
-	inline public static function create(enableDynamicAabbTree:Bool = true):cpp.Pointer<BtCompoundShape> {
-		return cpp.Pointer.fromRaw(_new(enableDynamicAabbTree));
-	}
-	public function addChildShape(localTransform:BtTransform, shape:cpp.Pointer<BtCollisionShape>):Void;
+	public static function create(enableDynamicAabbTree:Bool = true):cpp.Star<BtCompoundShape>;
+	public function addChildShape(localTransform:BtTransform, shape:cpp.Star<BtCollisionShape>):Void;
 	#end
 }
 
@@ -791,7 +663,6 @@ extern class BtCompoundShape extends BtCollisionShape {
 #elseif cpp
 @:include("BulletCollision/CollisionShapes/btConvexShape.h")
 @:native("btConvexShape")
-@:structAccess
 @:unreflective
 #end
 extern class BtConvexShape extends BtCollisionShape {
@@ -803,7 +674,6 @@ extern class BtConvexShape extends BtCollisionShape {
 #elseif cpp
 @:include("BulletCollision/CollisionShapes/btConcaveShape.h")
 @:native("btConcaveShape")
-@:structAccess
 @:unreflective
 #end
 extern class BtConcaveShape extends BtCollisionShape {
@@ -815,7 +685,6 @@ extern class BtConcaveShape extends BtCollisionShape {
 #elseif cpp
 @:include("BulletCollision/CollisionShapes/btConvexInternalShape.h")
 @:native("btConvexInternalShape")
-@:structAccess
 @:unreflective
 #end
 extern class BtConvexInternalShape extends BtConvexShape {
@@ -827,7 +696,6 @@ extern class BtConvexInternalShape extends BtConvexShape {
 #elseif cpp
 @:include("BulletCollision/CollisionShapes/btPolyhedralConvexShape.h")
 @:native("btPolyhedralConvexShape")
-@:structAccess
 @:unreflective
 #end
 extern class BtPolyhedralConvexShape extends BtConvexInternalShape {
@@ -839,7 +707,6 @@ extern class BtPolyhedralConvexShape extends BtConvexInternalShape {
 #elseif cpp
 @:include("BulletCollision/CollisionShapes/btBoxShape.h")
 @:native("btBoxShape")
-@:structAccess
 @:unreflective
 #end
 extern class BtBoxShape extends BtPolyhedralConvexShape {
@@ -850,10 +717,7 @@ extern class BtBoxShape extends BtPolyhedralConvexShape {
 	}
 	#elseif cpp
 	@:native("new btBoxShape")
-	static function _new(boxHalfExtents:BtVector3):cpp.RawPointer<BtCollisionShape>;
-	inline public static function create(boxHalfExtents:BtVector3):cpp.Pointer<BtCollisionShape> {
-		return cpp.Pointer.fromRaw(_new(boxHalfExtents));
-	}
+	public static function create(boxHalfExtents:BtVector3):cpp.Star<BtCollisionShape>;
 	#end
 }
 
@@ -863,7 +727,6 @@ extern class BtBoxShape extends BtPolyhedralConvexShape {
 #elseif cpp
 @:include("BulletCollision/CollisionShapes/btSphereShape.h")
 @:native("btSphereShape")
-@:structAccess
 @:unreflective
 #end
 extern class BtSphereShape extends BtConvexInternalShape {
@@ -874,10 +737,7 @@ extern class BtSphereShape extends BtConvexInternalShape {
 	}
 	#elseif cpp
 	@:native("new btSphereShape")
-	static function _new(radius:BtScalar):cpp.RawPointer<BtCollisionShape>;
-	inline public static function create(radius:BtScalar):cpp.Pointer<BtCollisionShape> {
-		return cpp.Pointer.fromRaw(_new(radius));
-	}
+	public static function create(radius:BtScalar):cpp.Star<BtCollisionShape>;
 	#end
 }
 
@@ -887,7 +747,6 @@ extern class BtSphereShape extends BtConvexInternalShape {
 #elseif cpp
 @:include("BulletCollision/CollisionShapes/btStaticPlaneShape.h")
 @:native("btStaticPlaneShape")
-@:structAccess
 @:unreflective
 #end
 extern class BtStaticPlaneShape extends BtConcaveShape {
@@ -898,10 +757,7 @@ extern class BtStaticPlaneShape extends BtConcaveShape {
 	}
 	#elseif cpp
 	@:native("new btStaticPlaneShape")
-	static function _new(planeNormal:BtVector3, planeConstant:BtScalar):cpp.RawPointer<BtCollisionShape>;
-	inline public static function create(planeNormal:BtVector3, planeConstant:BtScalar):cpp.Pointer<BtCollisionShape> {
-		return cpp.Pointer.fromRaw(_new(planeNormal, planeConstant));
-	}
+	public static function create(planeNormal:BtVector3, planeConstant:BtScalar):cpp.Star<BtCollisionShape>;
 	#end
 }
 
@@ -911,7 +767,6 @@ extern class BtStaticPlaneShape extends BtConcaveShape {
 #elseif cpp
 @:include("BulletCollision/CollisionShapes/btPolyhedralConvexShape.h")
 @:native("btPolyhedralConvexAabbCachingShape")
-@:structAccess
 @:unreflective
 #end
 extern class BtPolyhedralConvexAabbCachingShape extends BtPolyhedralConvexShape {
@@ -923,7 +778,6 @@ extern class BtPolyhedralConvexAabbCachingShape extends BtPolyhedralConvexShape 
 #elseif cpp
 @:include("BulletCollision/CollisionShapes/btConvexHullShape.h")
 @:native("btConvexHullShape")
-// @:structAccess
 @:unreflective
 #end
 extern class BtConvexHullShape extends BtPolyhedralConvexAabbCachingShape {
@@ -932,14 +786,9 @@ extern class BtConvexHullShape extends BtPolyhedralConvexAabbCachingShape {
 	public static inline function create():BtConvexHullShape {
 		return new BtConvexHullShape();
 	}
-	//var value_(get, never):BtConvexHullShape;
-	//public inline function get_value_():BtConvexHullShape { return this; }
 	#elseif cpp
 	@:native("new btConvexHullShape")
-	static function _new():cpp.RawPointer<BtConvexHullShape>;
-	inline public static function create():cpp.Pointer<BtConvexHullShape> {
-		return cpp.Pointer.fromRaw(_new());
-	}
+	public static function create():cpp.Star<BtConvexHullShape>;
 	#end
 	public function addPoint(point:BtVector3, recalculateLocalAabb:Bool = true):Void;
 }
@@ -950,7 +799,6 @@ extern class BtConvexHullShape extends BtPolyhedralConvexAabbCachingShape {
 #elseif cpp
 @:include("BulletCollision/CollisionShapes/btCapsuleShape.h")
 @:native("btCapsuleShape")
-@:structAccess
 @:unreflective
 #end
 extern class BtCapsuleShape extends BtConvexInternalShape {
@@ -961,10 +809,7 @@ extern class BtCapsuleShape extends BtConvexInternalShape {
 	}
 	#elseif cpp
 	@:native("new btCapsuleShape")
-	static function _new(radius:BtScalar, height:BtScalar):cpp.RawPointer<BtCollisionShape>;
-	inline public static function create(radius:BtScalar, height:BtScalar):cpp.Pointer<BtCollisionShape> {
-		return cpp.Pointer.fromRaw(_new(radius, height));
-	}
+	public static function create(radius:BtScalar, height:BtScalar):cpp.Star<BtCollisionShape>;
 	#end
 }
 
@@ -974,7 +819,6 @@ extern class BtCapsuleShape extends BtConvexInternalShape {
 #elseif cpp
 @:include("BulletCollision/CollisionShapes/btCapsuleShape.h")
 @:native("btCapsuleShapeX")
-@:structAccess
 @:unreflective
 #end
 extern class BtCapsuleShapeX extends BtCapsuleShape {
@@ -985,10 +829,7 @@ extern class BtCapsuleShapeX extends BtCapsuleShape {
 	}
 	#elseif cpp
 	@:native("new btCapsuleShapeX")
-	static function _new(radius:BtScalar, height:BtScalar):cpp.RawPointer<BtCollisionShape>;
-	inline public static function create(radius:BtScalar, height:BtScalar):cpp.Pointer<BtCollisionShape> {
-		return cpp.Pointer.fromRaw(_new(radius, height));
-	}
+	public static function create(radius:BtScalar, height:BtScalar):cpp.Star<BtCollisionShape>;
 	#end
 }
 
@@ -998,7 +839,6 @@ extern class BtCapsuleShapeX extends BtCapsuleShape {
 #elseif cpp
 @:include("BulletCollision/CollisionShapes/btCapsuleShape.h")
 @:native("btCapsuleShapeZ")
-@:structAccess
 @:unreflective
 #end
 extern class BtCapsuleShapeZ extends BtCapsuleShape {
@@ -1009,10 +849,7 @@ extern class BtCapsuleShapeZ extends BtCapsuleShape {
 	}
 	#elseif cpp
 	@:native("new btCapsuleShapeZ")
-	static function _new(radius:BtScalar, height:BtScalar):cpp.RawPointer<BtCollisionShape>;
-	inline public static function create(radius:BtScalar, height:BtScalar):cpp.Pointer<BtCollisionShape> {
-		return cpp.Pointer.fromRaw(_new(radius, height));
-	}
+	public static function create(radius:BtScalar, height:BtScalar):cpp.Star<BtCollisionShape>;
 	#end
 }
 
@@ -1022,7 +859,6 @@ extern class BtCapsuleShapeZ extends BtCapsuleShape {
 #elseif cpp
 @:include("BulletCollision/CollisionShapes/btCylinderShape.h")
 @:native("btCylinderShape")
-@:structAccess
 @:unreflective
 #end
 extern class BtCylinderShape extends BtConvexInternalShape {
@@ -1033,10 +869,7 @@ extern class BtCylinderShape extends BtConvexInternalShape {
 	}
 	#elseif cpp
 	@:native("new btCylinderShape")
-	static function _new(halfExtents:BtVector3):cpp.RawPointer<BtCollisionShape>;
-	inline public static function create(halfExtents:BtVector3):cpp.Pointer<BtCollisionShape> {
-		return cpp.Pointer.fromRaw(_new(halfExtents));
-	}
+	public static function create(halfExtents:BtVector3):cpp.Star<BtCollisionShape>;
 	#end
 }
 
@@ -1046,7 +879,6 @@ extern class BtCylinderShape extends BtConvexInternalShape {
 #elseif cpp
 @:include("BulletCollision/CollisionShapes/btCylinderShape.h")
 @:native("btCylinderShapeX")
-@:structAccess
 @:unreflective
 #end
 extern class BtCylinderShapeX extends BtCylinderShape {
@@ -1057,10 +889,7 @@ extern class BtCylinderShapeX extends BtCylinderShape {
 	}
 	#elseif cpp
 	@:native("new btCylinderShapeX")
-	static function _new(halfExtents:BtVector3):cpp.RawPointer<BtCollisionShape>;
-	inline public static function create(halfExtents:BtVector3):cpp.Pointer<BtCollisionShape> {
-		return cpp.Pointer.fromRaw(_new(halfExtents));
-	}
+	public static function create(halfExtents:BtVector3):cpp.Star<BtCollisionShape>;
 	#end
 }
 
@@ -1070,7 +899,6 @@ extern class BtCylinderShapeX extends BtCylinderShape {
 #elseif cpp
 @:include("BulletCollision/CollisionShapes/btCylinderShape.h")
 @:native("btCylinderShapeZ")
-@:structAccess
 @:unreflective
 #end
 extern class BtCylinderShapeZ extends BtCylinderShape {
@@ -1081,10 +909,7 @@ extern class BtCylinderShapeZ extends BtCylinderShape {
 	}
 	#elseif cpp
 	@:native("new btCylinderShapeZ")
-	static function _new(halfExtents:BtVector3):cpp.RawPointer<BtCollisionShape>;
-	inline public static function create(halfExtents:BtVector3):cpp.Pointer<BtCollisionShape> {
-		return cpp.Pointer.fromRaw(_new(halfExtents));
-	}
+	public static function create(halfExtents:BtVector3):cpp.Star<BtCollisionShape>;
 	#end
 }
 
@@ -1094,7 +919,6 @@ extern class BtCylinderShapeZ extends BtCylinderShape {
 #elseif cpp
 @:include("BulletCollision/CollisionShapes/btConeShape.h")
 @:native("btConeShape")
-@:structAccess
 @:unreflective
 #end
 extern class BtConeShape extends BtConvexInternalShape {
@@ -1105,10 +929,7 @@ extern class BtConeShape extends BtConvexInternalShape {
 	}
 	#elseif cpp
 	@:native("new btConeShape")
-	static function _new(radius:BtScalar, height:BtScalar):cpp.RawPointer<BtCollisionShape>;
-	inline public static function create(radius:BtScalar, height:BtScalar):cpp.Pointer<BtCollisionShape> {
-		return cpp.Pointer.fromRaw(_new(radius, height));
-	}
+	public static function create(radius:BtScalar, height:BtScalar):cpp.Star<BtCollisionShape>;
 	#end
 }
 
@@ -1118,7 +939,6 @@ extern class BtConeShape extends BtConvexInternalShape {
 #elseif cpp
 @:include("BulletCollision/CollisionShapes/btConeShape.h")
 @:native("btConeShapeX")
-@:structAccess
 @:unreflective
 #end
 extern class BtConeShapeX extends BtConeShape {
@@ -1129,10 +949,7 @@ extern class BtConeShapeX extends BtConeShape {
 	}
 	#elseif cpp	
 	@:native("new btConeShapeX")
-	static function _new(radius:BtScalar, height:BtScalar):cpp.RawPointer<BtCollisionShape>;
-	inline public static function create(radius:BtScalar, height:BtScalar):cpp.Pointer<BtCollisionShape> {
-		return cpp.Pointer.fromRaw(_new(radius, height));
-	}
+	public static function create(radius:BtScalar, height:BtScalar):cpp.Star<BtCollisionShape>;
 	#end
 }
 
@@ -1142,7 +959,6 @@ extern class BtConeShapeX extends BtConeShape {
 #elseif cpp
 @:include("BulletCollision/CollisionShapes/btConeShape.h")
 @:native("btConeShapeZ")
-@:structAccess
 @:unreflective
 #end
 extern class BtConeShapeZ extends BtConeShape {
@@ -1153,10 +969,7 @@ extern class BtConeShapeZ extends BtConeShape {
 	}
 	#elseif cpp
 	@:native("new btConeShapeZ")
-	static function _new(radius:BtScalar, height:BtScalar):cpp.RawPointer<BtCollisionShape>;
-	inline public static function create(radius:BtScalar, height:BtScalar):cpp.Pointer<BtCollisionShape> {
-		return cpp.Pointer.fromRaw(_new(radius, height));
-	}	
+	public static function create(radius:BtScalar, height:BtScalar):cpp.Star<BtCollisionShape> ;
 	#end
 }
 
@@ -1166,7 +979,6 @@ extern class BtConeShapeZ extends BtConeShape {
 #elseif cpp
 @:include("BulletCollision/CollisionShapes/btHeightfieldTerrainShape.h")
 @:native("btHeightfieldTerrainShape")
-@:structAccess
 @:unreflective
 #end
 extern class BtHeightfieldTerrainShape extends BtConcaveShape {
@@ -1178,10 +990,7 @@ extern class BtHeightfieldTerrainShape extends BtConcaveShape {
 	}
 	#elseif cpp
 	@:native("new btHeightfieldTerrainShape")
-	static function _new(heightStickWidth:Int, heightStickLength:Int, heightfieldData:Array<Dynamic>, heightScale:BtScalar, minHeight:BtScalar, maxHeight:BtScalar, upAxis:Int, heightDataType:Int, flipQuadEdges:Bool):cpp.RawPointer<BtCollisionShape>;
-	inline public static function create(heightStickWidth:Int, heightStickLength:Int, heightfieldData:Array<Dynamic>, heightScale:BtScalar, minHeight:BtScalar, maxHeight:BtScalar, upAxis:Int, heightDataType:Int, flipQuadEdges:Bool):cpp.Pointer<BtCollisionShape> {
-		return cpp.Pointer.fromRaw(_new(heightStickWidth, heightStickLength, heightfieldData, heightScale, minHeight, maxHeight, upAxis, heightDataType, flipQuadEdges));
-	}
+	public static function create(heightStickWidth:Int, heightStickLength:Int, heightfieldData:Array<Dynamic>, heightScale:BtScalar, minHeight:BtScalar, maxHeight:BtScalar, upAxis:Int, heightDataType:Int, flipQuadEdges:Bool):cpp.Star<BtCollisionShape>;
 	#end
 }
 
@@ -1191,7 +1000,6 @@ extern class BtHeightfieldTerrainShape extends BtConcaveShape {
 #elseif cpp
 @:include("BulletCollision/CollisionShapes/btStridingMeshInterface.h")
 @:native("btStridingMeshInterface")
-@:structAccess
 @:unreflective
 #end
 extern class BtStridingMeshInterface {
@@ -1202,10 +1010,7 @@ extern class BtStridingMeshInterface {
 	}
 	#elseif cpp
 	@:native("new btStridingMeshInterface")
-	static function _new():cpp.RawPointer<BtStridingMeshInterface>;
-	inline public static function create():cpp.Pointer<BtStridingMeshInterface> {
-		return cpp.Pointer.fromRaw(_new());
-	}
+	public static function create():cpp.Star<BtStridingMeshInterface>;
 	#end
 }
 
@@ -1215,7 +1020,6 @@ extern class BtStridingMeshInterface {
 #elseif cpp
 @:include("BulletCollision/CollisionShapes/btTriangleIndexVertexArray.h")
 @:native("btIndexedMesh")
-@:structAccess
 @:unreflective
 #end
 extern class BtIndexedMesh {
@@ -1226,10 +1030,7 @@ extern class BtIndexedMesh {
 	}
 	#elseif cpp
 	@:native("new btIndexedMesh")
-	static function _new():cpp.RawPointer<BtIndexedMesh>;
-	inline public static function create():cpp.Pointer<BtIndexedMesh> {
-		return cpp.Pointer.fromRaw(_new());
-	}
+	public static function create():cpp.Star<BtIndexedMesh>;
 	#end
 }
 
@@ -1239,7 +1040,6 @@ extern class BtIndexedMesh {
 #elseif cpp
 @:include("BulletCollision/CollisionShapes/btTriangleIndexVertexArray.h")
 @:native("btTriangleIndexVertexArray")
-@:structAccess
 @:unreflective
 #end
 extern class BtTriangleIndexVertexArray extends BtStridingMeshInterface {
@@ -1250,10 +1050,7 @@ extern class BtTriangleIndexVertexArray extends BtStridingMeshInterface {
 	}
 	#elseif cpp
 	@:native("new btTriangleIndexVertexArray")
-	static function _new():cpp.RawPointer<BtStridingMeshInterface>;
-	inline public static function create():cpp.Pointer<BtStridingMeshInterface> {
-		return cpp.Pointer.fromRaw(_new());
-	}
+	public static function create():cpp.Star<BtStridingMeshInterface>;
 	#end
 }
 
@@ -1263,7 +1060,6 @@ extern class BtTriangleIndexVertexArray extends BtStridingMeshInterface {
 #elseif cpp
 @:include("BulletCollision/CollisionShapes/btTriangleMesh.h")
 @:native("btTriangleMesh")
-// @:structAccess
 @:unreflective
 #end
 extern class BtTriangleMesh extends BtTriangleIndexVertexArray {
@@ -1272,16 +1068,9 @@ extern class BtTriangleMesh extends BtTriangleIndexVertexArray {
 	public static inline function create(use32bitIndices:Bool = true, use4componentVertices:Bool = true):BtTriangleMesh {
 		return new BtTriangleMesh(use32bitIndices, use4componentVertices);
 	}
-	var ptr(get, never):BtTriangleMesh;
-	public inline function get_ptr():BtTriangleMesh { return this; }
-	var value(get, never):BtTriangleMesh;
-	public inline function get_value():BtTriangleMesh { return this; }
 	#elseif cpp
 	@:native("new btTriangleMesh")
-	static function _new(use32bitIndices:Bool = true, use4componentVertices:Bool = true):cpp.RawPointer<BtTriangleMesh>;
-	inline public static function create(use32bitIndices:Bool = true, use4componentVertices:Bool = true):cpp.Pointer<BtTriangleMesh> {
-		return cpp.Pointer.fromRaw(_new(use32bitIndices, use4componentVertices));
-	}
+	public static function create(use32bitIndices:Bool = true, use4componentVertices:Bool = true):cpp.Star<BtTriangleMesh>;
 	#end
 	public function addTriangle(vertex0:BtVector3, vertex1:BtVector3, vertex2:BtVector3, removeDuplicateVertices:Bool = false):Void;
 }
@@ -1293,7 +1082,6 @@ extern class BtTriangleMesh extends BtTriangleIndexVertexArray {
 #elseif cpp
 @:include("BulletCollision/CollisionShapes/btTriangleMeshShape.h")
 @:native("btTriangleMeshShape")
-@:structAccess
 @:unreflective
 #end
 extern class BtTriangleMeshShape extends BtConcaveShape {
@@ -1304,10 +1092,7 @@ extern class BtTriangleMeshShape extends BtConcaveShape {
 	}
 	#elseif cpp
 	@:native("new btTriangleMeshShape")
-	static function _new(meshInterface:cpp.Pointer<Dynamic>):cpp.RawPointer<BtCollisionShape>;
-	inline public static function create(meshInterface:cpp.Pointer<Dynamic>):cpp.Pointer<BtCollisionShape> {
-		return cpp.Pointer.fromRaw(_new(meshInterface));
-	}
+	public static function create(meshInterface:cpp.Star<BtStridingMeshInterface>):cpp.Star<BtCollisionShape>;
 	#end
 }
 
@@ -1317,7 +1102,6 @@ extern class BtTriangleMeshShape extends BtConcaveShape {
 #elseif cpp
 @:include("BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h")
 @:native("btBvhTriangleMeshShape")
-@:structAccess
 @:unreflective
 #end
 extern class BtBvhTriangleMeshShape extends BtTriangleMeshShape {
@@ -1328,10 +1112,7 @@ extern class BtBvhTriangleMeshShape extends BtTriangleMeshShape {
 	}
 	#elseif cpp
 	@:native("new btBvhTriangleMeshShape")
-	static function _new(meshInterface:cpp.Pointer<Dynamic>, useQuantizedAabbCompression:Bool, buildBvh:Bool = true):cpp.RawPointer<BtCollisionShape>;
-	inline public static function create(meshInterface:cpp.Pointer<Dynamic>, useQuantizedAabbCompression:Bool, buildBvh:Bool = true):cpp.Pointer<BtCollisionShape> {
-		return cpp.Pointer.fromRaw(_new(meshInterface, useQuantizedAabbCompression, buildBvh));
-	}
+	public static function create(meshInterface:cpp.Star<BtStridingMeshInterface>, useQuantizedAabbCompression:Bool, buildBvh:Bool = true):cpp.Star<BtCollisionShape>;
 	#end
 }
 
@@ -1341,8 +1122,8 @@ extern class BtBvhTriangleMeshShape extends BtTriangleMeshShape {
 #elseif cpp
 @:include("BulletDynamics/Vehicle/btRaycastVehicle.h")
 @:native("btRaycastVehicle::btVehicleTuning")
-@:structAccess
 @:unreflective
+@:structAccess
 #end
 extern class BtVehicleTuning extends BtActionInterface {
 	#if js
@@ -1350,14 +1131,9 @@ extern class BtVehicleTuning extends BtActionInterface {
 	public static inline function create():BtVehicleTuning {
 		return new BtVehicleTuning();
 	}
-	var value(get, never):BtVehicleTuning;
-	public inline function get_value():BtVehicleTuning { return this; }
 	#elseif cpp
-	@:native("new btRaycastVehicle::btVehicleTuning")
-	static function _new():cpp.RawPointer<BtVehicleTuning>;
-	inline public static function create():cpp.Pointer<BtVehicleTuning> {
-		return cpp.Pointer.fromRaw(_new());
-	}
+	@:native("btRaycastVehicle::btVehicleTuning")
+	public static function create():BtVehicleTuning;
 	#end
 }
 
@@ -1367,7 +1143,6 @@ extern class BtVehicleTuning extends BtActionInterface {
 #elseif cpp
 @:include("BulletDynamics/Vehicle/btVehicleRaycaster.h")
 @:native("btVehicleRaycaster")
-@:structAccess
 @:unreflective
 #end
 extern class BtVehicleRaycaster {
@@ -1379,7 +1154,6 @@ extern class BtVehicleRaycaster {
 #elseif cpp
 @:include("BulletDynamics/Vehicle/btRaycastVehicle.h")
 @:native("btDefaultVehicleRaycaster")
-@:structAccess
 @:unreflective
 #end
 extern class BtDefaultVehicleRaycaster extends BtVehicleRaycaster {
@@ -1390,10 +1164,7 @@ extern class BtDefaultVehicleRaycaster extends BtVehicleRaycaster {
 	}
 	#elseif cpp
 	@:native("new btDefaultVehicleRaycaster")
-	static function _new(world:cpp.Pointer<Dynamic>):cpp.RawPointer<BtVehicleRaycaster>;
-	inline public static function create(world:cpp.Pointer<Dynamic>):cpp.Pointer<BtVehicleRaycaster> {
-		return cpp.Pointer.fromRaw(_new(world));
-	}
+	public static function create(world:cpp.Star<BtDynamicsWorld>):cpp.Star<BtVehicleRaycaster>;
 	#end
 }
 
@@ -1403,7 +1174,6 @@ extern class BtDefaultVehicleRaycaster extends BtVehicleRaycaster {
 #elseif cpp
 @:include("BulletDynamics/Vehicle/btWheelInfo.h")
 @:native("btWheelInfoConstructionInfo")
-@:structAccess
 @:unreflective
 #end
 extern class BtWheelInfoConstructionInfo {
@@ -1414,10 +1184,7 @@ extern class BtWheelInfoConstructionInfo {
 	}
 	#elseif cpp
 	@:native("new btWheelInfoConstructionInfo")
-	static function _new():cpp.RawPointer<BtWheelInfoConstructionInfo>;
-	inline public static function create():cpp.Pointer<BtWheelInfoConstructionInfo> {
-		return cpp.Pointer.fromRaw(_new());
-	}
+	public static function create():cpp.Star<BtWheelInfoConstructionInfo>;
 	#end
 	public var m_chassisConnectionCS:BtVector3;
 	public var m_wheelDirectionCS:BtVector3;
@@ -1440,8 +1207,8 @@ extern class BtWheelInfoConstructionInfo {
 #elseif cpp
 @:include("BulletDynamics/Vehicle/btWheelInfo.h")
 @:native("btWheelInfo")
-@:structAccess
 @:unreflective
+@:structAccess
 #end
 extern class BtWheelInfo {
 	#if js
@@ -1450,11 +1217,6 @@ extern class BtWheelInfo {
 		return new BtWheelInfo(ci);
 	}
 	#elseif cpp
-	// @:native("btWheelInfo")
-	// static function _new(ci:BtWheelInfoConstructionInfo):cpp.RawPointer<BtWheelInfo>;
-	// inline public static function create(ci:BtWheelInfoConstructionInfo):cpp.Pointer<BtWheelInfo> {
-		// return cpp.Pointer.fromRaw(_new(ci));
-	// }
 	@:native("btWheelInfo")
 	public static function create(ci:BtWheelInfoConstructionInfo):BtWheelInfo;
 	#end
@@ -1471,7 +1233,6 @@ extern class BtWheelInfo {
 #elseif cpp
 @:include("BulletDynamics/Vehicle/btRaycastVehicle.h")
 @:native("btRaycastVehicle")
-// @:structAccess
 @:unreflective
 #end
 extern class BtRaycastVehicle extends BtActionInterface {
@@ -1480,16 +1241,9 @@ extern class BtRaycastVehicle extends BtActionInterface {
 	public static inline function create(tuning:BtVehicleTuning, chassis:BtRigidBody, raycaster:BtVehicleRaycaster):BtRaycastVehicle {
 		return new BtRaycastVehicle(tuning, chassis, raycaster);
 	}
-	var ptr(get, never):BtRaycastVehicle;
-	public inline function get_ptr():BtRaycastVehicle { return this; }
-	var value(get, never):BtRaycastVehicle;
-	public inline function get_value():BtRaycastVehicle { return this; }
 	#elseif cpp
 	@:native("new btRaycastVehicle")
-	static function _new(tuning:BtVehicleTuning, chassis:cpp.Pointer<BtRigidBody>, raycaster:cpp.Pointer<BtVehicleRaycaster>):cpp.RawPointer<BtRaycastVehicle>;
-	inline public static function create(tuning:BtVehicleTuning, chassis:cpp.Pointer<BtRigidBody>, raycaster:cpp.Pointer<BtVehicleRaycaster>):cpp.Pointer<BtRaycastVehicle> {
-		return cpp.Pointer.fromRaw(_new(tuning, chassis, raycaster));
-	}
+	public static function create(tuning:BtVehicleTuning, chassis:cpp.Star<BtRigidBody>, raycaster:cpp.Star<BtVehicleRaycaster>):cpp.Star<BtRaycastVehicle>;
 	#end
 	public function setCoordinateSystem(rightIndex:Int, upIndex:Int, forwardIndex:Int):Void;
 	public function addWheel(connectionPointCS0:BtVector3, wheelDirectionCS0:BtVector3, wheelAxleCS:BtVector3, suspensionRestLength:BtScalar, wheelRadius:BtScalar, tuning:BtVehicleTuning, isFrontWheel:Bool):BtWheelInfo;
@@ -1509,7 +1263,6 @@ extern class BtRaycastVehicle extends BtActionInterface {
 #elseif cpp
 @:include("BulletCollision/NarrowPhaseCollision/btPersistentManifold.h")
 @:native("btPersistentManifold")
-@:structAccess
 @:unreflective
 #end
 extern class BtPersistentManifold extends BtTypedObject {
@@ -1518,18 +1271,13 @@ extern class BtPersistentManifold extends BtTypedObject {
 	public static inline function create():BtPersistentManifold {
 		return new BtPersistentManifold();
 	}
-	var value(get, never):BtPersistentManifold;
-	public inline function get_value():BtPersistentManifold { return this; }
 	public function getBody0():BtCollisionObject;
 	public function getBody1():BtCollisionObject;
 	#elseif cpp
 	@:native("new btRaycastVehicle")
-	static function _new():cpp.RawPointer<BtPersistentManifold>;
-	inline public static function create():cpp.Pointer<BtPersistentManifold> {
-		return cpp.Pointer.fromRaw(_new());
-	}
-	public function getBody0():cpp.Pointer<BtCollisionObject>;
-	public function getBody1():cpp.Pointer<BtCollisionObject>;
+	public static function create():cpp.Star<BtPersistentManifold>;
+	public function getBody0():cpp.Star<BtCollisionObject>;
+	public function getBody1():cpp.Star<BtCollisionObject>;
 	#end
 	public function getNumContacts():Int;
 	public function getContactPoint(index:Int):BtManifoldPoint;
@@ -1541,8 +1289,8 @@ extern class BtPersistentManifold extends BtTypedObject {
 #elseif cpp
 @:include("BulletCollision/NarrowPhaseCollision/btManifoldPoint.h")
 @:native("btManifoldPoint")
-@:structAccess
 @:unreflective
+@:structAccess
 #end
 extern class BtManifoldPoint {
 	#if js
@@ -1554,11 +1302,8 @@ extern class BtManifoldPoint {
 	public function get_m_positionWorldOnB():BtVector3;
 	public function get_m_normalWorldOnB():BtVector3;
 	#elseif cpp
-	@:native("new btManifoldPoint")
-	static function _new():cpp.RawPointer<BtPersistentManifold>;
-	inline public static function create():cpp.Pointer<BtPersistentManifold> {
-		return cpp.Pointer.fromRaw(_new());
-	}
+	@:native("btManifoldPoint")
+	public static function create():BtPersistentManifold;
 	public var m_positionWorldOnA:BtVector3;
 	public var m_positionWorldOnB:BtVector3;
 	public var m_normalWorldOnB:BtVector3;
@@ -1573,7 +1318,6 @@ extern class BtManifoldPoint {
 #elseif cpp
 @:include("BulletDynamics/ConstraintSolver/btTypedConstraint.h")
 @:native("btTypedConstraint")
-@:structAccess
 @:unreflective
 #end
 extern class BtTypedConstraint extends BtTypedObject {
@@ -1585,7 +1329,6 @@ extern class BtTypedConstraint extends BtTypedObject {
 #elseif cpp
 @:include("BulletDynamics/ConstraintSolver/btGeneric6DofConstraint.h")
 @:native("btGeneric6DofConstraint")
-@:structAccess
 @:unreflective
 #end
 extern class BtGeneric6DofConstraint extends BtTypedConstraint {
@@ -1598,14 +1341,9 @@ extern class BtGeneric6DofConstraint extends BtTypedConstraint {
 	public static inline function create(rbB:BtRigidBody, frameInB:BtTransform, useLinearReferenceFrameB:Bool):BtGeneric6DofConstraint {
 		return new BtGeneric6DofConstraint(rbB, frameInB, useLinearReferenceFrameB);
 	}
-	var value(get, never):BtGeneric6DofConstraint;
-	public inline function get_value():BtGeneric6DofConstraint { return this; }
 	#elseif cpp
 	@:native("new btGeneric6DofConstraint")
-	static function _new(rbB:BtRigidBody, frameInB:BtTransform, useLinearReferenceFrameB:Bool):cpp.RawPointer<BtGeneric6DofConstraint>;
-	inline public static function create(rbB:BtRigidBody, frameInB:BtTransform, useLinearReferenceFrameB:Bool):cpp.Pointer<BtGeneric6DofConstraint> {
-		return cpp.Pointer.fromRaw(_new(rbB, frameInB, useLinearReferenceFrameB));
-	}
+	public static function create(rbB:BtRigidBody, frameInB:BtTransform, useLinearReferenceFrameB:Bool):cpp.Star<BtGeneric6DofConstraint>;
 	public function setFrameOffsetAOrigin(v:BtVector3):Void; // TODO: TEMP
 	#end
 	public function setLinearLowerLimit(linearLower:BtVector3):Void;
@@ -1622,7 +1360,6 @@ extern class BtGeneric6DofConstraint extends BtTypedConstraint {
 #elseif cpp
 @:include("BulletSoftBody/btSoftBody.h")
 @:native("btSoftBody::Config")
-@:structAccess
 @:unreflective
 #end
 extern class Config {
@@ -1649,7 +1386,6 @@ extern class Config {
 #elseif cpp
 @:include("BulletSoftBody/btSoftBody.h")
 @:native("btAlignedObjectArray<btSoftBody::Node>")
-@:structAccess
 @:unreflective
 #end
 extern class TNodeArray {
@@ -1662,7 +1398,6 @@ extern class TNodeArray {
 #elseif cpp
 @:include("BulletSoftBody/btSoftBody.h")
 @:native("btSoftBody::Node")
-@:structAccess
 @:unreflective
 #end
 extern class Node {
@@ -1681,13 +1416,10 @@ extern class Node {
 #elseif cpp
 @:include("BulletSoftBody/btSoftBody.h")
 @:native("btSoftBody")
-@:structAccess
 @:unreflective
 #end
 extern class BtSoftBody extends BtCollisionObject {
 	#if js
-	var ptr(get, never):BtSoftBody;
-	public inline function get_ptr():BtSoftBody { return this; }
 	public function get_m_nodes():TNodeArray;
 	public function get_m_cfg():Config;
 	#elseif cpp
@@ -1704,9 +1436,9 @@ extern class BtSoftBody extends BtCollisionObject {
 @:native('Ammo.btSoftBodyHelpers')
 #elseif cpp
 @:include("BulletSoftBody/btSoftBodyHelpers.h")
-@:native("cpp::Struct<btSoftBodyHelpers>")
-// @:structAccess
+@:native("btSoftBodyHelpers")
 @:unreflective
+@:structAccess
 #end
 extern class BtSoftBodyHelpers {
 	#if js
@@ -1714,13 +1446,9 @@ extern class BtSoftBodyHelpers {
 	public static inline function create():BtSoftBodyHelpers {
 		return new BtSoftBodyHelpers();
 	}
-	var value(get, never):BtSoftBodyHelpers;
-	public inline function get_value():BtSoftBodyHelpers { return this; }
 	#elseif cpp
 	@:native("btSoftBodyHelpers")
 	public static function create():BtSoftBodyHelpers;
-	var value(get, never):BtSoftBodyHelpers;
-	public inline function get_value():BtSoftBodyHelpers { return this; }
 	#end
 	function CreateFromTriMesh(worldInfo:BtSoftBodyWorldInfo, vertices:haxe.ds.Vector<BtScalar>, triangles:haxe.ds.Vector<Int>, ntriangles:Int, randomizeConstraints:Bool = true):BtSoftBodyPointer;
 }
@@ -1736,9 +1464,6 @@ extern class Ammo {
 
 // ------------------------------------------------------
 #if js
-typedef BtVector3Pointer = BtVector3;
-typedef BtQuaternionPointer = BtQuaternion;
-typedef BtTransformPointer = BtTransform;
 typedef BtRigidBodyPointer = BtRigidBody;
 typedef BtSoftBodyPointer = BtSoftBody;
 typedef BtCollisionShapePointer = BtCollisionShape;
@@ -1748,25 +1473,20 @@ typedef BtTriangleMeshPointer = BtTriangleMesh;
 typedef BtDiscreteDynamicsWorldPointer = BtDiscreteDynamicsWorld;
 typedef BtSoftRigidDynamicsWorldPointer = BtSoftRigidDynamicsWorld;
 typedef BtCollisionDispatcherPointer = BtCollisionDispatcher;
-typedef ClosestRayResultCallbackPointer = ClosestRayResultCallback;
 typedef BtGeneric6DofConstraintPointer = BtGeneric6DofConstraint;
 typedef BtRaycastVehiclePointer = BtRaycastVehicle;
 typedef BtMotionStatePointer = BtMotionState;
 #elseif cpp
-typedef BtVector3Pointer = BtVector3;
-typedef BtQuaternionPointer = BtQuaternion;
-typedef BtTransformPointer = BtTransform;
-typedef BtRigidBodyPointer = cpp.Pointer<BtRigidBody>;
-typedef BtSoftBodyPointer = cpp.Pointer<BtSoftBody>;
-typedef BtCollisionShapePointer = cpp.Pointer<BtCollisionShape>;
-typedef BtConvexHullShapePointer = cpp.Pointer<BtConvexHullShape>;
-typedef BtCompoundShapePointer = cpp.Pointer<BtCompoundShape>;
-typedef BtTriangleMeshPointer = cpp.Pointer<BtTriangleMesh>;
-typedef BtDiscreteDynamicsWorldPointer = cpp.Pointer<BtDiscreteDynamicsWorld>;
-typedef BtSoftRigidDynamicsWorldPointer = cpp.Pointer<BtSoftRigidDynamicsWorld>;
-typedef BtCollisionDispatcherPointer = cpp.Pointer<BtCollisionDispatcher>;
-typedef ClosestRayResultCallbackPointer = cpp.Pointer<ClosestRayResultCallback>;
-typedef BtGeneric6DofConstraintPointer = cpp.Pointer<BtGeneric6DofConstraint>;
-typedef BtRaycastVehiclePointer = cpp.Pointer<BtRaycastVehicle>;
-typedef BtMotionStatePointer = cpp.Pointer<BtMotionState>;
+typedef BtRigidBodyPointer = cpp.Star<BtRigidBody>;
+typedef BtSoftBodyPointer = cpp.Star<BtSoftBody>;
+typedef BtCollisionShapePointer = cpp.Star<BtCollisionShape>;
+typedef BtConvexHullShapePointer = cpp.Star<BtConvexHullShape>;
+typedef BtCompoundShapePointer = cpp.Star<BtCompoundShape>;
+typedef BtTriangleMeshPointer = cpp.Star<BtTriangleMesh>;
+typedef BtDiscreteDynamicsWorldPointer = cpp.Star<BtDiscreteDynamicsWorld>;
+typedef BtSoftRigidDynamicsWorldPointer = cpp.Star<BtSoftRigidDynamicsWorld>;
+typedef BtCollisionDispatcherPointer = cpp.Star<BtCollisionDispatcher>;
+typedef BtGeneric6DofConstraintPointer = cpp.Star<BtGeneric6DofConstraint>;
+typedef BtRaycastVehiclePointer = cpp.Star<BtRaycastVehicle>;
+typedef BtMotionStatePointer = cpp.Star<BtMotionState>;
 #end
