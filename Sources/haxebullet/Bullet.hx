@@ -568,6 +568,7 @@ extern class BtDiscreteDynamicsWorld extends BtDynamicsWorld {
 @:include("BulletSoftBody/btSoftBody.h")
 @:native("btSoftBodyWorldInfo")
 @:unreflective
+@:structAccess
 #end
 extern class BtSoftBodyWorldInfo {
 	#if js
@@ -1361,6 +1362,7 @@ extern class BtGeneric6DofConstraint extends BtTypedConstraint {
 @:include("BulletSoftBody/btSoftBody.h")
 @:native("btSoftBody::Config")
 @:unreflective
+@:structAccess
 #end
 extern class Config {
 	#if js
@@ -1387,6 +1389,7 @@ extern class Config {
 @:include("BulletSoftBody/btSoftBody.h")
 @:native("btAlignedObjectArray<btSoftBody::Node>")
 @:unreflective
+@:structAccess
 #end
 extern class TNodeArray {
 	public function at(i:Int):Node;
@@ -1399,6 +1402,7 @@ extern class TNodeArray {
 @:include("BulletSoftBody/btSoftBody.h")
 @:native("btSoftBody::Node")
 @:unreflective
+@:structAccess
 #end
 extern class Node {
 	#if js
@@ -1429,6 +1433,7 @@ extern class BtSoftBody extends BtCollisionObject {
 	public function setTotalMass(mass:BtScalar, fromfaces:Bool = false):Void;
 	public function generateClusters(k:Int, maxiterations:Int = 8192):Void;
 	// public function generateBendingConstraints(distance:Int, mat:Dynamic = 0):Void;
+	public function appendAnchor(node:Int, body:BtRigidBody, disableCollisionBetweenLinkedBodies:Bool, influence:Float):Void;
 }
 
 // ------------------------------------------------------
