@@ -207,6 +207,7 @@ extern class BtCollisionObject {
 	#end
 	public function setFriction(frict:BtScalar):Void;
 	public function setRollingFriction(frict:BtScalar):Void;
+	public function setRestitution(rest:BtScalar):Void;
 	public function setContactProcessingThreshold(contactProcessingThreshold:BtScalar):Void;
 	public function getCollisionShape():BtCollisionShape;
 }
