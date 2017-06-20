@@ -3033,9 +3033,9 @@ void btSoftBody::PSolve_RContacts(btSoftBody* psb, btScalar kst, btScalar ti)
 		if (cti.m_colObj->hasContactResponse()) 
 		{
             btVector3 va(0,0,0);
-            btRigidBody* rigidCol;
-            btMultiBodyLinkCollider* multibodyLinkCol;
-            btScalar* deltaV;
+            btRigidBody* rigidCol = NULL;
+            btMultiBodyLinkCollider* multibodyLinkCol = NULL;
+            btScalar* deltaV = NULL;
             btMultiBodyJacobianData jacobianData;
             if (cti.m_colObj->getInternalType() == btCollisionObject::CO_RIGID_BODY)
             {
