@@ -84,6 +84,7 @@ extern class BtQuaternion {
 @:include("BulletDynamics/Dynamics/btActionInterface.h")
 @:native("btActionInterface")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtActionInterface {
 }
@@ -137,6 +138,7 @@ extern class BtMotionState {
 @:include("LinearMath/btDefaultMotionState.h")
 @:native("btDefaultMotionState")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtDefaultMotionState extends BtMotionState {
 	#if js
@@ -180,6 +182,7 @@ extern class BtRigidBodyConstructionInfo {
 @:include("BulletCollision/CollisionDispatch/btCollisionObject.h")
 @:native("btCollisionObject")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtCollisionObject {
 	public static inline var ACTIVE_TAG = 1;
@@ -219,6 +222,7 @@ extern class BtCollisionObject {
 @:include("BulletDynamics/Dynamics/btRigidBody.h")
 @:native("btRigidBody")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtRigidBody extends BtCollisionObject {
 	#if js
@@ -258,6 +262,7 @@ extern class BtRigidBody extends BtCollisionObject {
 @:include("BulletCollision/CollisionDispatch/btCollisionConfiguration.h")
 @:native("btCollisionConfiguration")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtCollisionConfiguration {
 }
@@ -269,6 +274,7 @@ extern class BtCollisionConfiguration {
 @:include("BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h")
 @:native("btDefaultCollisionConfiguration")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtDefaultCollisionConfiguration extends BtCollisionConfiguration {
 	#if js
@@ -289,6 +295,7 @@ extern class BtDefaultCollisionConfiguration extends BtCollisionConfiguration {
 @:include("BulletSoftBody/btSoftBodyRigidBodyCollisionConfiguration.h")
 @:native("btSoftBodyRigidBodyCollisionConfiguration")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtSoftBodyRigidBodyCollisionConfiguration extends BtCollisionConfiguration {
 	#if js
@@ -309,6 +316,7 @@ extern class BtSoftBodyRigidBodyCollisionConfiguration extends BtCollisionConfig
 @:include("BulletCollision/BroadphaseCollision/btDispatcher.h")
 @:native("btDispatcher")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtDispatcher {
 }
@@ -320,6 +328,7 @@ extern class BtDispatcher {
 @:include("BulletCollision/CollisionDispatch/btCollisionDispatcher.h")
 @:native("btCollisionDispatcher")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtCollisionDispatcher extends BtDispatcher {
 	#if js
@@ -343,6 +352,7 @@ extern class BtCollisionDispatcher extends BtDispatcher {
 @:include("BulletCollision/BroadphaseCollision/btBroadphaseInterface.h")
 @:native("btBroadphaseInterface")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtBroadphaseInterface {
 }
@@ -354,6 +364,7 @@ extern class BtBroadphaseInterface {
 @:include("BulletCollision/BroadphaseCollision/btDbvtBroadphase.h")
 @:native("btDbvtBroadphase")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtDbvtBroadphase extends BtBroadphaseInterface {
 	#if js
@@ -374,6 +385,7 @@ extern class BtDbvtBroadphase extends BtBroadphaseInterface {
 @:include("BulletCollision/BroadphaseCollision/btAxisSweep3.h")
 @:native("btAxisSweep3")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtAxisSweep3 extends BtBroadphaseInterface {
 	#if js
@@ -394,6 +406,7 @@ extern class BtAxisSweep3 extends BtBroadphaseInterface {
 @:include("BulletDynamics/ConstraintSolver/btConstraintSolver.h")
 @:native("btConstraintSolver")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtConstraintSolver {
 }
@@ -405,6 +418,7 @@ extern class BtConstraintSolver {
 @:include("BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h")
 @:native("btSequentialImpulseConstraintSolver")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtSequentialImpulseConstraintSolver extends BtConstraintSolver {
 	#if js
@@ -425,6 +439,7 @@ extern class BtSequentialImpulseConstraintSolver extends BtConstraintSolver {
 @:include("BulletSoftBody/btDefaultSoftBodySolver.h")
 @:native("btDefaultSoftBodySolver")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtDefaultSoftBodySolver extends BtConstraintSolver {
 	#if js
@@ -503,6 +518,7 @@ extern class ConcreteContactResultCallback extends RayResultCallback {
 @:include("BulletCollision/CollisionDispatch/btCollisionWorld.h")
 @:native("btCollisionWorld")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtCollisionWorld {
 	public function rayTest(rayFromWorld:BtVector3, rayToWorld:BtVector3, resultCallback:RayResultCallback):Void;
@@ -515,6 +531,7 @@ extern class BtCollisionWorld {
 @:include("BulletDynamics/Dynamics/btDynamicsWorld.h")
 @:native("btDynamicsWorld")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtDynamicsWorld extends BtCollisionWorld {
 	#if js
@@ -549,6 +566,7 @@ extern class BtDynamicsWorld extends BtCollisionWorld {
 @:include("BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h")
 @:native("btDiscreteDynamicsWorld")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtDiscreteDynamicsWorld extends BtDynamicsWorld {
 	#if js
@@ -570,6 +588,7 @@ extern class BtDiscreteDynamicsWorld extends BtDynamicsWorld {
 @:native("btSoftBodyWorldInfo")
 @:unreflective
 @:structAccess
+@:structAccess //////
 #end
 extern class BtSoftBodyWorldInfo {
 	#if js
@@ -586,6 +605,7 @@ extern class BtSoftBodyWorldInfo {
 @:include("BulletSoftBody/btSoftRigidDynamicsWorld.h")
 @:native("btSoftRigidDynamicsWorld")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtSoftRigidDynamicsWorld extends BtDynamicsWorld {
 	#if js
@@ -611,6 +631,7 @@ extern class BtSoftRigidDynamicsWorld extends BtDynamicsWorld {
 @:include("BulletDynamics/Dynamics/btSimpleDynamicsWorld.h")
 @:native("btSimpleDynamicsWorld")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtSimpleDynamicsWorld extends BtDynamicsWorld {
 	#if js
@@ -631,6 +652,7 @@ extern class BtSimpleDynamicsWorld extends BtDynamicsWorld {
 @:include("BulletCollision/CollisionShapes/btCollisionShape.h")
 @:native("btCollisionShape")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtCollisionShape {
 	public function calculateLocalInertia(mass:BtScalar, inertia:BtVector3):Void;
@@ -644,6 +666,7 @@ extern class BtCollisionShape {
 @:include("BulletCollision/CollisionShapes/btCompoundShape.h")
 @:native("btCompoundShape")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtCompoundShape extends BtCollisionShape {
 	#if js
@@ -666,6 +689,7 @@ extern class BtCompoundShape extends BtCollisionShape {
 @:include("BulletCollision/CollisionShapes/btConvexShape.h")
 @:native("btConvexShape")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtConvexShape extends BtCollisionShape {
 }
@@ -677,6 +701,7 @@ extern class BtConvexShape extends BtCollisionShape {
 @:include("BulletCollision/CollisionShapes/btConcaveShape.h")
 @:native("btConcaveShape")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtConcaveShape extends BtCollisionShape {
 }
@@ -688,6 +713,7 @@ extern class BtConcaveShape extends BtCollisionShape {
 @:include("BulletCollision/CollisionShapes/btConvexInternalShape.h")
 @:native("btConvexInternalShape")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtConvexInternalShape extends BtConvexShape {
 }
@@ -699,6 +725,7 @@ extern class BtConvexInternalShape extends BtConvexShape {
 @:include("BulletCollision/CollisionShapes/btPolyhedralConvexShape.h")
 @:native("btPolyhedralConvexShape")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtPolyhedralConvexShape extends BtConvexInternalShape {
 }
@@ -710,6 +737,7 @@ extern class BtPolyhedralConvexShape extends BtConvexInternalShape {
 @:include("BulletCollision/CollisionShapes/btBoxShape.h")
 @:native("btBoxShape")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtBoxShape extends BtPolyhedralConvexShape {
 	#if js
@@ -730,6 +758,7 @@ extern class BtBoxShape extends BtPolyhedralConvexShape {
 @:include("BulletCollision/CollisionShapes/btSphereShape.h")
 @:native("btSphereShape")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtSphereShape extends BtConvexInternalShape {
 	#if js
@@ -750,6 +779,7 @@ extern class BtSphereShape extends BtConvexInternalShape {
 @:include("BulletCollision/CollisionShapes/btStaticPlaneShape.h")
 @:native("btStaticPlaneShape")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtStaticPlaneShape extends BtConcaveShape {
 	#if js
@@ -770,6 +800,7 @@ extern class BtStaticPlaneShape extends BtConcaveShape {
 @:include("BulletCollision/CollisionShapes/btPolyhedralConvexShape.h")
 @:native("btPolyhedralConvexAabbCachingShape")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtPolyhedralConvexAabbCachingShape extends BtPolyhedralConvexShape {
 }
@@ -781,6 +812,7 @@ extern class BtPolyhedralConvexAabbCachingShape extends BtPolyhedralConvexShape 
 @:include("BulletCollision/CollisionShapes/btConvexHullShape.h")
 @:native("btConvexHullShape")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtConvexHullShape extends BtPolyhedralConvexAabbCachingShape {
 	#if js
@@ -802,6 +834,7 @@ extern class BtConvexHullShape extends BtPolyhedralConvexAabbCachingShape {
 @:include("BulletCollision/CollisionShapes/btCapsuleShape.h")
 @:native("btCapsuleShape")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtCapsuleShape extends BtConvexInternalShape {
 	#if js
@@ -822,6 +855,7 @@ extern class BtCapsuleShape extends BtConvexInternalShape {
 @:include("BulletCollision/CollisionShapes/btCapsuleShape.h")
 @:native("btCapsuleShapeX")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtCapsuleShapeX extends BtCapsuleShape {
 	#if js
@@ -842,6 +876,7 @@ extern class BtCapsuleShapeX extends BtCapsuleShape {
 @:include("BulletCollision/CollisionShapes/btCapsuleShape.h")
 @:native("btCapsuleShapeZ")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtCapsuleShapeZ extends BtCapsuleShape {
 	#if js
@@ -862,6 +897,7 @@ extern class BtCapsuleShapeZ extends BtCapsuleShape {
 @:include("BulletCollision/CollisionShapes/btCylinderShape.h")
 @:native("btCylinderShape")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtCylinderShape extends BtConvexInternalShape {
 	#if js
@@ -882,6 +918,7 @@ extern class BtCylinderShape extends BtConvexInternalShape {
 @:include("BulletCollision/CollisionShapes/btCylinderShape.h")
 @:native("btCylinderShapeX")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtCylinderShapeX extends BtCylinderShape {
 	#if js
@@ -902,6 +939,7 @@ extern class BtCylinderShapeX extends BtCylinderShape {
 @:include("BulletCollision/CollisionShapes/btCylinderShape.h")
 @:native("btCylinderShapeZ")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtCylinderShapeZ extends BtCylinderShape {
 	#if js
@@ -922,6 +960,7 @@ extern class BtCylinderShapeZ extends BtCylinderShape {
 @:include("BulletCollision/CollisionShapes/btConeShape.h")
 @:native("btConeShape")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtConeShape extends BtConvexInternalShape {
 	#if js
@@ -942,6 +981,7 @@ extern class BtConeShape extends BtConvexInternalShape {
 @:include("BulletCollision/CollisionShapes/btConeShape.h")
 @:native("btConeShapeX")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtConeShapeX extends BtConeShape {
 	#if js
@@ -962,6 +1002,7 @@ extern class BtConeShapeX extends BtConeShape {
 @:include("BulletCollision/CollisionShapes/btConeShape.h")
 @:native("btConeShapeZ")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtConeShapeZ extends BtConeShape {
 	#if js
@@ -982,6 +1023,7 @@ extern class BtConeShapeZ extends BtConeShape {
 @:include("BulletCollision/CollisionShapes/btHeightfieldTerrainShape.h")
 @:native("btHeightfieldTerrainShape")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtHeightfieldTerrainShape extends BtConcaveShape {
 	// heightDataType - float, double, integet, short, fixedpoint88, uchar
@@ -1003,6 +1045,7 @@ extern class BtHeightfieldTerrainShape extends BtConcaveShape {
 @:include("BulletCollision/CollisionShapes/btStridingMeshInterface.h")
 @:native("btStridingMeshInterface")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtStridingMeshInterface {
 	#if js
@@ -1023,6 +1066,7 @@ extern class BtStridingMeshInterface {
 @:include("BulletCollision/CollisionShapes/btTriangleIndexVertexArray.h")
 @:native("btIndexedMesh")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtIndexedMesh {
 	#if js
@@ -1043,6 +1087,7 @@ extern class BtIndexedMesh {
 @:include("BulletCollision/CollisionShapes/btTriangleIndexVertexArray.h")
 @:native("btTriangleIndexVertexArray")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtTriangleIndexVertexArray extends BtStridingMeshInterface {
 	#if js
@@ -1063,6 +1108,7 @@ extern class BtTriangleIndexVertexArray extends BtStridingMeshInterface {
 @:include("BulletCollision/CollisionShapes/btTriangleMesh.h")
 @:native("btTriangleMesh")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtTriangleMesh extends BtTriangleIndexVertexArray {
 	#if js
@@ -1085,6 +1131,7 @@ extern class BtTriangleMesh extends BtTriangleIndexVertexArray {
 @:include("BulletCollision/CollisionShapes/btTriangleMeshShape.h")
 @:native("btTriangleMeshShape")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtTriangleMeshShape extends BtConcaveShape {
 	#if js
@@ -1105,6 +1152,7 @@ extern class BtTriangleMeshShape extends BtConcaveShape {
 @:include("BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h")
 @:native("btBvhTriangleMeshShape")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtBvhTriangleMeshShape extends BtTriangleMeshShape {
 	#if js
@@ -1146,6 +1194,7 @@ extern class BtVehicleTuning extends BtActionInterface {
 @:include("BulletDynamics/Vehicle/btVehicleRaycaster.h")
 @:native("btVehicleRaycaster")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtVehicleRaycaster {
 }
@@ -1157,6 +1206,7 @@ extern class BtVehicleRaycaster {
 @:include("BulletDynamics/Vehicle/btRaycastVehicle.h")
 @:native("btDefaultVehicleRaycaster")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtDefaultVehicleRaycaster extends BtVehicleRaycaster {
 	#if js
@@ -1177,6 +1227,7 @@ extern class BtDefaultVehicleRaycaster extends BtVehicleRaycaster {
 @:include("BulletDynamics/Vehicle/btWheelInfo.h")
 @:native("btWheelInfoConstructionInfo")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtWheelInfoConstructionInfo {
 	#if js
@@ -1236,6 +1287,7 @@ extern class BtWheelInfo {
 @:include("BulletDynamics/Vehicle/btRaycastVehicle.h")
 @:native("btRaycastVehicle")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtRaycastVehicle extends BtActionInterface {
 	#if js
@@ -1266,6 +1318,7 @@ extern class BtRaycastVehicle extends BtActionInterface {
 @:include("BulletCollision/NarrowPhaseCollision/btPersistentManifold.h")
 @:native("btPersistentManifold")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtPersistentManifold extends BtTypedObject {
 	#if js
@@ -1321,6 +1374,7 @@ extern class BtManifoldPoint {
 @:include("BulletDynamics/ConstraintSolver/btTypedConstraint.h")
 @:native("btTypedConstraint")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtTypedConstraint extends BtTypedObject {
 }
@@ -1332,6 +1386,7 @@ extern class BtTypedConstraint extends BtTypedObject {
 @:include("BulletDynamics/ConstraintSolver/btGeneric6DofConstraint.h")
 @:native("btGeneric6DofConstraint")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtGeneric6DofConstraint extends BtTypedConstraint {
 	//BT_CONSTRAINT_ERP=1,
@@ -1422,6 +1477,7 @@ extern class Node {
 @:include("BulletSoftBody/btSoftBody.h")
 @:native("btSoftBody")
 @:unreflective
+@:structAccess //////
 #end
 extern class BtSoftBody extends BtCollisionObject {
 	#if js
