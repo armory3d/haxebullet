@@ -1413,6 +1413,28 @@ extern class BtGeneric6DofConstraint extends BtTypedConstraint {
 
 // ------------------------------------------------------
 #if js
+@:native('Ammo.btHingeConstraint')
+#elseif cpp
+@:include("BulletDynamics/ConstraintSolver/btHingeConstraint.h")
+@:native("btHingeConstraint")
+@:unreflective
+@:structAccess //////
+#end
+extern class BtHingeConstraint extends BtTypedConstraint {
+	#if js
+	public function new(rbA:BtRigidBody, rbB:BtRigidBody, pivotInA:BtVector3, pivotInB:BtVector3, axisInA:BtVector3, axisInB:BtVector3, useReferenceFrameA:Bool = false):Void;
+	public static inline function create(rbA:BtRigidBody, rbB:BtRigidBody, pivotInA:BtVector3, pivotInB:BtVector3, axisInA:BtVector3, axisInB:BtVector3, useReferenceFrameA:Bool = false):BtHingeConstraint {
+		return new BtHingeConstraint(rbA, rbB, pivotInA, pivotInB, axisInA, axisInB, useReferenceFrameA);
+	}
+	#elseif cpp
+	@:native("new btHingeConstraint")
+	public static function create(rbA:BtRigidBody, rbB:BtRigidBody, pivotInA:BtVector3, pivotInB:BtVector3, axisInA:BtVector3, axisInB:BtVector3, useReferenceFrameA:Bool = false):cpp.Star<BtHingeConstraint>;
+	#end
+	public function setLimit(low:BtScalar, high:BtScalar, _softness:BtScalar = 0.9, _biasFactor:BtScalar = 0.3, _relaxationFactor:BtScalar = 1.0):Void;
+}
+
+// ------------------------------------------------------
+#if js
 @:native('Ammo.Config')
 #elseif cpp
 @:include("BulletSoftBody/btSoftBody.h")
@@ -1536,6 +1558,7 @@ typedef BtDiscreteDynamicsWorldPointer = BtDiscreteDynamicsWorld;
 typedef BtSoftRigidDynamicsWorldPointer = BtSoftRigidDynamicsWorld;
 typedef BtCollisionDispatcherPointer = BtCollisionDispatcher;
 typedef BtGeneric6DofConstraintPointer = BtGeneric6DofConstraint;
+typedef BtHingeConstraintPointer = BtHingeConstraint;
 typedef BtRaycastVehiclePointer = BtRaycastVehicle;
 typedef BtMotionStatePointer = BtMotionState;
 #elseif cpp
@@ -1549,6 +1572,7 @@ typedef BtDiscreteDynamicsWorldPointer = cpp.Star<BtDiscreteDynamicsWorld>;
 typedef BtSoftRigidDynamicsWorldPointer = cpp.Star<BtSoftRigidDynamicsWorld>;
 typedef BtCollisionDispatcherPointer = cpp.Star<BtCollisionDispatcher>;
 typedef BtGeneric6DofConstraintPointer = cpp.Star<BtGeneric6DofConstraint>;
+typedef BtHingeConstraintPointer = cpp.Star<BtHingeConstraint>;
 typedef BtRaycastVehiclePointer = cpp.Star<BtRaycastVehicle>;
 typedef BtMotionStatePointer = cpp.Star<BtMotionState>;
 #end
