@@ -191,6 +191,10 @@ extern class BtCollisionObject {
 	public static inline var DISABLE_DEACTIVATION = 4;
 	public static inline var DISABLE_SIMULATION = 5;
 
+	public static inline var CF_STATIC_OBJECT= 1;
+	public static inline var CF_KINEMATIC_OBJECT= 2;
+	public static inline var CF_NO_CONTACT_RESPONSE = 4;
+
 	public function getWorldTransform():BtTransform;
 	public function setWorldTransform(trans:BtTransform):Void;
 	public function activate(forceActivation:Bool = false):Void;
@@ -213,6 +217,8 @@ extern class BtCollisionObject {
 	public function setRestitution(rest:BtScalar):Void;
 	public function setContactProcessingThreshold(contactProcessingThreshold:BtScalar):Void;
 	public function getCollisionShape():BtCollisionShape;
+	public function setCollisionFlags(flags:Int):Void;
+	public function getCollisionFlags():Int;
 }
 
 // ------------------------------------------------------
