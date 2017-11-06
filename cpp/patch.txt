@@ -1,0 +1,5 @@
+// btGeneric6DofConstraint.h
++ void setFrameOffsetAOrigin(const btVector3& v)
++ {
++    m_frameInA.setOrigin(v);
++ }
