@@ -211,6 +211,7 @@ extern class BtCollisionObject {
 	public function isKinematicObject():Bool;
 	//public function isStaticObject():Bool; // Not available in JS
 	//public function isStaticOrKinematicObject():Bool;
+	//public function setDeactivationTime(time:BtScalar);
 	#end
 	public function setFriction(frict:BtScalar):Void;
 	public function setRollingFriction(frict:BtScalar):Void;
@@ -258,7 +259,7 @@ extern class BtRigidBody extends BtCollisionObject {
 	public function setAngularVelocity(ang_vel:BtVector3):Void;
 	public function setLinearFactor(linearFactor:BtVector3):Void;
 	public function setAngularFactor(angFac:BtVector3):Void;
-	// public function setSleepingTresholds(linear:BtScalar, angular:BtScalar):Void; // not available in ammo
+	public function setSleepingThresholds(linear:BtScalar, angular:BtScalar):Void;
 }
 
 // ------------------------------------------------------
