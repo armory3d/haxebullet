@@ -529,6 +529,7 @@ extern class ConcreteContactResultCallback extends RayResultCallback {
 #end
 extern class BtCollisionWorld {
 	public function rayTest(rayFromWorld:BtVector3, rayToWorld:BtVector3, resultCallback:RayResultCallback):Void;
+	// public function updateSingleAabb(colObj:BtCollisionObjectPointer):Void; // missing in ammo.js
 }
 
 // ------------------------------------------------------
@@ -668,6 +669,7 @@ extern class BtSimpleDynamicsWorld extends BtDynamicsWorld {
 extern class BtCollisionShape {
 	public function calculateLocalInertia(mass:BtScalar, inertia:BtVector3):Void;
 	public function setMargin(margin:Float):Void;
+	public function setLocalScaling(scaling:BtVector3):Void;
 }
 
 // ------------------------------------------------------
