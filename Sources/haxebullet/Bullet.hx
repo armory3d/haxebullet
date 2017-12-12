@@ -260,6 +260,9 @@ extern class BtRigidBody extends BtCollisionObject {
 	public function setLinearFactor(linearFactor:BtVector3):Void;
 	public function setAngularFactor(angFac:BtVector3):Void;
 	public function setSleepingThresholds(linear:BtScalar, angular:BtScalar):Void;
+	public function applyGravity():Void;
+	public function getGravity():BtVector3;
+	public function setGravity(acceleration:BtVector3):Void;
 }
 
 // ------------------------------------------------------
@@ -529,7 +532,7 @@ extern class ConcreteContactResultCallback extends RayResultCallback {
 #end
 extern class BtCollisionWorld {
 	public function rayTest(rayFromWorld:BtVector3, rayToWorld:BtVector3, resultCallback:RayResultCallback):Void;
-	// public function updateSingleAabb(colObj:BtCollisionObjectPointer):Void; // missing in ammo.js
+	public function updateSingleAabb(colObj:BtCollisionObject):Void;
 }
 
 // ------------------------------------------------------
@@ -670,6 +673,7 @@ extern class BtCollisionShape {
 	public function calculateLocalInertia(mass:BtScalar, inertia:BtVector3):Void;
 	public function setMargin(margin:Float):Void;
 	public function setLocalScaling(scaling:BtVector3):Void;
+	public function getLocalScaling():BtVector3;
 }
 
 // ------------------------------------------------------
