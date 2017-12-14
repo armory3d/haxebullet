@@ -532,7 +532,7 @@ extern class ConcreteContactResultCallback extends RayResultCallback {
 #end
 extern class BtCollisionWorld {
 	public function rayTest(rayFromWorld:BtVector3, rayToWorld:BtVector3, resultCallback:RayResultCallback):Void;
-	public function updateSingleAabb(colObj:BtCollisionObject):Void;
+	public function updateSingleAabb(colObj:BtCollisionObjectPointer):Void;
 }
 
 // ------------------------------------------------------
@@ -1565,6 +1565,7 @@ extern class Ammo {
 
 // ------------------------------------------------------
 #if js
+typedef BtCollisionObjectPointer = BtCollisionObject;
 typedef BtRigidBodyPointer = BtRigidBody;
 typedef BtSoftBodyPointer = BtSoftBody;
 typedef BtCollisionShapePointer = BtCollisionShape;
@@ -1579,6 +1580,7 @@ typedef BtHingeConstraintPointer = BtHingeConstraint;
 typedef BtRaycastVehiclePointer = BtRaycastVehicle;
 typedef BtMotionStatePointer = BtMotionState;
 #elseif cpp
+typedef BtCollisionObjectPointer = cpp.Star<BtCollisionObject>;
 typedef BtRigidBodyPointer = cpp.Star<BtRigidBody>;
 typedef BtSoftBodyPointer = cpp.Star<BtSoftBody>;
 typedef BtCollisionShapePointer = cpp.Star<BtCollisionShape>;
