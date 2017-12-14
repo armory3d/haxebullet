@@ -252,7 +252,6 @@ extern class BtRigidBody extends BtCollisionObject {
 	public function getCenterOfMassPosition():BtVector3;
 	public function getCenterOfMassTransform():BtTransform; 
 	public function setCenterOfMassTransform(trans:BtTransform):Void;
-	//public function setGravity(acceleration:BtVector3):Void; // not available in ammo
 	public function getLinearVelocity():BtVector3;
 	public function setLinearVelocity(lin_vel:BtVector3):Void;
 	public function getAngularVelocity():BtVector3;
@@ -570,6 +569,7 @@ extern class BtDynamicsWorld extends BtCollisionWorld {
 	public function addConstraint(constraint:cpp.Star<BtTypedConstraint>, disableCollisionsBetweenLinkedBodies:Bool = false):Void;
 	public function removeConstraint(constraint:cpp.Star<BtTypedConstraint>):Void;
 	#end
+	public function getGravity():BtVector3;
 	public function setGravity(v:BtVector3):Void;
 	public function stepSimulation(timeStep:BtScalar, maxSubSteps:BtScalar = 1, fixedTimeStep:BtScalar = 1.0 / 60.0):Void;
 }
