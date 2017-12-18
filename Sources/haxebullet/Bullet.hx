@@ -205,20 +205,21 @@ extern class BtCollisionObject {
 	#if js
 	public function getUserPointer():Dynamic;
 	public function setUserPointer(userPointer:Dynamic):Void;
-	public function isKinematicObject():Bool;
 	#elseif cpp
 	public function getUserPointer():cpp.Star<Dynamic>;
 	public function setUserPointer(userPointer:cpp.Star<Dynamic>):Void;
-	public function isKinematicObject():Bool;
-	//public function isStaticObject():Bool; // Not available in JS
-	//public function isStaticOrKinematicObject():Bool;
 	//public function setDeactivationTime(time:BtScalar);
 	#end
+	public function isActive():Bool;
+	public function isKinematicObject():Bool;
+	public function isStaticObject():Bool;
+	public function isStaticOrKinematicObject():Bool;
 	public function setFriction(frict:BtScalar):Void;
 	public function setRollingFriction(frict:BtScalar):Void;
 	public function setRestitution(rest:BtScalar):Void;
 	public function setContactProcessingThreshold(contactProcessingThreshold:BtScalar):Void;
-	public function getCollisionShape():BtCollisionShape;
+	public function setCollisionShape(collisionShape:BtCollisionShapePointer):Void;
+	public function getCollisionShape():BtCollisionShapePointer;
 	public function setCollisionFlags(flags:Int):Void;
 	public function getCollisionFlags():Int;
 }
