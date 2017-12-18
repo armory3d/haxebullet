@@ -532,6 +532,10 @@ extern class ConcreteContactResultCallback extends RayResultCallback {
 extern class BtCollisionWorld {
 	public function rayTest(rayFromWorld:BtVector3, rayToWorld:BtVector3, resultCallback:RayResultCallback):Void;
 	public function updateSingleAabb(colObj:BtCollisionObjectPointer):Void;
+	public function getPairCache():BtOverlappingPairCache;
+	public function addCollisionObject(collisionObject:BtCollisionObject):Void;
+	@:native("addCollisionObject")
+	public function addCollisionObjectToGroup(collisionObject:BtCollisionObject, collisionFilterGroup:Int, collisionFilterMask:Int):Void;
 }
 
 // ------------------------------------------------------
