@@ -1556,6 +1556,141 @@ extern class BtSoftBodyHelpers {
 
 // ------------------------------------------------------
 #if js
+@:native('Ammo.btOverlappingPairCallback')
+#elseif cpp
+@:include("BulletCollision/BroadphaseCollision/btOverlappingPairCallback.h")
+@:native("btOverlappingPairCallback")
+@:unreflective
+@:structAccess //////
+#end
+extern class BtOverlappingPairCallback {
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btGhostPairCallback')
+#elseif cpp
+@:include("BulletCollision/CollisionDispatch/btGhostObject.h")
+@:native("btGhostPairCallback")
+@:unreflective
+@:structAccess //////
+#end
+extern class BtGhostPairCallback extends BtOverlappingPairCallback {
+	#if js
+	public function new():Void;
+	public static inline function create():BtGhostPairCallback {
+		return new BtGhostPairCallback();
+	}
+	#elseif cpp
+	@:native("new btGhostPairCallback")
+	public static function create():cpp.Star<BtGhostPairCallback>;
+	#end
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btOverlappingPairCache')
+#elseif cpp
+@:include("BulletCollision/BroadphaseCollision/btOverlappingPairCache.h")
+@:native("btOverlappingPairCache")
+@:unreflective
+@:structAccess //////
+#end
+extern class BtOverlappingPairCache {
+	public function setInternalGhostPairCallback(ghostPairCallback:BtOverlappingPairCallback):Void;
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btGhostObject')
+#elseif cpp
+@:include("BulletCollision/CollisionDispatch/btGhostObject.h")
+@:native("btGhostObject")
+@:unreflective
+@:structAccess //////
+#end
+extern class BtGhostObject extends BtCollisionObject {
+	#if js
+	public function new():Void;
+	public static inline function create():BtGhostObject {
+		return new BtGhostObject();
+	}
+	#elseif cpp
+	@:native("new btGhostObject")
+	public static function create():cpp.Star<BtGhostObject>;
+	#end
+	public function getNumOverlappingObjects():Int;
+	public function getOverlappingObject(index:Int):BtCollisionObject;
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btPairCachingGhostObject')
+#elseif cpp
+@:include("BulletCollision/CollisionDispatch/btGhostObject.h")
+@:native("btPairCachingGhostObject")
+@:unreflective
+@:structAccess //////
+#end
+extern class BtPairCachingGhostObject extends BtGhostObject {
+	#if js
+	public function new():Void;
+	public static inline function create():BtPairCachingGhostObject {
+		return new BtPairCachingGhostObject();
+	}
+	#elseif cpp
+	@:native("new btPairCachingGhostObject")
+	public static function create():cpp.Star<BtPairCachingGhostObject>;
+	#end
+}
+
+// ------------------------------------------------------
+
+#if js
+@:native('Ammo.btKinematicCharacterController')
+#elseif cpp
+@:include("BulletDynamics/Character/btKinematicCharacterController.h")
+@:native("btKinematicCharacterController")
+@:unreflective
+@:structAccess //////
+#end
+extern class BtKinematicCharacterController extends BtActionInterface {
+	#if js
+	public function new(ghostObject:BtPairCachingGhostObjectPointer, convexShape:BtConvexShapePointer, stepHeight:Float, upAxis:Int = 1):Void;
+	public static inline function create(ghostObject:BtPairCachingGhostObjectPointer, convexShape:BtConvexShapePointer, stepHeight:Float, upAxis:Int = 1):BtKinematicCharacterController {
+		return new BtKinematicCharacterController(ghostObject, convexShape, stepHeight, upAxis);
+	}
+	public function setUpAxis(axis:Int):Void; // setUp in cpp
+	public function jump():Void;
+	public function setGravity(gravity:BtScalar):Void;
+	public function getGravity():BtScalar;
+	#elseif cpp
+	@:native("new btKinematicCharacterController")
+	public static function create(ghostObject:BtPairCachingGhostObjectPointer, convexShape:BtConvexShapePointer, stepHeight:BtScalar, up:BtVector3 = BtVector3.create(1.0, 0.0, 0.0)):cpp.Star<BtKinematicCharacterController>;
+	public function setUp(up:BtVector3):Void; // setUpAxis js
+	public function jump(v:BtVector3 = BtVector3.create(0,0,0)):Void; // empty btVector3 constructor in cpp header
+	public function setGravity(gravity:BtVector3):Void;
+	public function getGravity():BtVector3;
+	#end
+	public function canJump():Bool;
+	public function onGround():Bool;
+	public function setWalkDirection(walkDirection:BtVector3):Void;
+	public function setVelocityForTimeInterval(velocity:BtVector3, timeInterval:BtScalar):Void;
+	public function warp(origin:BtVector3):Void;
+	public function preStep(collisionWorld:BtCollisionWorld):Void;
+	public function playerStep(collisionWorld:BtCollisionWorld, dt:BtScalar):Void;
+	public function setFallSpeed(fallSpeed:BtScalar):Void;
+	public function setJumpSpeed(jumpSpeed:BtScalar):Void;
+	public function setMaxJumpHeight(maxJumpHeight:BtScalar):Void;
+	public function setMaxSlope(slopeRadians:BtScalar):Void;
+	public function getMaxSlope():BtScalar;
+	public function getGhostObject():BtPairCachingGhostObjectPointer;
+	public function setUseGhostSweepTest(useGhostObjectSweepTest:Bool):Void;
+	//public function setUpInterpolate(value:Bool):Void; - not available upstream
+}
+
+// ------------------------------------------------------
+#if js
 @:native('Ammo')
 extern class Ammo {
 	public static function destroy(obj:Dynamic):Void;
