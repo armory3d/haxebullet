@@ -1701,10 +1701,14 @@ extern class Ammo {
 // ------------------------------------------------------
 #if js
 typedef BtCollisionObjectPointer = BtCollisionObject;
+typedef BtKinematicCharacterControllerPointer = BtKinematicCharacterController;
 typedef BtRigidBodyPointer = BtRigidBody;
 typedef BtSoftBodyPointer = BtSoftBody;
+typedef BtBoxShapePointer = BtBoxShape;
 typedef BtCollisionShapePointer = BtCollisionShape;
 typedef BtConvexHullShapePointer = BtConvexHullShape;
+typedef BtCapsuleShapePointer = BtCapsuleShape;
+typedef BtConvexShapePointer = BtConvexShape;
 typedef BtCompoundShapePointer = BtCompoundShape;
 typedef BtTriangleMeshPointer = BtTriangleMesh;
 typedef BtDiscreteDynamicsWorldPointer = BtDiscreteDynamicsWorld;
@@ -1714,12 +1718,20 @@ typedef BtGeneric6DofConstraintPointer = BtGeneric6DofConstraint;
 typedef BtHingeConstraintPointer = BtHingeConstraint;
 typedef BtRaycastVehiclePointer = BtRaycastVehicle;
 typedef BtMotionStatePointer = BtMotionState;
+typedef BtGhostObjectPointer = BtGhostObject;
+typedef BtPairCachingGhostObjectPointer = BtPairCachingGhostObject;
+typedef BtOverlappingPairCallbackPointer = BtOverlappingPairCallback;
+typedef BtGhostPairCallbackPointer = BtGhostPairCallback;
 #elseif cpp
 typedef BtCollisionObjectPointer = cpp.Star<BtCollisionObject>;
+typedef BtKinematicCharacterControllerPointer = cpp.Star<BtKinematicCharacterController>;
 typedef BtRigidBodyPointer = cpp.Star<BtRigidBody>;
 typedef BtSoftBodyPointer = cpp.Star<BtSoftBody>;
+typedef BtBoxShapePointer = cpp.Star<BtBoxShape>;
 typedef BtCollisionShapePointer = cpp.Star<BtCollisionShape>;
 typedef BtConvexHullShapePointer = cpp.Star<BtConvexHullShape>;
+typedef BtCapsuleShapePointer = cpp.Star<BtCapsuleShape>;
+typedef BtConvexShapePointer = cpp.Star<BtConvexShape>;
 typedef BtCompoundShapePointer = cpp.Star<BtCompoundShape>;
 typedef BtTriangleMeshPointer = cpp.Star<BtTriangleMesh>;
 typedef BtDiscreteDynamicsWorldPointer = cpp.Star<BtDiscreteDynamicsWorld>;
@@ -1729,4 +1741,8 @@ typedef BtGeneric6DofConstraintPointer = cpp.Star<BtGeneric6DofConstraint>;
 typedef BtHingeConstraintPointer = cpp.Star<BtHingeConstraint>;
 typedef BtRaycastVehiclePointer = cpp.Star<BtRaycastVehicle>;
 typedef BtMotionStatePointer = cpp.Star<BtMotionState>;
+typedef BtGhostObjectPointer = cpp.Star<BtGhostObject>;
+typedef BtPairCachingGhostObjectPointer = cpp.Star<BtPairCachingGhostObject>;
+typedef BtOverlappingPairCallbackPointer = cpp.Star<BtOverlappingPairCallback>;
+typedef BtGhostPairCallbackPointer = cpp.Star<BtGhostPairCallback>;
 #end
