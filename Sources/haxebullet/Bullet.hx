@@ -194,6 +194,7 @@ extern class BtCollisionObject {
 	public static inline var CF_STATIC_OBJECT= 1;
 	public static inline var CF_KINEMATIC_OBJECT= 2;
 	public static inline var CF_NO_CONTACT_RESPONSE = 4;
+	public static inline var CF_CHARACTER_OBJECT = 16;
 
 	public function getWorldTransform():BtTransform;
 	public function setWorldTransform(trans:BtTransform):Void;
@@ -204,20 +205,21 @@ extern class BtCollisionObject {
 	#if js
 	public function getUserPointer():Dynamic;
 	public function setUserPointer(userPointer:Dynamic):Void;
-	public function isKinematicObject():Bool;
 	#elseif cpp
 	public function getUserPointer():cpp.Star<Dynamic>;
 	public function setUserPointer(userPointer:cpp.Star<Dynamic>):Void;
-	public function isKinematicObject():Bool;
-	//public function isStaticObject():Bool; // Not available in JS
-	//public function isStaticOrKinematicObject():Bool;
 	//public function setDeactivationTime(time:BtScalar);
 	#end
+	public function isActive():Bool;
+	public function isKinematicObject():Bool;
+	public function isStaticObject():Bool;
+	public function isStaticOrKinematicObject():Bool;
 	public function setFriction(frict:BtScalar):Void;
 	public function setRollingFriction(frict:BtScalar):Void;
 	public function setRestitution(rest:BtScalar):Void;
 	public function setContactProcessingThreshold(contactProcessingThreshold:BtScalar):Void;
-	public function getCollisionShape():BtCollisionShape;
+	public function setCollisionShape(collisionShape:BtCollisionShapePointer):Void;
+	public function getCollisionShape():BtCollisionShapePointer;
 	public function setCollisionFlags(flags:Int):Void;
 	public function getCollisionFlags():Int;
 }
@@ -532,6 +534,10 @@ extern class ConcreteContactResultCallback extends RayResultCallback {
 extern class BtCollisionWorld {
 	public function rayTest(rayFromWorld:BtVector3, rayToWorld:BtVector3, resultCallback:RayResultCallback):Void;
 	public function updateSingleAabb(colObj:BtCollisionObjectPointer):Void;
+	public function getPairCache():BtOverlappingPairCache;
+	public function addCollisionObject(collisionObject:BtCollisionObject):Void;
+	@:native("addCollisionObject")
+	public function addCollisionObjectToGroup(collisionObject:BtCollisionObject, collisionFilterGroup:Int, collisionFilterMask:Int):Void;
 }
 
 // ------------------------------------------------------
@@ -1556,6 +1562,141 @@ extern class BtSoftBodyHelpers {
 
 // ------------------------------------------------------
 #if js
+@:native('Ammo.btOverlappingPairCallback')
+#elseif cpp
+@:include("BulletCollision/BroadphaseCollision/btOverlappingPairCallback.h")
+@:native("btOverlappingPairCallback")
+@:unreflective
+@:structAccess //////
+#end
+extern class BtOverlappingPairCallback {
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btGhostPairCallback')
+#elseif cpp
+@:include("BulletCollision/CollisionDispatch/btGhostObject.h")
+@:native("btGhostPairCallback")
+@:unreflective
+@:structAccess //////
+#end
+extern class BtGhostPairCallback extends BtOverlappingPairCallback {
+	#if js
+	public function new():Void;
+	public static inline function create():BtGhostPairCallback {
+		return new BtGhostPairCallback();
+	}
+	#elseif cpp
+	@:native("new btGhostPairCallback")
+	public static function create():cpp.Star<BtGhostPairCallback>;
+	#end
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btOverlappingPairCache')
+#elseif cpp
+@:include("BulletCollision/BroadphaseCollision/btOverlappingPairCache.h")
+@:native("btOverlappingPairCache")
+@:unreflective
+@:structAccess //////
+#end
+extern class BtOverlappingPairCache {
+	public function setInternalGhostPairCallback(ghostPairCallback:BtOverlappingPairCallback):Void;
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btGhostObject')
+#elseif cpp
+@:include("BulletCollision/CollisionDispatch/btGhostObject.h")
+@:native("btGhostObject")
+@:unreflective
+@:structAccess //////
+#end
+extern class BtGhostObject extends BtCollisionObject {
+	#if js
+	public function new():Void;
+	public static inline function create():BtGhostObject {
+		return new BtGhostObject();
+	}
+	#elseif cpp
+	@:native("new btGhostObject")
+	public static function create():cpp.Star<BtGhostObject>;
+	#end
+	public function getNumOverlappingObjects():Int;
+	public function getOverlappingObject(index:Int):BtCollisionObject;
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btPairCachingGhostObject')
+#elseif cpp
+@:include("BulletCollision/CollisionDispatch/btGhostObject.h")
+@:native("btPairCachingGhostObject")
+@:unreflective
+@:structAccess //////
+#end
+extern class BtPairCachingGhostObject extends BtGhostObject {
+	#if js
+	public function new():Void;
+	public static inline function create():BtPairCachingGhostObject {
+		return new BtPairCachingGhostObject();
+	}
+	#elseif cpp
+	@:native("new btPairCachingGhostObject")
+	public static function create():cpp.Star<BtPairCachingGhostObject>;
+	#end
+}
+
+// ------------------------------------------------------
+
+#if js
+@:native('Ammo.btKinematicCharacterController')
+#elseif cpp
+@:include("BulletDynamics/Character/btKinematicCharacterController.h")
+@:native("btKinematicCharacterController")
+@:unreflective
+@:structAccess //////
+#end
+extern class BtKinematicCharacterController extends BtActionInterface {
+	#if js
+	public function new(ghostObject:BtPairCachingGhostObjectPointer, convexShape:BtConvexShapePointer, stepHeight:Float, upAxis:Int = 1):Void;
+	public static inline function create(ghostObject:BtPairCachingGhostObjectPointer, convexShape:BtConvexShapePointer, stepHeight:Float, upAxis:Int = 1):BtKinematicCharacterController {
+		return new BtKinematicCharacterController(ghostObject, convexShape, stepHeight, upAxis);
+	}
+	public function setUpAxis(axis:Int):Void; // setUp in cpp
+	public function jump():Void;
+	public function setGravity(gravity:BtScalar):Void;
+	public function getGravity():BtScalar;
+	#elseif cpp
+	@:native("new btKinematicCharacterController")
+	public static function create(ghostObject:BtPairCachingGhostObjectPointer, convexShape:BtConvexShapePointer, stepHeight:BtScalar, up:BtVector3 = BtVector3.create(1.0, 0.0, 0.0)):cpp.Star<BtKinematicCharacterController>;
+	public function setUp(up:BtVector3):Void; // setUpAxis js
+	public function jump(v:BtVector3 = BtVector3.create(0,0,0)):Void; // empty btVector3 constructor in cpp header
+	public function setGravity(gravity:BtVector3):Void;
+	public function getGravity():BtVector3;
+	#end
+	public function canJump():Bool;
+	public function onGround():Bool;
+	public function setWalkDirection(walkDirection:BtVector3):Void;
+	public function setVelocityForTimeInterval(velocity:BtVector3, timeInterval:BtScalar):Void;
+	public function warp(origin:BtVector3):Void;
+	public function preStep(collisionWorld:BtCollisionWorld):Void;
+	public function playerStep(collisionWorld:BtCollisionWorld, dt:BtScalar):Void;
+	public function setFallSpeed(fallSpeed:BtScalar):Void;
+	public function setJumpSpeed(jumpSpeed:BtScalar):Void;
+	public function setMaxJumpHeight(maxJumpHeight:BtScalar):Void;
+	public function setMaxSlope(slopeRadians:BtScalar):Void;
+	public function getMaxSlope():BtScalar;
+	public function getGhostObject():BtPairCachingGhostObjectPointer;
+	public function setUseGhostSweepTest(useGhostObjectSweepTest:Bool):Void;
+	//public function setUpInterpolate(value:Bool):Void; - not available upstream
+}
+
+// ------------------------------------------------------
+#if js
 @:native('Ammo')
 extern class Ammo {
 	public static function destroy(obj:Dynamic):Void;
@@ -1566,10 +1707,14 @@ extern class Ammo {
 // ------------------------------------------------------
 #if js
 typedef BtCollisionObjectPointer = BtCollisionObject;
+typedef BtKinematicCharacterControllerPointer = BtKinematicCharacterController;
 typedef BtRigidBodyPointer = BtRigidBody;
 typedef BtSoftBodyPointer = BtSoftBody;
+typedef BtBoxShapePointer = BtBoxShape;
 typedef BtCollisionShapePointer = BtCollisionShape;
 typedef BtConvexHullShapePointer = BtConvexHullShape;
+typedef BtCapsuleShapePointer = BtCapsuleShape;
+typedef BtConvexShapePointer = BtConvexShape;
 typedef BtCompoundShapePointer = BtCompoundShape;
 typedef BtTriangleMeshPointer = BtTriangleMesh;
 typedef BtDiscreteDynamicsWorldPointer = BtDiscreteDynamicsWorld;
@@ -1579,12 +1724,20 @@ typedef BtGeneric6DofConstraintPointer = BtGeneric6DofConstraint;
 typedef BtHingeConstraintPointer = BtHingeConstraint;
 typedef BtRaycastVehiclePointer = BtRaycastVehicle;
 typedef BtMotionStatePointer = BtMotionState;
+typedef BtGhostObjectPointer = BtGhostObject;
+typedef BtPairCachingGhostObjectPointer = BtPairCachingGhostObject;
+typedef BtOverlappingPairCallbackPointer = BtOverlappingPairCallback;
+typedef BtGhostPairCallbackPointer = BtGhostPairCallback;
 #elseif cpp
 typedef BtCollisionObjectPointer = cpp.Star<BtCollisionObject>;
+typedef BtKinematicCharacterControllerPointer = cpp.Star<BtKinematicCharacterController>;
 typedef BtRigidBodyPointer = cpp.Star<BtRigidBody>;
 typedef BtSoftBodyPointer = cpp.Star<BtSoftBody>;
+typedef BtBoxShapePointer = cpp.Star<BtBoxShape>;
 typedef BtCollisionShapePointer = cpp.Star<BtCollisionShape>;
 typedef BtConvexHullShapePointer = cpp.Star<BtConvexHullShape>;
+typedef BtCapsuleShapePointer = cpp.Star<BtCapsuleShape>;
+typedef BtConvexShapePointer = cpp.Star<BtConvexShape>;
 typedef BtCompoundShapePointer = cpp.Star<BtCompoundShape>;
 typedef BtTriangleMeshPointer = cpp.Star<BtTriangleMesh>;
 typedef BtDiscreteDynamicsWorldPointer = cpp.Star<BtDiscreteDynamicsWorld>;
@@ -1594,4 +1747,8 @@ typedef BtGeneric6DofConstraintPointer = cpp.Star<BtGeneric6DofConstraint>;
 typedef BtHingeConstraintPointer = cpp.Star<BtHingeConstraint>;
 typedef BtRaycastVehiclePointer = cpp.Star<BtRaycastVehicle>;
 typedef BtMotionStatePointer = cpp.Star<BtMotionState>;
+typedef BtGhostObjectPointer = cpp.Star<BtGhostObject>;
+typedef BtPairCachingGhostObjectPointer = cpp.Star<BtPairCachingGhostObject>;
+typedef BtOverlappingPairCallbackPointer = cpp.Star<BtOverlappingPairCallback>;
+typedef BtGhostPairCallbackPointer = cpp.Star<BtGhostPairCallback>;
 #end
