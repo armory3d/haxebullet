@@ -534,10 +534,10 @@ extern class ConcreteContactResultCallback extends RayResultCallback {
 extern class BtCollisionWorld {
 	public function rayTest(rayFromWorld:BtVector3, rayToWorld:BtVector3, resultCallback:RayResultCallback):Void;
 	public function updateSingleAabb(colObj:BtCollisionObjectPointer):Void;
-	public function getPairCache():BtOverlappingPairCache;
+	public function getPairCache():BtOverlappingPairCachePointer;
 	public function addCollisionObject(collisionObject:BtCollisionObject):Void;
 	@:native("addCollisionObject")
-	public function addCollisionObjectToGroup(collisionObject:BtCollisionObject, collisionFilterGroup:Int, collisionFilterMask:Int):Void;
+	public function addCollisionObjectToGroup(collisionObject:BtCollisionObjectPointer, collisionFilterGroup:Int, collisionFilterMask:Int):Void;
 }
 
 // ------------------------------------------------------
@@ -770,7 +770,7 @@ extern class BtBoxShape extends BtPolyhedralConvexShape {
 	}
 	#elseif cpp
 	@:native("new btBoxShape")
-	public static function create(boxHalfExtents:BtVector3):cpp.Star<BtCollisionShape>;
+	public static function create(boxHalfExtents:BtVector3):cpp.Star<BtBoxShape>;
 	#end
 }
 
@@ -791,7 +791,7 @@ extern class BtSphereShape extends BtConvexInternalShape {
 	}
 	#elseif cpp
 	@:native("new btSphereShape")
-	public static function create(radius:BtScalar):cpp.Star<BtCollisionShape>;
+	public static function create(radius:BtScalar):cpp.Star<BtSphereShape>;
 	#end
 }
 
@@ -867,7 +867,7 @@ extern class BtCapsuleShape extends BtConvexInternalShape {
 	}
 	#elseif cpp
 	@:native("new btCapsuleShape")
-	public static function create(radius:BtScalar, height:BtScalar):cpp.Star<BtCollisionShape>;
+	public static function create(radius:BtScalar, height:BtScalar):cpp.Star<BtCapsuleShape>;
 	#end
 }
 
@@ -888,7 +888,7 @@ extern class BtCapsuleShapeX extends BtCapsuleShape {
 	}
 	#elseif cpp
 	@:native("new btCapsuleShapeX")
-	public static function create(radius:BtScalar, height:BtScalar):cpp.Star<BtCollisionShape>;
+	public static function create(radius:BtScalar, height:BtScalar):cpp.Star<BtCapsuleShapeX>;
 	#end
 }
 
@@ -909,7 +909,7 @@ extern class BtCapsuleShapeZ extends BtCapsuleShape {
 	}
 	#elseif cpp
 	@:native("new btCapsuleShapeZ")
-	public static function create(radius:BtScalar, height:BtScalar):cpp.Star<BtCollisionShape>;
+	public static function create(radius:BtScalar, height:BtScalar):cpp.Star<BtCapsuleShapeZ>;
 	#end
 }
 
@@ -930,7 +930,7 @@ extern class BtCylinderShape extends BtConvexInternalShape {
 	}
 	#elseif cpp
 	@:native("new btCylinderShape")
-	public static function create(halfExtents:BtVector3):cpp.Star<BtCollisionShape>;
+	public static function create(halfExtents:BtVector3):cpp.Star<BtCylinderShape>;
 	#end
 }
 
@@ -951,7 +951,7 @@ extern class BtCylinderShapeX extends BtCylinderShape {
 	}
 	#elseif cpp
 	@:native("new btCylinderShapeX")
-	public static function create(halfExtents:BtVector3):cpp.Star<BtCollisionShape>;
+	public static function create(halfExtents:BtVector3):cpp.Star<BtCylinderShapeX>;
 	#end
 }
 
@@ -972,7 +972,7 @@ extern class BtCylinderShapeZ extends BtCylinderShape {
 	}
 	#elseif cpp
 	@:native("new btCylinderShapeZ")
-	public static function create(halfExtents:BtVector3):cpp.Star<BtCollisionShape>;
+	public static function create(halfExtents:BtVector3):cpp.Star<BtCylinderShapeZ>;
 	#end
 }
 
@@ -993,7 +993,7 @@ extern class BtConeShape extends BtConvexInternalShape {
 	}
 	#elseif cpp
 	@:native("new btConeShape")
-	public static function create(radius:BtScalar, height:BtScalar):cpp.Star<BtCollisionShape>;
+	public static function create(radius:BtScalar, height:BtScalar):cpp.Star<BtConeShape>;
 	#end
 }
 
@@ -1014,7 +1014,7 @@ extern class BtConeShapeX extends BtConeShape {
 	}
 	#elseif cpp	
 	@:native("new btConeShapeX")
-	public static function create(radius:BtScalar, height:BtScalar):cpp.Star<BtCollisionShape>;
+	public static function create(radius:BtScalar, height:BtScalar):cpp.Star<BtConeShapeX>;
 	#end
 }
 
@@ -1035,7 +1035,7 @@ extern class BtConeShapeZ extends BtConeShape {
 	}
 	#elseif cpp
 	@:native("new btConeShapeZ")
-	public static function create(radius:BtScalar, height:BtScalar):cpp.Star<BtCollisionShape> ;
+	public static function create(radius:BtScalar, height:BtScalar):cpp.Star<BtConeShapeZ> ;
 	#end
 }
 
@@ -1603,7 +1603,7 @@ extern class BtGhostPairCallback extends BtOverlappingPairCallback {
 @:structAccess //////
 #end
 extern class BtOverlappingPairCache {
-	public function setInternalGhostPairCallback(ghostPairCallback:BtOverlappingPairCallback):Void;
+	public function setInternalGhostPairCallback(ghostPairCallback:BtOverlappingPairCallbackPointer):Void;
 }
 
 // ------------------------------------------------------
@@ -1710,10 +1710,8 @@ typedef BtCollisionObjectPointer = BtCollisionObject;
 typedef BtKinematicCharacterControllerPointer = BtKinematicCharacterController;
 typedef BtRigidBodyPointer = BtRigidBody;
 typedef BtSoftBodyPointer = BtSoftBody;
-typedef BtBoxShapePointer = BtBoxShape;
 typedef BtCollisionShapePointer = BtCollisionShape;
 typedef BtConvexHullShapePointer = BtConvexHullShape;
-typedef BtCapsuleShapePointer = BtCapsuleShape;
 typedef BtConvexShapePointer = BtConvexShape;
 typedef BtCompoundShapePointer = BtCompoundShape;
 typedef BtTriangleMeshPointer = BtTriangleMesh;
@@ -1728,15 +1726,14 @@ typedef BtGhostObjectPointer = BtGhostObject;
 typedef BtPairCachingGhostObjectPointer = BtPairCachingGhostObject;
 typedef BtOverlappingPairCallbackPointer = BtOverlappingPairCallback;
 typedef BtGhostPairCallbackPointer = BtGhostPairCallback;
+typedef BtOverlappingPairCachePointer = BtOverlappingPairCache;
 #elseif cpp
 typedef BtCollisionObjectPointer = cpp.Star<BtCollisionObject>;
 typedef BtKinematicCharacterControllerPointer = cpp.Star<BtKinematicCharacterController>;
 typedef BtRigidBodyPointer = cpp.Star<BtRigidBody>;
 typedef BtSoftBodyPointer = cpp.Star<BtSoftBody>;
-typedef BtBoxShapePointer = cpp.Star<BtBoxShape>;
 typedef BtCollisionShapePointer = cpp.Star<BtCollisionShape>;
 typedef BtConvexHullShapePointer = cpp.Star<BtConvexHullShape>;
-typedef BtCapsuleShapePointer = cpp.Star<BtCapsuleShape>;
 typedef BtConvexShapePointer = cpp.Star<BtConvexShape>;
 typedef BtCompoundShapePointer = cpp.Star<BtCompoundShape>;
 typedef BtTriangleMeshPointer = cpp.Star<BtTriangleMesh>;
@@ -1751,4 +1748,5 @@ typedef BtGhostObjectPointer = cpp.Star<BtGhostObject>;
 typedef BtPairCachingGhostObjectPointer = cpp.Star<BtPairCachingGhostObject>;
 typedef BtOverlappingPairCallbackPointer = cpp.Star<BtOverlappingPairCallback>;
 typedef BtGhostPairCallbackPointer = cpp.Star<BtGhostPairCallback>;
+typedef BtOverlappingPairCachePointer = cpp.Star<BtOverlappingPairCache>;
 #end
