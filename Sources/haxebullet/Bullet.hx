@@ -535,7 +535,7 @@ extern class BtCollisionWorld {
 	public function rayTest(rayFromWorld:BtVector3, rayToWorld:BtVector3, resultCallback:RayResultCallback):Void;
 	public function updateSingleAabb(colObj:BtCollisionObjectPointer):Void;
 	public function getPairCache():BtOverlappingPairCachePointer;
-	public function addCollisionObject(collisionObject:BtCollisionObject):Void;
+	public function addCollisionObject(collisionObject:BtCollisionObjectPointer):Void;
 	@:native("addCollisionObject")
 	public function addCollisionObjectToGroup(collisionObject:BtCollisionObjectPointer, collisionFilterGroup:Int, collisionFilterMask:Int):Void;
 }
