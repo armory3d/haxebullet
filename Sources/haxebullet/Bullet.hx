@@ -870,6 +870,9 @@ extern class BtCapsuleShape extends BtConvexInternalShape {
 	@:native("new btCapsuleShape")
 	public static function create(radius:BtScalar, height:BtScalar):cpp.Star<BtCapsuleShape>;
 	#end
+	public function getUpAxis():Int;
+	public function getRadius():BtScalar;
+	public function getHalfHeight():BtScalar;
 }
 
 // ------------------------------------------------------
