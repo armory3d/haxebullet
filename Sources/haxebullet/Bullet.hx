@@ -1696,7 +1696,7 @@ extern class BtKinematicCharacterController extends BtActionInterface {
 	public function getMaxSlope():BtScalar;
 	public function getGhostObject():BtPairCachingGhostObjectPointer;
 	public function setUseGhostSweepTest(useGhostObjectSweepTest:Bool):Void;
-	//public function setUpInterpolate(value:Bool):Void; - not available upstream
+	public function setUpInterpolate(value:Bool):Void;
 }
 
 // ------------------------------------------------------
