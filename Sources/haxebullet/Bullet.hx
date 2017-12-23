@@ -536,6 +536,7 @@ extern class BtCollisionWorld {
 	public function updateSingleAabb(colObj:BtCollisionObjectPointer):Void;
 	public function getPairCache():BtOverlappingPairCachePointer;
 	public function addCollisionObject(collisionObject:BtCollisionObjectPointer):Void;
+	public function removeCollisionObject(collisionObject:BtCollisionObjectPointer):Void;
 	@:native("addCollisionObject")
 	public function addCollisionObjectToGroup(collisionObject:BtCollisionObjectPointer, collisionFilterGroup:Int, collisionFilterMask:Int):Void;
 }
@@ -869,6 +870,9 @@ extern class BtCapsuleShape extends BtConvexInternalShape {
 	@:native("new btCapsuleShape")
 	public static function create(radius:BtScalar, height:BtScalar):cpp.Star<BtCapsuleShape>;
 	#end
+	public function getUpAxis():Int;
+	public function getRadius():BtScalar;
+	public function getHalfHeight():BtScalar;
 }
 
 // ------------------------------------------------------
@@ -1692,7 +1696,7 @@ extern class BtKinematicCharacterController extends BtActionInterface {
 	public function getMaxSlope():BtScalar;
 	public function getGhostObject():BtPairCachingGhostObjectPointer;
 	public function setUseGhostSweepTest(useGhostObjectSweepTest:Bool):Void;
-	//public function setUpInterpolate(value:Bool):Void; - not available upstream
+	public function setUpInterpolate(value:Bool):Void;
 }
 
 // ------------------------------------------------------
@@ -1713,6 +1717,7 @@ typedef BtSoftBodyPointer = BtSoftBody;
 typedef BtCollisionShapePointer = BtCollisionShape;
 typedef BtConvexHullShapePointer = BtConvexHullShape;
 typedef BtConvexShapePointer = BtConvexShape;
+typedef BtCapsuleShapePointer = BtCapsuleShape;
 typedef BtCompoundShapePointer = BtCompoundShape;
 typedef BtTriangleMeshPointer = BtTriangleMesh;
 typedef BtDiscreteDynamicsWorldPointer = BtDiscreteDynamicsWorld;
@@ -1735,6 +1740,7 @@ typedef BtSoftBodyPointer = cpp.Star<BtSoftBody>;
 typedef BtCollisionShapePointer = cpp.Star<BtCollisionShape>;
 typedef BtConvexHullShapePointer = cpp.Star<BtConvexHullShape>;
 typedef BtConvexShapePointer = cpp.Star<BtConvexShape>;
+typedef BtCapsuleShapePointer = cpp.Star<BtCapsuleShape>;
 typedef BtCompoundShapePointer = cpp.Star<BtCompoundShape>;
 typedef BtTriangleMeshPointer = cpp.Star<BtTriangleMesh>;
 typedef BtDiscreteDynamicsWorldPointer = cpp.Star<BtDiscreteDynamicsWorld>;
