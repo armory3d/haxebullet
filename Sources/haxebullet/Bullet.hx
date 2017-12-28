@@ -1539,7 +1539,7 @@ extern class BtSoftBody extends BtCollisionObject {
 	public function setTotalMass(mass:BtScalar, fromfaces:Bool = false):Void;
 	public function generateClusters(k:Int, maxiterations:Int = 8192):Void;
 	// public function generateBendingConstraints(distance:Int, mat:Dynamic = 0):Void;
-	public function appendAnchor(node:Int, body:BtRigidBody, disableCollisionBetweenLinkedBodies:Bool, influence:Float):Void;
+	public function appendAnchor(node:Int, body:BtRigidBodyPointer, disableCollisionBetweenLinkedBodies:Bool, influence:Float):Void;
 }
 
 // ------------------------------------------------------
