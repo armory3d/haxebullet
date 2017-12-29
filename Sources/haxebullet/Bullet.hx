@@ -1477,6 +1477,8 @@ extern class Config {
 	public function set_kDF(f:Float):Void;
 	public function set_kDP(f:Float):Void;
 	public function set_kPR(f:Float):Void;
+	public function set_kVC(f:Float):Void;
+	public function set_kAHR(f:Float):Void;
 	#elseif cpp
 	public var viterations:Int;
 	public var piterations:Int;
@@ -1484,6 +1486,8 @@ extern class Config {
 	public var kDF:Float;
 	public var kDP:Float;
 	public var kPR:Float;
+	public var kVC:Float;
+	public var kAHR:Float;
 	#end
 }
 
