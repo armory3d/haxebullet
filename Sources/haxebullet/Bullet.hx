@@ -1502,6 +1502,7 @@ extern class Config {
 #end
 extern class TNodeArray {
 	public function at(i:Int):Node;
+	public function size():Int;
 }
 
 // ------------------------------------------------------
