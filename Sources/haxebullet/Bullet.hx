@@ -1517,6 +1517,26 @@ extern class TNodeArray {
 extern class TMaterialArray {
 	public function at(i:Int):Material;
 }
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.tAnchorArray')
+#elseif cpp
+@:include("BulletSoftBody/btSoftBody.h")
+@:native("btAlignedObjectArray<btSoftBody::Anchor>")
+@:unreflective
+@:structAccess
+#end
+extern class TAnchorArray {
+	public function new();
+	public static inline function create():TAnchorArray{return new TAnchorArray();}
+	public function at(i:Int):Anchor;
+	public function clear():Void;
+	public function size():Int;
+	public function push_back(anc:Anchor):Void;
+	public function pop_back():Void;
+}
+
 // ------------------------------------------------------
 #if js
 @:native('Ammo.Node')
@@ -1551,6 +1571,26 @@ extern class Material {
 	public var m_kVST:BtScalar;
 	public var m_flags:Int;
 }
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.Anchor')
+#elseif cpp
+@:include("BulletSoftBody/btSoftBody.h")
+@:native("btSoftBody::Anchor")
+@:unreflective
+@:structAccess
+#end
+extern class Anchor {
+	public var m_node:Node;
+	public var m_local:BtVector3;
+	public var m_body:BtRigidBodyPointer;
+	public var m_influence:BtScalar;
+	//public var m_c0:BtMatrix3x3;
+	public var m_c1:BtVector3;
+	public var m_c2:BtScalar;
+}
+
 // ------------------------------------------------------
 #if js
 @:native('Ammo.btSoftBody')
@@ -1565,10 +1605,12 @@ extern class BtSoftBody extends BtCollisionObject {
 	public function get_m_nodes():TNodeArray;
 	public function get_m_cfg():Config;
 	public function get_m_materials():TMaterialArray;
+	public function get_m_anchors():TAnchorArray;
 	#elseif cpp
 	var m_nodes:TNodeArray;
 	var m_cfg:Config;
 	var m_materials:TMaterialArray;
+	var m_anchors:TAnchorArray;
 	#end
 	public function setTotalMass(mass:BtScalar, fromfaces:Bool = false):Void;
 	public function generateClusters(k:Int, maxiterations:Int = 8192):Void;
