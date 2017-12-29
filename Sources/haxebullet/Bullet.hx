@@ -1566,10 +1566,19 @@ extern class Node {
 @:structAccess
 #end
 extern class Material {
+	#if js
+	public function set_m_kAST(kAST:BtScalar):Void;
+	public function get_m_kAST():Void;
+	public function set_m_kVST(kVST:BtScalar);
+	public function get_m_kVST():BtScalar;
+	public function set_m_flags(flags:Int);
+	public function get_m_flags():Int;
+	#elseif cpp
 	public var m_kLST:BtScalar;
 	public var m_kAST:BtScalar;
 	public var m_kVST:BtScalar;
 	public var m_flags:Int;
+	#end
 }
 
 // ------------------------------------------------------
@@ -1582,6 +1591,22 @@ extern class Material {
 @:structAccess
 #end
 extern class Anchor {
+	#if js
+	public function set_m_node(node:Node):Void;
+	public function get_m_node():Node;
+	public function set_m_local(local:BtVector3):Void;
+	public function get_m_local():BtVector3;
+	public function set_m_body(body:BtRigidBodyPointer):Void;
+	public function get_m_body():BtRigidBodyPointer;
+	public function set_m_influence(influence:BtScalar):Void;
+	public function get_m_influence():BtScalar;
+	//public function set_m_c0(c0:BtMatrix3x3):Void;
+	//public function get_m_c0():BtMatrix3x3;
+	public function set_m_c1(c1:BtVector3):Void;
+	public function get_m_c1():BtVector3;
+	public function set_m_c2(c2:BtScalar):Void;
+	public function get_m_c2():BtScalar;
+	#elseif cpp
 	public var m_node:Node;
 	public var m_local:BtVector3;
 	public var m_body:BtRigidBodyPointer;
@@ -1589,6 +1614,7 @@ extern class Anchor {
 	//public var m_c0:BtMatrix3x3;
 	public var m_c1:BtVector3;
 	public var m_c2:BtScalar;
+	#end
 }
 
 // ------------------------------------------------------
