@@ -1507,6 +1507,18 @@ extern class TNodeArray {
 
 // ------------------------------------------------------
 #if js
+@:native('Ammo.tMaterialArray')
+#elseif cpp
+@:include("BulletSoftBody/btSoftBody.h")
+@:native("btAlignedObjectArray<btSoftBody::Material*>")
+@:unreflective
+@:structAccess
+#end
+extern class TMaterialArray {
+	public function at(i:Int):Material;
+}
+// ------------------------------------------------------
+#if js
 @:native('Ammo.Node')
 #elseif cpp
 @:include("BulletSoftBody/btSoftBody.h")
@@ -1526,6 +1538,21 @@ extern class Node {
 
 // ------------------------------------------------------
 #if js
+@:native('Ammo.Material')
+#elseif cpp
+@:include("BulletSoftBody/btSoftBody.h")
+@:native("btSoftBody::Material")
+@:unreflective
+@:structAccess
+#end
+extern class Material {
+	public var m_kLST:BtScalar;
+	public var m_kAST:BtScalar;
+	public var m_kVST:BtScalar;
+	public var m_flags:Int;
+}
+// ------------------------------------------------------
+#if js
 @:native('Ammo.btSoftBody')
 #elseif cpp
 @:include("BulletSoftBody/btSoftBody.h")
@@ -1537,9 +1564,11 @@ extern class BtSoftBody extends BtCollisionObject {
 	#if js
 	public function get_m_nodes():TNodeArray;
 	public function get_m_cfg():Config;
+	public function get_m_materials():TMaterialArray;
 	#elseif cpp
 	var m_nodes:TNodeArray;
 	var m_cfg:Config;
+	var m_materials:TMaterialArray;
 	#end
 	public function setTotalMass(mass:BtScalar, fromfaces:Bool = false):Void;
 	public function generateClusters(k:Int, maxiterations:Int = 8192):Void;
