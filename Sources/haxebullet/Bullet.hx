@@ -1567,11 +1567,13 @@ extern class Node {
 #end
 extern class Material {
 	#if js
+	public function set_m_kLST(kAST:BtScalar):Void;
+	public function get_m_kLST():Void;
 	public function set_m_kAST(kAST:BtScalar):Void;
 	public function get_m_kAST():Void;
-	public function set_m_kVST(kVST:BtScalar);
+	public function set_m_kVST(kVST:BtScalar):Void;
 	public function get_m_kVST():BtScalar;
-	public function set_m_flags(flags:Int);
+	public function set_m_flags(flags:Int):Void;
 	public function get_m_flags():Int;
 	#elseif cpp
 	public var m_kLST:BtScalar;
