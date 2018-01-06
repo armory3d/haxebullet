@@ -79,6 +79,21 @@ extern class BtQuaternion {
 
 // ------------------------------------------------------
 #if js
+@:native('Ammo.btMatrix3x3')
+#elseif cpp
+@:include("LinearMath/btMatrix3x3.h")
+@:native("btMatrix3x3")
+@:unreflective
+@:structAccess
+#end
+extern class BtMatrix3x3 {
+	public function setEulerZYX(ex:BtScalar, ey:BtScalar, ez:BtScalar):Void;
+	public function getRotation(q:BtQuaternion):Void;
+	public function getRow(y:Int):BtVector3;
+}
+
+// ------------------------------------------------------
+#if js
 @:native('Ammo.btActionInterface')
 #elseif cpp
 @:include("BulletDynamics/Dynamics/btActionInterface.h")
@@ -1521,6 +1536,78 @@ extern class Node {
 
 // ------------------------------------------------------
 #if js
+@:native('Ammo.tAnchorArray')
+#elseif cpp
+@:include("BulletSoftBody/btSoftBody.h")
+@:native("btAlignedObjectArray<btSoftBody::Anchor>")
+@:unreflective
+@:structAccess
+#end
+extern class TAnchorArray {
+	public function size():Int;
+	public function at(i:Int):Anchor;
+	public function clear():Void;
+	public function push_back(val:Anchor):Void;
+	public function pop_back():Void;
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.Anchor')
+#elseif cpp
+@:include("BulletSoftBody/btSoftBody.h")
+@:native("btSoftBody::Anchor")
+@:unreflective
+@:structAccess
+#end
+extern class Anchor {
+	#if js
+	public function get_m_local():BtVector3; // Anchor position in body space
+	public function get_m_c0():BtMatrix3x3; // Impulse matrix
+	public function get_m_c1():BtVector3; // Relative anchor
+	#elseif cpp
+	public var m_local:BtVector3; // Anchor position in body space
+	public var m_c0:BtMatrix3x3; // Impulse matrix
+	public var m_c1:BtVector3; // Relative anchor
+	#end
+	public var m_node:Node; // Node pointer
+	public var m_body:BtRigidBody; // Body
+	public var m_influence:BtScalar;
+	public var m_c2:BtScalar; // ima*dt
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.tMaterialArray')
+#elseif cpp
+@:include("BulletSoftBody/btSoftBody.h")
+@:native("btAlignedObjectArray<btSoftBody::Material>")
+@:unreflective
+@:structAccess
+#end
+extern class TMaterialArray {
+	public function size():Int;
+	public function at(i:Int):MaterialPointer;
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.Material')
+#elseif cpp
+@:include("BulletSoftBody/btSoftBody.h")
+@:native("btSoftBody::Material")
+@:unreflective
+@:structAccess
+#end
+extern class Material {
+	public var m_kLST:BtScalar; // Linear stiffness coefficient [0,1]
+	public var m_kAST:BtScalar; // Area/Angular stiffness coefficient [0,1]
+	public var m_kVST:BtScalar; // Volume stiffness coefficient [0,1]
+	public var m_flags:Int; // Flags
+}
+
+// ------------------------------------------------------
+#if js
 @:native('Ammo.btSoftBody')
 #elseif cpp
 @:include("BulletSoftBody/btSoftBody.h")
@@ -1532,14 +1619,18 @@ extern class BtSoftBody extends BtCollisionObject {
 	#if js
 	public function get_m_nodes():TNodeArray;
 	public function get_m_cfg():Config;
+	public function get_m_materials():TMaterialArray;
+	public function get_m_anchors():TAnchorArray;
 	#elseif cpp
 	var m_nodes:TNodeArray;
 	var m_cfg:Config;
+	var m_materials:TMaterialArray;
+	var m_anchors:TAnchorArray;
 	#end
 	public function setTotalMass(mass:BtScalar, fromfaces:Bool = false):Void;
-	public function generateClusters(k:Int, maxiterations:Int = 8192):Void;
-	// public function generateBendingConstraints(distance:Int, mat:Dynamic = 0):Void;
-	public function appendAnchor(node:Int, body:BtRigidBody, disableCollisionBetweenLinkedBodies:Bool, influence:Float):Void;
+	public function generateClusters(k:Int, maxiterations:Int = 8192):Int;
+	public function generateBendingConstraints(distance:Int, mat:MaterialPointer = 0):Int;
+	public function appendAnchor(node:Int, body:BtRigidBodyPointer, disableCollisionBetweenLinkedBodies:Bool, influence:Float):Void;
 }
 
 // ------------------------------------------------------
@@ -1732,6 +1823,7 @@ typedef BtPairCachingGhostObjectPointer = BtPairCachingGhostObject;
 typedef BtOverlappingPairCallbackPointer = BtOverlappingPairCallback;
 typedef BtGhostPairCallbackPointer = BtGhostPairCallback;
 typedef BtOverlappingPairCachePointer = BtOverlappingPairCache;
+typedef MaterialPointer = Material;
 #elseif cpp
 typedef BtCollisionObjectPointer = cpp.Star<BtCollisionObject>;
 typedef BtKinematicCharacterControllerPointer = cpp.Star<BtKinematicCharacterController>;
@@ -1755,4 +1847,5 @@ typedef BtPairCachingGhostObjectPointer = cpp.Star<BtPairCachingGhostObject>;
 typedef BtOverlappingPairCallbackPointer = cpp.Star<BtOverlappingPairCallback>;
 typedef BtGhostPairCallbackPointer = cpp.Star<BtGhostPairCallback>;
 typedef BtOverlappingPairCachePointer = cpp.Star<BtOverlappingPairCache>;
+typedef MaterialPointer = cpp.Star<Material>;
 #end
