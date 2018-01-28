@@ -79,6 +79,21 @@ extern class BtQuaternion {
 
 // ------------------------------------------------------
 #if js
+@:native('Ammo.btMatrix3x3')
+#elseif cpp
+@:include("LinearMath/btMatrix3x3.h")
+@:native("btMatrix3x3")
+@:unreflective
+@:structAccess
+#end
+extern class BtMatrix3x3 {
+	public function setEulerZYX(ex:BtScalar, ey:BtScalar, ez:BtScalar):Void;
+	public function getRotation(q:BtQuaternion):Void;
+	public function getRow(y:Int):BtVector3;
+}
+
+// ------------------------------------------------------
+#if js
 @:native('Ammo.btActionInterface')
 #elseif cpp
 @:include("BulletDynamics/Dynamics/btActionInterface.h")
@@ -1840,6 +1855,7 @@ typedef BtOverlappingPairCallbackPointer = BtOverlappingPairCallback;
 typedef BtGhostPairCallbackPointer = BtGhostPairCallback;
 typedef BtOverlappingPairCachePointer = BtOverlappingPairCache;
 typedef NodePointer = Node;
+typedef MaterialPointer = Material;
 #elseif cpp
 typedef BtCollisionObjectPointer = cpp.Star<BtCollisionObject>;
 typedef BtKinematicCharacterControllerPointer = cpp.Star<BtKinematicCharacterController>;
@@ -1864,4 +1880,5 @@ typedef BtOverlappingPairCallbackPointer = cpp.Star<BtOverlappingPairCallback>;
 typedef BtGhostPairCallbackPointer = cpp.Star<BtGhostPairCallback>;
 typedef BtOverlappingPairCachePointer = cpp.Star<BtOverlappingPairCache>;
 typedef NodePointer = cpp.Star<Node>;
+typedef MaterialPointer = cpp.Star<Material>;
 #end
