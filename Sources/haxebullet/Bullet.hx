@@ -1566,6 +1566,7 @@ extern class Node {
 @:structAccess
 #end
 extern class Material {
+	public function new();
 	#if js
 	public function set_m_kLST(kAST:BtScalar):Void;
 	public function get_m_kLST():Void;
@@ -1644,6 +1645,8 @@ extern class BtSoftBody extends BtCollisionObject {
 	public function generateClusters(k:Int, maxiterations:Int = 8192):Void;
 	public function generateBendingConstraints(distance:Int, mat:Dynamic = 0):Void;
 	public function appendAnchor(node:Int, body:BtRigidBodyPointer, disableCollisionBetweenLinkedBodies:Bool, influence:Float):Void;
+	public function appendLink(node:NodePointer, node1:NodePointer, mat:Material, bcheckexist:Bool=false):Void;
+	public function addForce(f:BtVector3, node:Int):Void;
 }
 
 // ------------------------------------------------------
@@ -1836,6 +1839,7 @@ typedef BtPairCachingGhostObjectPointer = BtPairCachingGhostObject;
 typedef BtOverlappingPairCallbackPointer = BtOverlappingPairCallback;
 typedef BtGhostPairCallbackPointer = BtGhostPairCallback;
 typedef BtOverlappingPairCachePointer = BtOverlappingPairCache;
+typedef NodePointer = Node;
 #elseif cpp
 typedef BtCollisionObjectPointer = cpp.Star<BtCollisionObject>;
 typedef BtKinematicCharacterControllerPointer = cpp.Star<BtKinematicCharacterController>;
@@ -1859,4 +1863,5 @@ typedef BtPairCachingGhostObjectPointer = cpp.Star<BtPairCachingGhostObject>;
 typedef BtOverlappingPairCallbackPointer = cpp.Star<BtOverlappingPairCallback>;
 typedef BtGhostPairCallbackPointer = cpp.Star<BtGhostPairCallback>;
 typedef BtOverlappingPairCachePointer = cpp.Star<BtOverlappingPairCache>;
+typedef NodePointer = cpp.Star<Node>;
 #end
