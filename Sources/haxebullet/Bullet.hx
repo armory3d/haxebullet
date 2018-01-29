@@ -1492,6 +1492,8 @@ extern class Config {
 	public function set_kDF(f:Float):Void;
 	public function set_kDP(f:Float):Void;
 	public function set_kPR(f:Float):Void;
+	public function set_kVC(f:Float):Void;
+	public function set_kAHR(f:Float):Void;
 	#elseif cpp
 	public var viterations:Int;
 	public var piterations:Int;
@@ -1499,6 +1501,8 @@ extern class Config {
 	public var kDF:Float;
 	public var kDP:Float;
 	public var kPR:Float;
+	public var kVC:Float;
+	public var kAHR:Float;
 	#end
 }
 
@@ -1513,6 +1517,39 @@ extern class Config {
 #end
 extern class TNodeArray {
 	public function at(i:Int):Node;
+	public function size():Int;
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.tMaterialArray')
+#elseif cpp
+@:include("BulletSoftBody/btSoftBody.h")
+@:native("btAlignedObjectArray<btSoftBody::Material*>")
+@:unreflective
+@:structAccess
+#end
+extern class TMaterialArray {
+	public function at(i:Int):Material;
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.tAnchorArray')
+#elseif cpp
+@:include("BulletSoftBody/btSoftBody.h")
+@:native("btAlignedObjectArray<btSoftBody::Anchor>")
+@:unreflective
+@:structAccess
+#end
+extern class TAnchorArray {
+	public function new();
+	public static inline function create():TAnchorArray{return new TAnchorArray();}
+	public function at(i:Int):Anchor;
+	public function clear():Void;
+	public function size():Int;
+	public function push_back(anc:Anchor):Void;
+	public function pop_back():Void;
 }
 
 // ------------------------------------------------------
@@ -1536,19 +1573,30 @@ extern class Node {
 
 // ------------------------------------------------------
 #if js
-@:native('Ammo.tAnchorArray')
+@:native('Ammo.Material')
 #elseif cpp
 @:include("BulletSoftBody/btSoftBody.h")
-@:native("btAlignedObjectArray<btSoftBody::Anchor>")
+@:native("btSoftBody::Material")
 @:unreflective
 @:structAccess
 #end
-extern class TAnchorArray {
-	public function size():Int;
-	public function at(i:Int):Anchor;
-	public function clear():Void;
-	public function push_back(val:Anchor):Void;
-	public function pop_back():Void;
+extern class Material {
+	public function new();
+	#if js
+	public function set_m_kLST(kAST:BtScalar):Void;
+	public function get_m_kLST():Void;
+	public function set_m_kAST(kAST:BtScalar):Void;
+	public function get_m_kAST():Void;
+	public function set_m_kVST(kVST:BtScalar):Void;
+	public function get_m_kVST():BtScalar;
+	public function set_m_flags(flags:Int):Void;
+	public function get_m_flags():Int;
+	#elseif cpp
+	public var m_kLST:BtScalar;
+	public var m_kAST:BtScalar;
+	public var m_kVST:BtScalar;
+	public var m_flags:Int;
+	#end
 }
 
 // ------------------------------------------------------
@@ -1562,48 +1610,29 @@ extern class TAnchorArray {
 #end
 extern class Anchor {
 	#if js
-	public function get_m_local():BtVector3; // Anchor position in body space
-	public function get_m_c0():BtMatrix3x3; // Impulse matrix
-	public function get_m_c1():BtVector3; // Relative anchor
+	public function set_m_node(node:Node):Void;
+	public function get_m_node():Node;
+	public function set_m_local(local:BtVector3):Void;
+	public function get_m_local():BtVector3;
+	public function set_m_body(body:BtRigidBodyPointer):Void;
+	public function get_m_body():BtRigidBodyPointer;
+	public function set_m_influence(influence:BtScalar):Void;
+	public function get_m_influence():BtScalar;
+	//public function set_m_c0(c0:BtMatrix3x3):Void;
+	//public function get_m_c0():BtMatrix3x3;
+	public function set_m_c1(c1:BtVector3):Void;
+	public function get_m_c1():BtVector3;
+	public function set_m_c2(c2:BtScalar):Void;
+	public function get_m_c2():BtScalar;
 	#elseif cpp
-	public var m_local:BtVector3; // Anchor position in body space
-	public var m_c0:BtMatrix3x3; // Impulse matrix
-	public var m_c1:BtVector3; // Relative anchor
-	#end
-	public var m_node:Node; // Node pointer
-	public var m_body:BtRigidBody; // Body
+	public var m_node:Node;
+	public var m_local:BtVector3;
+	public var m_body:BtRigidBodyPointer;
 	public var m_influence:BtScalar;
-	public var m_c2:BtScalar; // ima*dt
-}
-
-// ------------------------------------------------------
-#if js
-@:native('Ammo.tMaterialArray')
-#elseif cpp
-@:include("BulletSoftBody/btSoftBody.h")
-@:native("btAlignedObjectArray<btSoftBody::Material>")
-@:unreflective
-@:structAccess
-#end
-extern class TMaterialArray {
-	public function size():Int;
-	public function at(i:Int):MaterialPointer;
-}
-
-// ------------------------------------------------------
-#if js
-@:native('Ammo.Material')
-#elseif cpp
-@:include("BulletSoftBody/btSoftBody.h")
-@:native("btSoftBody::Material")
-@:unreflective
-@:structAccess
-#end
-extern class Material {
-	public var m_kLST:BtScalar; // Linear stiffness coefficient [0,1]
-	public var m_kAST:BtScalar; // Area/Angular stiffness coefficient [0,1]
-	public var m_kVST:BtScalar; // Volume stiffness coefficient [0,1]
-	public var m_flags:Int; // Flags
+	//public var m_c0:BtMatrix3x3;
+	public var m_c1:BtVector3;
+	public var m_c2:BtScalar;
+	#end
 }
 
 // ------------------------------------------------------
@@ -1628,9 +1657,11 @@ extern class BtSoftBody extends BtCollisionObject {
 	var m_anchors:TAnchorArray;
 	#end
 	public function setTotalMass(mass:BtScalar, fromfaces:Bool = false):Void;
-	public function generateClusters(k:Int, maxiterations:Int = 8192):Int;
-	public function generateBendingConstraints(distance:Int, mat:MaterialPointer = 0):Int;
+	public function generateClusters(k:Int, maxiterations:Int = 8192):Void;
+	public function generateBendingConstraints(distance:Int, mat:Dynamic = 0):Void;
 	public function appendAnchor(node:Int, body:BtRigidBodyPointer, disableCollisionBetweenLinkedBodies:Bool, influence:Float):Void;
+	public function appendLink(node:NodePointer, node1:NodePointer, mat:Material, bcheckexist:Bool=false):Void;
+	public function addForce(f:BtVector3, node:Int):Void;
 }
 
 // ------------------------------------------------------
@@ -1823,6 +1854,7 @@ typedef BtPairCachingGhostObjectPointer = BtPairCachingGhostObject;
 typedef BtOverlappingPairCallbackPointer = BtOverlappingPairCallback;
 typedef BtGhostPairCallbackPointer = BtGhostPairCallback;
 typedef BtOverlappingPairCachePointer = BtOverlappingPairCache;
+typedef NodePointer = Node;
 typedef MaterialPointer = Material;
 #elseif cpp
 typedef BtCollisionObjectPointer = cpp.Star<BtCollisionObject>;
@@ -1847,5 +1879,6 @@ typedef BtPairCachingGhostObjectPointer = cpp.Star<BtPairCachingGhostObject>;
 typedef BtOverlappingPairCallbackPointer = cpp.Star<BtOverlappingPairCallback>;
 typedef BtGhostPairCallbackPointer = cpp.Star<BtGhostPairCallback>;
 typedef BtOverlappingPairCachePointer = cpp.Star<BtOverlappingPairCache>;
+typedef NodePointer = cpp.Star<Node>;
 typedef MaterialPointer = cpp.Star<Material>;
 #end
