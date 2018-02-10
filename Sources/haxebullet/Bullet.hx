@@ -47,7 +47,8 @@ extern class BtVector3 {
 	public function z():BtScalar;
 	public function w():BtScalar;
 	public function length():BtScalar;
-	public function normalize():BtVector3;
+	// public function normalize():BtVector3; // Does not return itself in ammo
+	public function normalize():Void;
 }
 
 // ------------------------------------------------------
@@ -119,7 +120,6 @@ extern class BtTransform {
 	public static inline function create():BtTransform {
 		return new BtTransform();
 	}
-	public function mulVec(v:BtVector3):BtVector3; // TODO: TEMP - cannot overload '*' operator in JS
 	#elseif cpp
 	@:native("btTransform")
 	public static function create():BtTransform;
@@ -129,7 +129,7 @@ extern class BtTransform {
 	public function getOrigin():BtVector3;
 	public function setRotation(inQuat:BtQuaternion):Void;
 	public function getRotation():BtQuaternion;
-	public function inverse():BtTransform; // TODO: Missing in new ammo
+	// public function inverse():BtTransform; // Missing in ammo
 }
 
 // ------------------------------------------------------
@@ -1406,7 +1406,7 @@ extern class BtManifoldPoint {
 	public var m_normalWorldOnB:BtVector3;
 	#end
 	public function getDistance():BtScalar;
-	public function getAppliedImpulse():BtScalar; // missing in ammo_old.js
+	public function getAppliedImpulse():BtScalar;
 }
 
 // ------------------------------------------------------
