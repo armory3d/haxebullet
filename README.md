@@ -2,17 +2,11 @@
 
 Native [Bullet 3D Physics](http://bulletphysics.org/) for Haxe. Includes library file for [Kha](https://github.com/KTXSoftware/Kha). If you have trouble including C++ sources in your framework, you may find this [issue](https://github.com/luboslenco/haxebullet/issues/2) helpful.
 
-Package is available on haxelib:
-
-```
-haxelib install haxebullet
-```
-
 ## Docs
 Refer to original [Bullet documentation](http://bulletphysics.org/mediawiki-1.5.8/index.php/Main_Page).
 
 ## Remarks
-Based on Bullet 2.86.1, works on C++ and JS targets. Using original C++ sources of Bullet and Ammo.js for JavaScript respectively. The goal of this repository is to provide top class 3D physics solution for Haxe.
+Based on Bullet 2.87, works on C++ and JS targets. Using original C++ sources of Bullet and Ammo.js for JavaScript respectively. The goal of this repository is to provide top class 3D physics solution for Haxe.
 
 The bindings are not complete but it's very easy to add missing stuff based on what's already there. Feel free to contribute!
 
