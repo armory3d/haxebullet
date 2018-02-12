@@ -27,39 +27,45 @@ In order to get C++ build to work you need to add 'haxebullet/cpp/bullet' direct
 In order to get JS build to work you need to add 'haxebullet/js/ammo/ammo.js' script either by embedding or including it with a script tag.
 
 ``` hx
-var groundShape = BtStaticPlaneShape.create(BtVector3.create(0, 1, 0).value, 1);
-var groundTransform = BtTransform.create();
-groundTransform.value.setIdentity();
-groundTransform.value.setOrigin(BtVector3.create(0, -1, 0).value);
-var centerOfMassOffsetTransform = BtTransform.create();
-centerOfMassOffsetTransform.value.setIdentity();
-var groundMotionState = BtDefaultMotionState.create(groundTransform.value, centerOfMassOffsetTransform.value);
+var collisionConfiguration = BtDefaultCollisionConfiguration.create();
+var dispatcher = BtCollisionDispatcher.create(collisionConfiguration);
+var broadphase = BtDbvtBroadphase.create();
+var solver = BtSequentialImpulseConstraintSolver.create();
+var dynamicsWorld = BtDiscreteDynamicsWorld.create(dispatcher, broadphase, solver, collisionConfiguration);
 
-var groundRigidBodyCI = BtRigidBodyConstructionInfo.create(0.01, groundMotionState, groundShape, BtVector3.create(0, 0, 0).value);
-var groundRigidBody = BtRigidBody.create(groundRigidBodyCI.value);
-dynamicsWorld.value.addRigidBody(groundRigidBody);
+var groundShape = BtStaticPlaneShape.create(BtVector3.create(0, 1, 0), 1);
+var groundTransform = BtTransform.create();
+groundTransform.setIdentity();
+groundTransform.setOrigin(BtVector3.create(0, -1, 0));
+var centerOfMassOffsetTransform = BtTransform.create();
+centerOfMassOffsetTransform.setIdentity();
+var groundMotionState = BtDefaultMotionState.create(groundTransform, centerOfMassOffsetTransform);
+
+var groundRigidBodyCI = BtRigidBodyConstructionInfo.create(0.01, groundMotionState, groundShape, BtVector3.create(0, 0, 0));
+var groundRigidBody = BtRigidBody.create(groundRigidBodyCI);
+dynamicsWorld.addRigidBody(groundRigidBody);
 
 
 var fallShape = BtSphereShape.create(1);
 var fallTransform = BtTransform.create();
-fallTransform.value.setIdentity();
-fallTransform.value.setOrigin(BtVector3.create(0, 50, 0).value);
+fallTransform.setIdentity();
+fallTransform.setOrigin(BtVector3.create(0, 50, 0));
 var centerOfMassOffsetFallTransform = BtTransform.create();
-centerOfMassOffsetFallTransform.value.setIdentity();
-var fallMotionState = BtDefaultMotionState.create(fallTransform.value, centerOfMassOffsetFallTransform.value);
+centerOfMassOffsetFallTransform.setIdentity();
+var fallMotionState = BtDefaultMotionState.create(fallTransform, centerOfMassOffsetFallTransform);
 
 var fallInertia = BtVector3.create(0, 0, 0);
-fallShape.value.calculateLocalInertia(1, fallInertia.value);
-var fallRigidBodyCI = BtRigidBodyConstructionInfo.create(1, fallMotionState, fallShape, fallInertia.value);
-var fallRigidBody = BtRigidBody.create(fallRigidBodyCI.value);
-dynamicsWorld.value.addRigidBody(fallRigidBody);
+fallShape.calculateLocalInertia(1, fallInertia);
+var fallRigidBodyCI = BtRigidBodyConstructionInfo.create(1, fallMotionState, fallShape, fallInertia);
+var fallRigidBody = BtRigidBody.create(fallRigidBodyCI);
+dynamicsWorld.addRigidBody(fallRigidBody);
 
 for (i in 0...3000) {
-	dynamicsWorld.value.stepSimulation(1 / 60);
+	dynamicsWorld.stepSimulation(1 / 60);
 	
 	var trans = BtTransform.create();
-	var m = fallRigidBody.value.getMotionState();
-	m.value.getWorldTransform(trans.value);
+	var m = fallRigidBody.getMotionState();
+	m.getWorldTransform(trans);
 	trace(trans.getOrigin().y());
 }
 
