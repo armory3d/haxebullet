@@ -567,10 +567,6 @@ extern class BtCollisionWorld {
 #end
 extern class BtDynamicsWorld extends BtCollisionWorld {
 	#if js
-	public function new(dispatcher:BtDispatcher, pairCache:BtBroadphaseInterface, constraintSolver:BtConstraintSolver, collisionConfiguration:BtCollisionConfiguration):Void;
-	public static inline function create(dispatcher:BtDispatcher, pairCache:BtBroadphaseInterface, constraintSolver:BtConstraintSolver, collisionConfiguration:BtCollisionConfiguration):BtDynamicsWorld {
-		return new BtDynamicsWorld(dispatcher, pairCache, constraintSolver, collisionConfiguration);
-	}
 	public function addRigidBody(body:BtRigidBody):Void;
 	@:native("addRigidBody")
 	public function addRigidBodyToGroup(body:BtRigidBody, group:Int, mask:Int):Void;
@@ -580,8 +576,6 @@ extern class BtDynamicsWorld extends BtCollisionWorld {
 	public function addConstraint(constraint:BtTypedConstraint, disableCollisionsBetweenLinkedBodies:Bool = false):Void;
 	public function removeConstraint(constraint:BtTypedConstraint):Void;
 	#elseif cpp
-	@:native("new btDynamicsWorld")
-	public static function create(dispatcher:cpp.Star<BtDispatcher>, pairCache:cpp.Star<BtBroadphaseInterface>, constraintSolver:cpp.Star<BtConstraintSolver>, collisionConfiguration:cpp.Star<BtCollisionConfiguration>):cpp.Star<BtDynamicsWorld>;
 	public function addRigidBody(body:cpp.Star<BtRigidBody>):Void;
 	@:native("addRigidBody")
 	public function addRigidBodyToGroup(body:cpp.Star<BtRigidBody>, group:Int, mask:Int):Void;
