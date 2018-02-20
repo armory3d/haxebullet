@@ -1413,6 +1413,7 @@ extern class BtManifoldPoint {
 @:structAccess //////
 #end
 extern class BtTypedConstraint extends BtTypedObject {
+	public function setBreakingImpulseThreshold(threshold:BtScalar):Void;
 }
 
 // ------------------------------------------------------
@@ -1434,9 +1435,15 @@ extern class BtGeneric6DofConstraint extends BtTypedConstraint {
 	public static inline function create(rbB:BtRigidBody, frameInB:BtTransform, useLinearReferenceFrameB:Bool):BtGeneric6DofConstraint {
 		return new BtGeneric6DofConstraint(rbB, frameInB, useLinearReferenceFrameB);
 	}
+	public static inline function create2(rbA:BtRigidBody, rbB:BtRigidBody, frameInA:BtTransform, frameInB:BtTransform, useLinearReferenceFrameB:Bool):BtGeneric6DofConstraint {
+		var _r1 = rbA, _r2 = rbB, _fa = frameInA, _fb = frameInB, _b = useLinearReferenceFrameB;
+		return untyped __js__("new Ammo.btGeneric6DofConstraint(_r1, _r2, _fa, _fb, _b)");
+	}
 	#elseif cpp
 	@:native("new btGeneric6DofConstraint")
 	public static function create(rbB:BtRigidBody, frameInB:BtTransform, useLinearReferenceFrameB:Bool):cpp.Star<BtGeneric6DofConstraint>;
+	@:native("new btGeneric6DofConstraint")
+	public static function create2(rbA:BtRigidBody, rbB:BtRigidBody, frameInA:BtTransform, frameInB:BtTransform, useLinearReferenceFrameB:Bool):cpp.Star<BtGeneric6DofConstraint>;
 	public function setFrameOffsetAOrigin(v:BtVector3):Void; // TODO: TEMP
 	#end
 	public function setLinearLowerLimit(linearLower:BtVector3):Void;
@@ -1839,6 +1846,7 @@ typedef BtTriangleMeshPointer = BtTriangleMesh;
 typedef BtDiscreteDynamicsWorldPointer = BtDiscreteDynamicsWorld;
 typedef BtSoftRigidDynamicsWorldPointer = BtSoftRigidDynamicsWorld;
 typedef BtCollisionDispatcherPointer = BtCollisionDispatcher;
+typedef BtTypedConstraintPointer = BtTypedConstraint;
 typedef BtGeneric6DofConstraintPointer = BtGeneric6DofConstraint;
 typedef BtHingeConstraintPointer = BtHingeConstraint;
 typedef BtRaycastVehiclePointer = BtRaycastVehicle;
@@ -1864,6 +1872,7 @@ typedef BtTriangleMeshPointer = cpp.Star<BtTriangleMesh>;
 typedef BtDiscreteDynamicsWorldPointer = cpp.Star<BtDiscreteDynamicsWorld>;
 typedef BtSoftRigidDynamicsWorldPointer = cpp.Star<BtSoftRigidDynamicsWorld>;
 typedef BtCollisionDispatcherPointer = cpp.Star<BtCollisionDispatcher>;
+typedef BtTypedConstraintPointer = cpp.Star<BtTypedConstraint>;
 typedef BtGeneric6DofConstraintPointer = cpp.Star<BtGeneric6DofConstraint>;
 typedef BtHingeConstraintPointer = cpp.Star<BtHingeConstraint>;
 typedef BtRaycastVehiclePointer = cpp.Star<BtRaycastVehicle>;
