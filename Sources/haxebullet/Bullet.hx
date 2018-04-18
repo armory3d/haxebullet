@@ -261,6 +261,7 @@ extern class BtRigidBody extends BtCollisionObject {
 	public function getMotionState():cpp.Star<BtMotionState>;
 	#end
 	public function applyCentralForce(force:BtVector3):Void;
+	public function applyForce(force:BtVector3, rel_pos:BtVector3):Void;
 	public function applyCentralImpulse(impulse:BtVector3):Void;
 	public function applyImpulse(impulse:BtVector3, rel_pos:BtVector3):Void;
 	public function clearForces():Void;
