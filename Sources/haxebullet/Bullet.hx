@@ -1205,6 +1205,46 @@ extern class BtBvhTriangleMeshShape extends BtTriangleMeshShape {
 
 // ------------------------------------------------------
 #if js
+@:native('Ammo.btGImpactMeshShape')
+#elseif cpp
+@:include("BulletCollision/Gimpact/btGImpactShape.h")
+@:native("btGImpactMeshShape")
+@:unreflective
+@:structAccess //////
+#end
+extern class BtGImpactMeshShape extends BtConcaveShape {
+	#if js
+	public function new(meshInterface:BtStridingMeshInterface):Void;
+	public static inline function create(meshInterface:BtStridingMeshInterface):BtGImpactMeshShape {
+		return new BtGImpactMeshShape(meshInterface);
+	}
+	#elseif cpp
+	@:native("new btGImpactMeshShape")
+	public static function create(meshInterface:cpp.Star<BtStridingMeshInterface>):cpp.Star<BtGImpactMeshShape>;
+	#end
+	public function updateBound():Void;
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btGImpactCollisionAlgorithm')
+#elseif cpp
+@:include("BulletCollision/Gimpact/btGImpactCollisionAlgorithm.h")
+@:native("btGImpactCollisionAlgorithm")
+@:unreflective
+@:structAccess //////
+#end
+extern class BtGImpactCollisionAlgorithm {
+	#if js
+	public static function registerAlgorithm(dispatcher:BtCollisionDispatcherPointer):Void;
+	#else
+	@:native("btGImpactCollisionAlgorithm::registerAlgorithm")
+	public static function registerAlgorithm(dispatcher:BtCollisionDispatcherPointer):Void;
+	#end
+}
+
+// ------------------------------------------------------
+#if js
 @:native('Ammo.btVehicleTuning')
 #elseif cpp
 @:include("BulletDynamics/Vehicle/btRaycastVehicle.h")
@@ -1841,6 +1881,7 @@ typedef BtSoftBodyPointer = BtSoftBody;
 typedef BtCollisionShapePointer = BtCollisionShape;
 typedef BtConvexHullShapePointer = BtConvexHullShape;
 typedef BtConvexShapePointer = BtConvexShape;
+typedef BtGImpactMeshShapePointer = BtGImpactMeshShape;
 typedef BtCapsuleShapePointer = BtCapsuleShape;
 typedef BtCompoundShapePointer = BtCompoundShape;
 typedef BtTriangleMeshPointer = BtTriangleMesh;
@@ -1867,6 +1908,7 @@ typedef BtSoftBodyPointer = cpp.Star<BtSoftBody>;
 typedef BtCollisionShapePointer = cpp.Star<BtCollisionShape>;
 typedef BtConvexHullShapePointer = cpp.Star<BtConvexHullShape>;
 typedef BtConvexShapePointer = cpp.Star<BtConvexShape>;
+typedef BtGImpactMeshShapePointer = cpp.Star<BtGImpactMeshShape>;
 typedef BtCapsuleShapePointer = cpp.Star<BtCapsuleShape>;
 typedef BtCompoundShapePointer = cpp.Star<BtCompoundShape>;
 typedef BtTriangleMeshPointer = cpp.Star<BtTriangleMesh>;
