@@ -1245,6 +1245,18 @@ extern class BtGImpactCollisionAlgorithm {
 
 // ------------------------------------------------------
 #if js
+@:native('Ammo.GImpactCollisionAlgorithm')
+extern class GImpactCollisionAlgorithm {
+	public function new():Void;
+	public static inline function create():GImpactCollisionAlgorithm {
+		return new GImpactCollisionAlgorithm();
+	}
+	public function registerAlgorithm(dispatcher:BtCollisionDispatcherPointer):Void;
+}
+#end
+
+// ------------------------------------------------------
+#if js
 @:native('Ammo.btVehicleTuning')
 #elseif cpp
 @:include("BulletDynamics/Vehicle/btRaycastVehicle.h")
