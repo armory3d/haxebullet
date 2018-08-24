@@ -72,6 +72,10 @@ extern class BtQuaternion {
 	#end
 	public function setEuler(yaw:BtScalar, pitch:BtScalar, roll:BtScalar):Void;
 	public function slerp(q:BtQuaternion, t:BtScalar):BtQuaternion;
+	public function setX(x:BtScalar):Void;
+	public function setY(y:BtScalar):Void;
+	public function setZ(z:BtScalar):Void;
+	public function setW(w:BtScalar):Void;
 	public function x():BtScalar;
 	public function y():BtScalar;
 	public function z():BtScalar;
