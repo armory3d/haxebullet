@@ -241,6 +241,8 @@ extern class BtCollisionObject {
 	public function getCollisionShape():BtCollisionShapePointer;
 	public function setCollisionFlags(flags:Int):Void;
 	public function getCollisionFlags():Int;
+	public function setCcdSweptSphereRadius(radius:BtScalar):Void;
+	public function setCcdMotionThreshold(ccdMotionThreshold:BtScalar):Void;
 }
 
 // ------------------------------------------------------
