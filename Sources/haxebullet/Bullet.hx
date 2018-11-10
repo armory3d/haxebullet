@@ -138,6 +138,24 @@ extern class BtTransform {
 
 // ------------------------------------------------------
 #if js
+@:native('Ammo.btIDebugDraw')
+#elseif cpp
+@:include("LinearMath/btIDebugDraw.h")
+@:native("btIDebugDraw")
+@:unreflective
+@:structAccess
+#end
+extern class BtIDebugDraw  {
+	public function drawLine(from:BtVector3, to:BtVector3, color:BtVector3):Void;
+	public function drawContactPoint(pointOnB:BtVector3, normalOnB:BtVector3, distance:BtScalar, lifeTime:Int, color:BtVector3):Void;
+	public function reportErrorWarning(warningString:String):Void;
+	public function draw3dText(location:BtVector3, textString:String):Void;
+	public function setDebugMode(debugMode:Int):Void;
+	public function getDebugMode():Int;
+}
+
+// ------------------------------------------------------
+#if js
 @:native('Ammo.btMotionState')
 #elseif cpp
 @:include("LinearMath/btMotionState.h")
@@ -616,6 +634,8 @@ extern class BtDiscreteDynamicsWorld extends BtDynamicsWorld {
 	@:native("new btDiscreteDynamicsWorld")
 	public static function create(dispatcher:cpp.Star<BtDispatcher>, pairCache:cpp.Star<BtBroadphaseInterface>, constraintSolver:cpp.Star<BtConstraintSolver>, collisionConfiguration:cpp.Star<BtCollisionConfiguration>):cpp.Star<BtDiscreteDynamicsWorld>;
 	#end
+
+	public function debugDrawWorld():Void;
 }
 
 // ------------------------------------------------------
@@ -1320,6 +1340,27 @@ extern class BtDefaultVehicleRaycaster extends BtVehicleRaycaster {
 @:native('Ammo.btWheelInfoConstructionInfo')
 #elseif cpp
 @:include("BulletDynamics/Vehicle/btWheelInfo.h")
+@:native("RaycastInfo")
+@:unreflective
+@:structAccess //////
+#end
+extern class RaycastInfo {
+	public var m_contactNormalWS:BtVector3;
+	public var m_contactPointWS:BtVector3;
+	public var m_suspensionLength:BtScalar;
+
+	public var m_hardPointWS:BtVector3;
+	public var m_wheelDirectionWS:BtVector3;
+	public var m_wheelAxleWS:BtVector3;
+
+	public var m_isInContact:Bool;
+}
+
+// ------------------------------------------------------
+#if js
+@:native('Ammo.btWheelInfoConstructionInfo')
+#elseif cpp
+@:include("BulletDynamics/Vehicle/btWheelInfo.h")
 @:native("btWheelInfoConstructionInfo")
 @:unreflective
 @:structAccess //////
@@ -1368,11 +1409,40 @@ extern class BtWheelInfo {
 	@:native("btWheelInfo")
 	public static function create(ci:BtWheelInfoConstructionInfo):BtWheelInfo;
 	#end
+
+    public var m_raycastInfo:RaycastInfo;
+
+    public var m_worldTransform:BtTransform;
+
+    public var m_chassisConnectionPointCS:BtVector3;
+    public var m_wheelDirectionCS:BtVector3;
+    public var m_wheelAxleCS:BtVector3;
+	public var m_suspensionRestLength1:BtScalar;
+	public var m_maxSuspensionTravelCm:BtScalar;
+
+	public function getSuspensionRestLength():BtScalar;
+
 	public var m_suspensionStiffness:BtScalar;
 	public var m_wheelsDampingCompression:BtScalar;
 	public var m_wheelsDampingRelaxation:BtScalar;
 	public var m_frictionSlip:BtScalar;
+	public var m_steering:BtScalar;
+	public var m_rotation:BtScalar;
+	public var m_deltaRotation:BtScalar;
 	public var m_rollInfluence:BtScalar;
+	public var m_maxSuspensionForce:BtScalar;
+
+    public var m_wheelsRadius:BtScalar;
+	public var m_engineForce:BtScalar;
+
+	public var m_brake:BtScalar;
+
+	public var m_bIsFrontWheel:Bool;
+
+    public var m_clippedInvContactDotSuspension:BtScalar;
+    public var m_suspensionRelativeVelocity:BtScalar;
+    public var m_wheelsSuspensionForce:BtScalar;
+    public var m_skidInfo:BtScalar;
 }
 
 // ------------------------------------------------------
@@ -1403,7 +1473,15 @@ extern class BtRaycastVehicle extends BtActionInterface {
 	public function updateWheelTransform(wheelIndex:Int, interpolatedTransform:Bool = true):Void;
 	public function applyEngineForce(force:BtScalar, wheel:Int):Void;
 	public function setBrake(brake:BtScalar, wheelIndex:Int):Void;
+	public function setPitchControl(pitch:BtScalar):Void;
+	public function updateSuspension(deltaTime:BtScalar ):Void;
+	public function updateFriction(deltaTime:BtScalar ):Void;
 	public function setSteeringValue(steering:BtScalar, wheel:Int):Void;
+	public function getRightAxis():Int;
+	public function getUpAxis():Int;
+	public function getForwardAxis():Int;
+	public function getForwardVector():BtVector3;
+	public function getCurrentSpeedKmHour():BtScalar;
 }
 
 // ------------------------------------------------------
