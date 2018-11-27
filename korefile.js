@@ -1,6 +1,8 @@
 let project = new Project('haxebullet', __dirname);
 
-project.addFile('cpp/bullet/**');
-project.addIncludeDir('cpp/bullet');
+project.addFile('bullet/**');
+project.addIncludeDir('bullet');
+
+project.addFile('hl/bullet.cpp');
 
 resolve(project);
