@@ -56,5 +56,8 @@ for (i in 0...3000) {
 	var m = fallRigidBody.getMotionState();
 	m.getWorldTransform(trans);
 	trace(trans.getOrigin().y());
+	trans.delete();
 }
+
+// ...delete();
 ```

@@ -20,37 +20,44 @@
 #define _IDL _BYTES
 #define _OPT(t) vdynamic *
 #define _GET_OPT(value,t) (value)->v.t
-template <typename T> struct pref {
-	void *finalize;
-	T *value;
-};
 
-#define _ref(t) pref<t>
-#define _unref(v) v->value
-#define alloc_ref(r,t) _alloc_ref(r,finalize_##t)
-#define alloc_ref_const(r, _) _alloc_const(r)
-#define HL_CONST
+// template <typename T> struct pref {
+// 	void *finalize;
+// 	T *value;
+// };
 
-template<typename T> void free_ref( pref<T> *r ) {
-	if( !r->finalize ) return;
-	delete r->value;
-	r->value = NULL;
-	r->finalize = NULL;
-}
+// #define _ref(t) pref<t>
+// #define _unref(v) v->value
+// #define alloc_ref(r,t) _alloc_ref(r,finalize_##t)
+// #define alloc_ref_const(r, _) _alloc_const(r)
+// #define HL_CONST
 
-template<typename T> pref<T> *_alloc_ref( T *value, void (*finalize)( pref<T> * ) ) {
-	pref<T> *r = (pref<T>*)hl_gc_alloc_finalizer(sizeof(r));
-	r->finalize = finalize;
-	r->value = value;
-	return r;
-}
+// template<typename T> void free_ref( pref<T> *r ) {
+// 	if( !r->finalize ) return;
+// 	delete r->value;
+// 	r->value = NULL;
+// 	r->finalize = NULL;
+// }
 
-template<typename T> pref<T> *_alloc_const( const T *value ) {
-	pref<T> *r = (pref<T>*)hl_gc_alloc_noptr(sizeof(r));
-	r->finalize = NULL;
-	r->value = (T*)value;
-	return r;
-}
+// template<typename T> pref<T> *_alloc_ref( T *value, void (*finalize)( pref<T> * ) ) {
+// 	pref<T> *r = (pref<T>*)hl_gc_alloc_finalizer(sizeof(r));
+// 	r->finalize = finalize;
+// 	r->value = value;
+// 	return r;
+// }
+
+// template<typename T> pref<T> *_alloc_const( const T *value ) {
+// 	pref<T> *r = (pref<T>*)hl_gc_alloc_noptr(sizeof(r));
+// 	r->finalize = NULL;
+// 	r->value = (T*)value;
+// 	return r;
+// }
+#define alloc_ref(r, _) r
+#define alloc_ref_const(r,_) r
+#define _ref(t)			t
+#define _unref(v)		v
+#define free_ref(v) delete (v)
+#define HL_CONST const
 
 #endif
 
