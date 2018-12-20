@@ -75,6 +75,8 @@
 #include <BulletCollision/CollisionShapes/btHeightfieldTerrainShape.h>
 #include <BulletCollision/CollisionDispatch/btGhostObject.h>
 #include <BulletDynamics/Character/btKinematicCharacterController.h>
+#include <BulletCollision/Gimpact/btGImpactShape.h>
+#include <BulletCollision/Gimpact/btGImpactCollisionAlgorithm.h>
 
 extern "C" {
 
@@ -279,6 +281,11 @@ HL_PRIM void HL_NAME(btHeightfieldTerrainShape_delete)( _ref(btHeightfieldTerrai
 	free_ref(_this);
 }
 DEFINE_PRIM(_VOID, btHeightfieldTerrainShape_delete, _IDL);
+static void finalize_btGImpactMeshShape( _ref(btGImpactMeshShape)* _this ) { free_ref(_this); }
+HL_PRIM void HL_NAME(btGImpactMeshShape_delete)( _ref(btGImpactMeshShape)* _this ) {
+	free_ref(_this);
+}
+DEFINE_PRIM(_VOID, btGImpactMeshShape_delete, _IDL);
 static void finalize_btDefaultCollisionConstructionInfo( _ref(btDefaultCollisionConstructionInfo)* _this ) { free_ref(_this); }
 HL_PRIM void HL_NAME(btDefaultCollisionConstructionInfo_delete)( _ref(btDefaultCollisionConstructionInfo)* _this ) {
 	free_ref(_this);
@@ -1590,6 +1597,21 @@ HL_PRIM float HL_NAME(btHeightfieldTerrainShape_getMargin0)(_ref(btHeightfieldTe
 }
 DEFINE_PRIM(_F32, btHeightfieldTerrainShape_getMargin0, _IDL);
 
+HL_PRIM _ref(btGImpactMeshShape)* HL_NAME(btGImpactMeshShape_new1)(_ref(btStridingMeshInterface)* meshInterface) {
+	return alloc_ref((new btGImpactMeshShape(meshInterface)),btGImpactMeshShape);
+}
+DEFINE_PRIM(_IDL, btGImpactMeshShape_new1, _IDL);
+
+HL_PRIM void HL_NAME(btGImpactMeshShape_updateBound0)(_ref(btGImpactMeshShape)* _this) {
+	_unref(_this)->updateBound();
+}
+DEFINE_PRIM(_VOID, btGImpactMeshShape_updateBound0, _IDL);
+
+HL_PRIM void HL_NAME(btGImpactMeshShape_registerAlgorithm1)(_ref(btGImpactMeshShape)* _this, _ref(btCollisionDispatcher)* dispatcher) {
+	btGImpactCollisionAlgorithm::registerAlgorithm(dispatcher);
+}
+DEFINE_PRIM(_VOID, btGImpactMeshShape_registerAlgorithm1, _IDL _IDL);
+
 HL_PRIM _ref(btDefaultCollisionConstructionInfo)* HL_NAME(btDefaultCollisionConstructionInfo_new0)() {
 	return alloc_ref((new btDefaultCollisionConstructionInfo()),btDefaultCollisionConstructionInfo);
 }
@@ -1909,6 +1931,16 @@ HL_PRIM void HL_NAME(btRigidBody_getAabb2)(_ref(btRigidBody)* _this, _ref(btVect
 	_unref(_this)->getAabb(*_unref(aabbMin), *_unref(aabbMax));
 }
 DEFINE_PRIM(_VOID, btRigidBody_getAabb2, _IDL _IDL _IDL);
+
+HL_PRIM HL_CONST _ref(btVector3)* HL_NAME(btRigidBody_getGravity0)(_ref(btRigidBody)* _this) {
+	return alloc_ref(new btVector3(_unref(_this)->getGravity()),btVector3);
+}
+DEFINE_PRIM(_IDL, btRigidBody_getGravity0, _IDL);
+
+HL_PRIM void HL_NAME(btRigidBody_setGravity1)(_ref(btRigidBody)* _this, _ref(btVector3)* acceleration) {
+	_unref(_this)->setGravity(*_unref(acceleration));
+}
+DEFINE_PRIM(_VOID, btRigidBody_setGravity1, _IDL _IDL);
 
 HL_PRIM _ref(btConstraintSetting)* HL_NAME(btConstraintSetting_new0)() {
 	return alloc_ref((new btConstraintSetting()),btConstraintSetting);
@@ -2380,6 +2412,11 @@ HL_PRIM void HL_NAME(btCollisionWorld_contactTest2)(_ref(btCollisionWorld)* _thi
 	_unref(_this)->contactTest(_unref(colObj), *_unref(resultCallback));
 }
 DEFINE_PRIM(_VOID, btCollisionWorld_contactTest2, _IDL _IDL _IDL);
+
+HL_PRIM void HL_NAME(btCollisionWorld_updateSingleAabb1)(_ref(btCollisionWorld)* _this, _ref(btCollisionObject)* collisionObject) {
+	_unref(_this)->updateSingleAabb(_unref(collisionObject));
+}
+DEFINE_PRIM(_VOID, btCollisionWorld_updateSingleAabb1, _IDL _IDL);
 
 HL_PRIM int HL_NAME(btContactSolverInfo_get_m_splitImpulse)( _ref(btContactSolverInfo)* _this ) {
 	return _unref(_this)->m_splitImpulse;

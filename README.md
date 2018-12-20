@@ -1,8 +1,8 @@
 # haxebullet
 
-Native [Bullet 3D Physics](http://bulletphysics.org/) for Haxe.
+[Bullet 3D Physics](http://bulletphysics.org/) bindings for Haxe.
 
-Testing the webidl approach for HL/C & JS:
+Based on the webidl approach, works for HL/C & JS:
 - https://github.com/ncannasse/webidl
 - https://github.com/HaxeFoundation/hashlink/tree/master/libs/bullet
 - https://github.com/bulletphysics/bullet3
