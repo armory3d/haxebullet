@@ -1,67 +1,63 @@
 # haxebullet
 
-Native [Bullet 3D Physics](http://bulletphysics.org/) for Haxe. Includes library file for [Kha](https://github.com/KTXSoftware/Kha). If you have trouble including C++ sources in your framework, you may find this [issue](https://github.com/luboslenco/haxebullet/issues/2) helpful.
+[Bullet 3D Physics](http://bulletphysics.org/) bindings for Haxe.
 
-## Docs
-Refer to original [Bullet documentation](http://bulletphysics.org/mediawiki-1.5.8/index.php/Main_Page).
-
-## Remarks
-Based on Bullet 2.87, works on C++ and JS targets. Using original C++ sources of Bullet and Ammo.js for JavaScript respectively. The goal of this repository is to provide top class 3D physics solution for Haxe.
-
-The bindings are not complete but it's very easy to add missing stuff based on what's already there. Feel free to contribute!
+Based on the webidl approach, works for HL/C & JS:
+- https://github.com/ncannasse/webidl
+- https://github.com/HaxeFoundation/hashlink/tree/master/libs/bullet
+- https://github.com/bulletphysics/bullet3
+- https://github.com/kripken/ammo.js
 
 ## Usage
 
-[C++ Reference](http://bulletphysics.org/mediawiki-1.5.8/index.php/Hello_World)
+[Reference](http://bulletphysics.org/mediawiki-1.5.8/index.php/Hello_World)
 
-In order to get C++ build to work you need to add 'haxebullet/cpp/bullet' directory into your build process so compiler is able to find bullet sources.
+In order to get HL/C build to work you need to add `haxebullet/bullet` and `haxebullet/hl` directories into your build process so the compiler is able to find bullet sources.
 
-[JS Reference](http://bulletphysics.org/mediawiki-1.5.8/index.php/Hello_World)
-
-In order to get JS build to work you need to add 'haxebullet/js/ammo/ammo.js' script either by embedding or including it with a script tag.
+In order to get JS build to work you need to add `haxebullet/ammo/ammo.js` script either by embedding or including it with a script tag.
 
 ``` hx
-var collisionConfiguration = BtDefaultCollisionConfiguration.create();
-var dispatcher = BtCollisionDispatcher.create(collisionConfiguration);
-var broadphase = BtDbvtBroadphase.create();
-var solver = BtSequentialImpulseConstraintSolver.create();
-var dynamicsWorld = BtDiscreteDynamicsWorld.create(dispatcher, broadphase, solver, collisionConfiguration);
+var collisionConfiguration = new bullet.Bt.DefaultCollisionConfiguration();
+var dispatcher = new bullet.Bt.CollisionDispatcher(collisionConfiguration);
+var broadphase = new bullet.Bt.DbvtBroadphase();
+var solver = new bullet.Bt.SequentialImpulseConstraintSolver();
+var dynamicsWorld = new bullet.Bt.DiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
 
-var groundShape = BtStaticPlaneShape.create(BtVector3.create(0, 1, 0), 1);
-var groundTransform = BtTransform.create();
+var groundShape = new bullet.Bt.StaticPlaneShape(new bullet.Bt.Vector3(0, 1, 0), 1);
+var groundTransform = new bullet.Bt.Transform();
 groundTransform.setIdentity();
-groundTransform.setOrigin(BtVector3.create(0, -1, 0));
-var centerOfMassOffsetTransform = BtTransform.create();
+groundTransform.setOrigin(new bullet.Bt.Vector3(0, -1, 0));
+var centerOfMassOffsetTransform = new bullet.Bt.Transform();
 centerOfMassOffsetTransform.setIdentity();
-var groundMotionState = BtDefaultMotionState.create(groundTransform, centerOfMassOffsetTransform);
+var groundMotionState = new bullet.Bt.DefaultMotionState(groundTransform, centerOfMassOffsetTransform);
 
-var groundRigidBodyCI = BtRigidBodyConstructionInfo.create(0.01, groundMotionState, groundShape, BtVector3.create(0, 0, 0));
-var groundRigidBody = BtRigidBody.create(groundRigidBodyCI);
+var groundRigidBodyCI = new bullet.Bt.RigidBodyConstructionInfo(0.01, groundMotionState, cast groundShape, new bullet.Bt.Vector3(0, 0, 0));
+var groundRigidBody = new bullet.Bt.RigidBody(groundRigidBodyCI);
 dynamicsWorld.addRigidBody(groundRigidBody);
 
-
-var fallShape = BtSphereShape.create(1);
-var fallTransform = BtTransform.create();
+var fallShape = new bullet.Bt.SphereShape(1);
+var fallTransform = new bullet.Bt.Transform();
 fallTransform.setIdentity();
-fallTransform.setOrigin(BtVector3.create(0, 50, 0));
-var centerOfMassOffsetFallTransform = BtTransform.create();
+fallTransform.setOrigin(new bullet.Bt.Vector3(0, 50, 0));
+var centerOfMassOffsetFallTransform = new bullet.Bt.Transform();
 centerOfMassOffsetFallTransform.setIdentity();
-var fallMotionState = BtDefaultMotionState.create(fallTransform, centerOfMassOffsetFallTransform);
+var fallMotionState = new bullet.Bt.DefaultMotionState(fallTransform, centerOfMassOffsetFallTransform);
 
-var fallInertia = BtVector3.create(0, 0, 0);
-fallShape.calculateLocalInertia(1, fallInertia);
-var fallRigidBodyCI = BtRigidBodyConstructionInfo.create(1, fallMotionState, fallShape, fallInertia);
-var fallRigidBody = BtRigidBody.create(fallRigidBodyCI);
+var fallInertia = new bullet.Bt.Vector3(0, 0, 0);
+// fallShape.calculateLocalInertia(1, fallInertia);
+var fallRigidBodyCI = new bullet.Bt.RigidBodyConstructionInfo(1, fallMotionState, fallShape, fallInertia);
+var fallRigidBody = new bullet.Bt.RigidBody(fallRigidBodyCI);
 dynamicsWorld.addRigidBody(fallRigidBody);
 
 for (i in 0...3000) {
 	dynamicsWorld.stepSimulation(1 / 60);
 	
-	var trans = BtTransform.create();
+	var trans = new bullet.Bt.Transform();
 	var m = fallRigidBody.getMotionState();
 	m.getWorldTransform(trans);
 	trace(trans.getOrigin().y());
+	trans.delete();
 }
 
-// .destroy()...
+// ...delete();
 ```
