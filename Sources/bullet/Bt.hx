@@ -727,6 +727,9 @@ extern class KinematicCharacterController extends ActionInterface {
 extern class Ammo {
 	public static function destroy(obj:Dynamic):Void;
 	public static function castObject(obj:Dynamic, to:Class<Dynamic>):Dynamic;
+	public static function _malloc(byteSize:Int):Int;
+	public static var HEAPU8:Dynamic;
+	public static var HEAPF32:Dynamic;
 }
 
 #end
