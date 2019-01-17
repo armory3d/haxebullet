@@ -393,7 +393,7 @@ extern class ConeShapeZ extends ConeShape {
 @:native('Ammo.btHeightfieldTerrainShape')
 extern class HeightfieldTerrainShape extends ConcaveShape {
 	// heightDataType - float, double, integer, short, fixedpoint88, uchar
-	public function new(heightStickWidth:Int, heightStickLength:Int, heightfieldData:Array<Dynamic>, heightScale:Float, minHeight:Float, maxHeight:Float, upAxis:Int, heightDataType:Int, flipQuadEdges:Bool):Void;
+	public function new(heightStickWidth:Int, heightStickLength:Int, heightfieldData:Dynamic, heightScale:Float, minHeight:Float, maxHeight:Float, upAxis:Int, heightDataType:Int, flipQuadEdges:Bool):Void;
 }
 
 @:native('Ammo.btStridingMeshInterface')
