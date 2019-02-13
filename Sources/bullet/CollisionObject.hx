@@ -2,6 +2,11 @@ package bullet;
 
 #if hl
 abstract CollisionObject(webidl.Types.Ref) to webidl.Types.Ref {
+    public static inline var ACTIVE_TAG : Int = 1;
+    public static inline var ISLAND_SLEEPING : Int = 2;
+    public static inline var WANTS_DEACTIVATION : Int = 3;
+    public static inline var DISABLE_DEACTIVATION : Int = 4;
+    public static inline var DISABLE_SIMULATION : Int = 5;
     @:hlNative("bullet", "btCollisionObject_setAnisotropicFriction2")
     public function setAnisotropicFriction(anisotropicFriction:Vector3, frictionMode:Int):Void { }
     @:hlNative("bullet", "btCollisionObject_getCollisionShape0")
@@ -55,6 +60,11 @@ abstract CollisionObject(webidl.Types.Ref) to webidl.Types.Ref {
 }
 #elseif js
 abstract CollisionObject(webidl.Types.Ref) to webidl.Types.Ref {
+    public static inline var ACTIVE_TAG : Int = 1;
+    public static inline var ISLAND_SLEEPING : Int = 2;
+    public static inline var WANTS_DEACTIVATION : Int = 3;
+    public static inline var DISABLE_DEACTIVATION : Int = 4;
+    public static inline var DISABLE_SIMULATION : Int = 5;
     inline public function setAnisotropicFriction(anisotropicFriction:Vector3, frictionMode:Int):Void return untyped bullet._eb_btCollisionObject_setAnisotropicFriction2(this, anisotropicFriction, frictionMode);
     inline public function getCollisionShape():CollisionShape return untyped bullet._eb_btCollisionObject_getCollisionShape0(this);
     inline public function setContactProcessingThreshold(contactProcessingThreshold:Float):Void return untyped bullet._eb_btCollisionObject_setContactProcessingThreshold1(this, contactProcessingThreshold);

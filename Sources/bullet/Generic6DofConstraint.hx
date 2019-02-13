@@ -7,6 +7,12 @@ abstract Generic6DofConstraint(webidl.Types.Ref) to webidl.Types.Ref {
     @:hlNative("bullet", "btGeneric6DofConstraint_new3")
     static function new3(rbB:RigidBody, frameInB:Transform, useLinearFrameReferenceFrameB:Bool):Generic6DofConstraint return null;
     public inline function new(rbA_rbB:RigidBody, rbB_frameInB:haxe.extern.EitherType<RigidBody, Transform>, frameInA_useLinearFrameReferenceFrameB:haxe.extern.EitherType<Transform, Bool>, ?frameInB:Transform, ?useLinearFrameReferenceFrameA:Bool):Void if (frameInB == null) this = new3(cast rbA_rbB, cast rbB_frameInB, cast frameInA_useLinearFrameReferenceFrameB) else this = new5(cast rbA_rbB, cast rbB_frameInB, cast frameInA_useLinearFrameReferenceFrameB, cast frameInB, cast useLinearFrameReferenceFrameA);
+    @:hlNative("bullet", "btGeneric6DofConstraint_getFrameOffsetA0")
+    public function getFrameOffsetA():Transform return null;
+    @:hlNative("bullet", "btGeneric6DofConstraint_getFrameOffsetB0")
+    public function getFrameOffsetB():Transform return null;
+    @:hlNative("bullet", "btGeneric6DofConstraint_setFrames2")
+    public function setFrames(frameA:Transform, frameB:Transform):Void { }
     @:hlNative("bullet", "btGeneric6DofConstraint_setLinearLowerLimit1")
     public function setLinearLowerLimit(linearLower:Vector3):Void { }
     @:hlNative("bullet", "btGeneric6DofConstraint_setLinearUpperLimit1")
@@ -35,6 +41,9 @@ abstract Generic6DofConstraint(webidl.Types.Ref) to webidl.Types.Ref {
     inline static function new5(rbA:RigidBody, rbB:RigidBody, frameInA:Transform, frameInB:Transform, useLinearFrameReferenceFrameA:Bool):Generic6DofConstraint return untyped bullet._eb_btGeneric6DofConstraint_new5(rbA, rbB, frameInA, frameInB, useLinearFrameReferenceFrameA);
     inline static function new3(rbB:RigidBody, frameInB:Transform, useLinearFrameReferenceFrameB:Bool):Generic6DofConstraint return untyped bullet._eb_btGeneric6DofConstraint_new3(rbB, frameInB, useLinearFrameReferenceFrameB);
     public inline function new(rbA_rbB:RigidBody, rbB_frameInB:haxe.extern.EitherType<RigidBody, Transform>, frameInA_useLinearFrameReferenceFrameB:haxe.extern.EitherType<Transform, Bool>, ?frameInB:Transform, ?useLinearFrameReferenceFrameA:Bool):Void if (frameInB == null) this = new3(cast rbA_rbB, cast rbB_frameInB, cast frameInA_useLinearFrameReferenceFrameB) else this = new5(cast rbA_rbB, cast rbB_frameInB, cast frameInA_useLinearFrameReferenceFrameB, cast frameInB, cast useLinearFrameReferenceFrameA);
+    inline public function getFrameOffsetA():Transform return untyped bullet._eb_btGeneric6DofConstraint_getFrameOffsetA0(this);
+    inline public function getFrameOffsetB():Transform return untyped bullet._eb_btGeneric6DofConstraint_getFrameOffsetB0(this);
+    inline public function setFrames(frameA:Transform, frameB:Transform):Void return untyped bullet._eb_btGeneric6DofConstraint_setFrames2(this, frameA, frameB);
     inline public function setLinearLowerLimit(linearLower:Vector3):Void return untyped bullet._eb_btGeneric6DofConstraint_setLinearLowerLimit1(this, linearLower);
     inline public function setLinearUpperLimit(linearUpper:Vector3):Void return untyped bullet._eb_btGeneric6DofConstraint_setLinearUpperLimit1(this, linearUpper);
     inline public function setAngularLowerLimit(angularLower:Vector3):Void return untyped bullet._eb_btGeneric6DofConstraint_setAngularLowerLimit1(this, angularLower);

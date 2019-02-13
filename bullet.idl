@@ -95,6 +95,11 @@ btDefaultMotionState implements btMotionState;
 // Collision
 
 interface btCollisionObject {
+	const int ACTIVE_TAG = 1;
+	const int ISLAND_SLEEPING = 2;
+	const int WANTS_DEACTIVATION = 3;
+	const int DISABLE_DEACTIVATION = 4;
+	const int DISABLE_SIMULATION = 5;
 	void setAnisotropicFriction([Const, Ref] btVector3 anisotropicFriction, long frictionMode);
 	btCollisionShape getCollisionShape();
 	void setContactProcessingThreshold(float contactProcessingThreshold);
@@ -489,6 +494,9 @@ btPoint2PointConstraint implements btTypedConstraint;
 interface btGeneric6DofConstraint {
 	void btGeneric6DofConstraint([Ref] btRigidBody rbA, [Ref] btRigidBody rbB, [Ref] btTransform frameInA, [Ref] btTransform frameInB, boolean useLinearFrameReferenceFrameA);
 	void btGeneric6DofConstraint([Ref] btRigidBody rbB, [Ref] btTransform frameInB, boolean useLinearFrameReferenceFrameB);
+	[Const, Ref] btTransform getFrameOffsetA();
+	[Const, Ref] btTransform getFrameOffsetB();
+	void setFrames([Const, Ref] btTransform frameA, [Const, Ref] btTransform frameB);
 	void setLinearLowerLimit([Const, Ref] btVector3 linearLower);
 	void setLinearUpperLimit([Const, Ref] btVector3 linearUpper);
 	void setAngularLowerLimit([Const, Ref] btVector3 angularLower);

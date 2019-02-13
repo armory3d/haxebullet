@@ -2010,6 +2010,21 @@ HL_PRIM _ref(btGeneric6DofConstraint)* HL_NAME(btGeneric6DofConstraint_new3)(_re
 }
 DEFINE_PRIM(_IDL, btGeneric6DofConstraint_new3, _IDL _IDL _BOOL);
 
+HL_PRIM HL_CONST _ref(btTransform)* HL_NAME(btGeneric6DofConstraint_getFrameOffsetA0)(_ref(btGeneric6DofConstraint)* _this) {
+	return alloc_ref(new btTransform(_unref(_this)->getFrameOffsetA()),btTransform);
+}
+DEFINE_PRIM(_IDL, btGeneric6DofConstraint_getFrameOffsetA0, _IDL);
+
+HL_PRIM HL_CONST _ref(btTransform)* HL_NAME(btGeneric6DofConstraint_getFrameOffsetB0)(_ref(btGeneric6DofConstraint)* _this) {
+	return alloc_ref(new btTransform(_unref(_this)->getFrameOffsetB()),btTransform);
+}
+DEFINE_PRIM(_IDL, btGeneric6DofConstraint_getFrameOffsetB0, _IDL);
+
+HL_PRIM void HL_NAME(btGeneric6DofConstraint_setFrames2)(_ref(btGeneric6DofConstraint)* _this, _ref(btTransform)* frameA, _ref(btTransform)* frameB) {
+	_unref(_this)->setFrames(*_unref(frameA), *_unref(frameB));
+}
+DEFINE_PRIM(_VOID, btGeneric6DofConstraint_setFrames2, _IDL _IDL _IDL);
+
 HL_PRIM void HL_NAME(btGeneric6DofConstraint_setLinearLowerLimit1)(_ref(btGeneric6DofConstraint)* _this, _ref(btVector3)* linearLower) {
 	_unref(_this)->setLinearLowerLimit(*_unref(linearLower));
 }

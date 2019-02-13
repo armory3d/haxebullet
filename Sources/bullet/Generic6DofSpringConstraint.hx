@@ -17,6 +17,12 @@ abstract Generic6DofSpringConstraint(webidl.Types.Ref) to webidl.Types.Ref {
     public function delete():Void { }
     @:to
     inline function _toGeneric6DofConstraint():Generic6DofConstraint return cast this;
+    @:hlNative("bullet", "btGeneric6DofConstraint_getFrameOffsetA0")
+    public function getFrameOffsetA():Transform return null;
+    @:hlNative("bullet", "btGeneric6DofConstraint_getFrameOffsetB0")
+    public function getFrameOffsetB():Transform return null;
+    @:hlNative("bullet", "btGeneric6DofConstraint_setFrames2")
+    public function setFrames(frameA:Transform, frameB:Transform):Void { }
     @:hlNative("bullet", "btGeneric6DofConstraint_setLinearLowerLimit1")
     public function setLinearLowerLimit(linearLower:Vector3):Void { }
     @:hlNative("bullet", "btGeneric6DofConstraint_setLinearUpperLimit1")
@@ -49,6 +55,9 @@ abstract Generic6DofSpringConstraint(webidl.Types.Ref) to webidl.Types.Ref {
     inline public function delete():Void return untyped bullet._eb_btGeneric6DofSpringConstraint_delete(this);
     @:to
     inline function _toGeneric6DofConstraint():Generic6DofConstraint return cast this;
+    inline public function getFrameOffsetA():Transform return untyped bullet._eb_btGeneric6DofConstraint_getFrameOffsetA0(this);
+    inline public function getFrameOffsetB():Transform return untyped bullet._eb_btGeneric6DofConstraint_getFrameOffsetB0(this);
+    inline public function setFrames(frameA:Transform, frameB:Transform):Void return untyped bullet._eb_btGeneric6DofConstraint_setFrames2(this, frameA, frameB);
     inline public function setLinearLowerLimit(linearLower:Vector3):Void return untyped bullet._eb_btGeneric6DofConstraint_setLinearLowerLimit1(this, linearLower);
     inline public function setLinearUpperLimit(linearUpper:Vector3):Void return untyped bullet._eb_btGeneric6DofConstraint_setLinearUpperLimit1(this, linearUpper);
     inline public function setAngularLowerLimit(angularLower:Vector3):Void return untyped bullet._eb_btGeneric6DofConstraint_setAngularLowerLimit1(this, angularLower);
