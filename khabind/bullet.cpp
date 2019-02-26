@@ -1060,12 +1060,12 @@ DEFINE_PRIM(_IDL,ClosestRayResultCallback_get_m_hitPointWorld,_IDL);
 DEFINE_PRIM(_IDL,ClosestRayResultCallback_set_m_hitPointWorld,_IDL _IDL);
 
 HL_PRIM HL_CONST _ref(btVector3)* HL_NAME(btManifoldPoint_getPositionWorldOnA0)(_ref(btManifoldPoint)* _this) {
-	return alloc_ref(new btVector3(_unref(_this)->getPositionWorldOnA()),btVector3);
+	return alloc_ref_const(&(_unref(_this)->getPositionWorldOnA()),btVector3);
 }
 DEFINE_PRIM(_IDL, btManifoldPoint_getPositionWorldOnA0, _IDL);
 
 HL_PRIM HL_CONST _ref(btVector3)* HL_NAME(btManifoldPoint_getPositionWorldOnB0)(_ref(btManifoldPoint)* _this) {
-	return alloc_ref(new btVector3(_unref(_this)->getPositionWorldOnB()),btVector3);
+	return alloc_ref_const(&(_unref(_this)->getPositionWorldOnB()),btVector3);
 }
 DEFINE_PRIM(_IDL, btManifoldPoint_getPositionWorldOnB0, _IDL);
 
@@ -1781,7 +1781,7 @@ HL_PRIM _ref(btRigidBody)* HL_NAME(btRigidBody_new1)(_ref(btRigidBody::btRigidBo
 DEFINE_PRIM(_IDL, btRigidBody_new1, _IDL);
 
 HL_PRIM HL_CONST _ref(btTransform)* HL_NAME(btRigidBody_getCenterOfMassTransform0)(_ref(btRigidBody)* _this) {
-	return alloc_ref(new btTransform(_unref(_this)->getCenterOfMassTransform()),btTransform);
+	return alloc_ref_const(&(_unref(_this)->getCenterOfMassTransform()),btTransform);
 }
 DEFINE_PRIM(_IDL, btRigidBody_getCenterOfMassTransform0, _IDL);
 
@@ -1846,12 +1846,12 @@ HL_PRIM void HL_NAME(btRigidBody_updateInertiaTensor0)(_ref(btRigidBody)* _this)
 DEFINE_PRIM(_VOID, btRigidBody_updateInertiaTensor0, _IDL);
 
 HL_PRIM HL_CONST _ref(btVector3)* HL_NAME(btRigidBody_getLinearVelocity0)(_ref(btRigidBody)* _this) {
-	return alloc_ref(new btVector3(_unref(_this)->getLinearVelocity()),btVector3);
+	return alloc_ref_const(&(_unref(_this)->getLinearVelocity()),btVector3);
 }
 DEFINE_PRIM(_IDL, btRigidBody_getLinearVelocity0, _IDL);
 
 HL_PRIM HL_CONST _ref(btVector3)* HL_NAME(btRigidBody_getAngularVelocity0)(_ref(btRigidBody)* _this) {
-	return alloc_ref(new btVector3(_unref(_this)->getAngularVelocity()),btVector3);
+	return alloc_ref_const(&(_unref(_this)->getAngularVelocity()),btVector3);
 }
 DEFINE_PRIM(_IDL, btRigidBody_getAngularVelocity0, _IDL);
 
@@ -1891,7 +1891,7 @@ HL_PRIM void HL_NAME(btRigidBody_getAabb2)(_ref(btRigidBody)* _this, _ref(btVect
 DEFINE_PRIM(_VOID, btRigidBody_getAabb2, _IDL _IDL _IDL);
 
 HL_PRIM HL_CONST _ref(btVector3)* HL_NAME(btRigidBody_getGravity0)(_ref(btRigidBody)* _this) {
-	return alloc_ref(new btVector3(_unref(_this)->getGravity()),btVector3);
+	return alloc_ref_const(&(_unref(_this)->getGravity()),btVector3);
 }
 DEFINE_PRIM(_IDL, btRigidBody_getGravity0, _IDL);
 
@@ -1981,12 +1981,12 @@ HL_PRIM void HL_NAME(btPoint2PointConstraint_setPivotB1)(_ref(btPoint2PointConst
 DEFINE_PRIM(_VOID, btPoint2PointConstraint_setPivotB1, _IDL _IDL);
 
 HL_PRIM HL_CONST _ref(btVector3)* HL_NAME(btPoint2PointConstraint_getPivotInA0)(_ref(btPoint2PointConstraint)* _this) {
-	return alloc_ref(new btVector3(_unref(_this)->getPivotInA()),btVector3);
+	return alloc_ref_const(&(_unref(_this)->getPivotInA()),btVector3);
 }
 DEFINE_PRIM(_IDL, btPoint2PointConstraint_getPivotInA0, _IDL);
 
 HL_PRIM HL_CONST _ref(btVector3)* HL_NAME(btPoint2PointConstraint_getPivotInB0)(_ref(btPoint2PointConstraint)* _this) {
-	return alloc_ref(new btVector3(_unref(_this)->getPivotInB()),btVector3);
+	return alloc_ref_const(&(_unref(_this)->getPivotInB()),btVector3);
 }
 DEFINE_PRIM(_IDL, btPoint2PointConstraint_getPivotInB0, _IDL);
 
@@ -2011,12 +2011,12 @@ HL_PRIM _ref(btGeneric6DofConstraint)* HL_NAME(btGeneric6DofConstraint_new3)(_re
 DEFINE_PRIM(_IDL, btGeneric6DofConstraint_new3, _IDL _IDL _BOOL);
 
 HL_PRIM HL_CONST _ref(btTransform)* HL_NAME(btGeneric6DofConstraint_getFrameOffsetA0)(_ref(btGeneric6DofConstraint)* _this) {
-	return alloc_ref(new btTransform(_unref(_this)->getFrameOffsetA()),btTransform);
+	return alloc_ref_const(&(_unref(_this)->getFrameOffsetA()),btTransform);
 }
 DEFINE_PRIM(_IDL, btGeneric6DofConstraint_getFrameOffsetA0, _IDL);
 
 HL_PRIM HL_CONST _ref(btTransform)* HL_NAME(btGeneric6DofConstraint_getFrameOffsetB0)(_ref(btGeneric6DofConstraint)* _this) {
-	return alloc_ref(new btTransform(_unref(_this)->getFrameOffsetB()),btTransform);
+	return alloc_ref_const(&(_unref(_this)->getFrameOffsetB()),btTransform);
 }
 DEFINE_PRIM(_IDL, btGeneric6DofConstraint_getFrameOffsetB0, _IDL);
 
@@ -3169,7 +3169,7 @@ HL_PRIM void HL_NAME(btRaycastVehicle_setSteeringValue2)(_ref(btRaycastVehicle)*
 DEFINE_PRIM(_VOID, btRaycastVehicle_setSteeringValue2, _IDL _F32 _I32);
 
 HL_PRIM HL_CONST _ref(btTransform)* HL_NAME(btRaycastVehicle_getWheelTransformWS1)(_ref(btRaycastVehicle)* _this, int wheelIndex) {
-	return alloc_ref(new btTransform(_unref(_this)->getWheelTransformWS(wheelIndex)),btTransform);
+	return alloc_ref_const(&(_unref(_this)->getWheelTransformWS(wheelIndex)),btTransform);
 }
 DEFINE_PRIM(_IDL, btRaycastVehicle_getWheelTransformWS1, _IDL _I32);
 
@@ -3214,7 +3214,7 @@ HL_PRIM float HL_NAME(btRaycastVehicle_getCurrentSpeedKmHour0)(_ref(btRaycastVeh
 DEFINE_PRIM(_F32, btRaycastVehicle_getCurrentSpeedKmHour0, _IDL);
 
 HL_PRIM HL_CONST _ref(btTransform)* HL_NAME(btRaycastVehicle_getChassisWorldTransform0)(_ref(btRaycastVehicle)* _this) {
-	return alloc_ref(new btTransform(_unref(_this)->getChassisWorldTransform()),btTransform);
+	return alloc_ref_const(&(_unref(_this)->getChassisWorldTransform()),btTransform);
 }
 DEFINE_PRIM(_IDL, btRaycastVehicle_getChassisWorldTransform0, _IDL);
 
@@ -3437,7 +3437,7 @@ HL_PRIM HL_CONST int HL_NAME(tNodeArray_size0)(_ref(btSoftBody::tNodeArray)* _th
 DEFINE_PRIM(_I32, tNodeArray_size0, _IDL);
 
 HL_PRIM HL_CONST _ref(btSoftBody::Node)* HL_NAME(tNodeArray_at1)(_ref(btSoftBody::tNodeArray)* _this, int n) {
-	return alloc_ref(new btSoftBody::Node(_unref(_this)->at(n)),Node);
+	return alloc_ref_const(&(_unref(_this)->at(n)),Node);
 }
 DEFINE_PRIM(_IDL, tNodeArray_at1, _IDL _I32);
 
