@@ -4,7 +4,7 @@
 
 Based on the webidl approach, works for HL/C & JS:
 - https://github.com/ncannasse/webidl
-- https://github.com/HaxeFoundation/hashlink/tree/master/libs/bullet
+- https://github.com/HeapsIO/bullet
 - https://github.com/bulletphysics/bullet3
 - https://github.com/kripken/ammo.js
 
