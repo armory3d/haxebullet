@@ -221,7 +221,10 @@ extern class DefaultSoftBodySolver extends ConstraintSolver {
 extern class RayResultCallback {
 	public function hasHit():Bool;
 	public function new():Void;
-	//public var m_collisionObject:CollisionObject;
+	public function get_m_collisionFilterGroup():Int;
+    public function set_m_collisionFilterGroup(g:Int):Void;
+    public function get_m_collisionFilterMask():Int;
+    public function set_m_collisionFilterMask(m:Int):Void;
 	public function get_m_collisionObject():CollisionObject;
 }
 
