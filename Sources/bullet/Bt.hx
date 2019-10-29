@@ -47,7 +47,7 @@ extern class Quaternion extends QuadWord {
 	public function setEuler(yaw:Float, pitch:Float, roll:Float):Void;
 	public function slerp(q:Quaternion, t:Float):Quaternion;
 	public function setValue(x:Float, y:Float, z:Float, w:Float):Void;
-	public function inverse():Quaternion;
+	//public function inverse():Quaternion;
 }
 
 @:native('Ammo.btMatrix3x3')
