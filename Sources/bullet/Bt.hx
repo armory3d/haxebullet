@@ -47,6 +47,7 @@ extern class Quaternion extends QuadWord {
 	public function setEuler(yaw:Float, pitch:Float, roll:Float):Void;
 	public function slerp(q:Quaternion, t:Float):Quaternion;
 	public function setValue(x:Float, y:Float, z:Float, w:Float):Void;
+	//public function inverse():Quaternion;
 }
 
 @:native('Ammo.btMatrix3x3')
@@ -68,7 +69,7 @@ extern class Transform {
 	public function getOrigin():Vector3;
 	public function setRotation(inQuat:Quaternion):Void;
 	public function getRotation():Quaternion;
-	// public function inverse():Transform; // Missing in ammo
+	//public function inverse():Transform; // Missing in ammo
 }
 
 @:native('Ammo.btIDebugDraw')
@@ -580,10 +581,36 @@ extern class Generic6DofConstraint extends TypedConstraint {
 	public function getFrameOffsetA():Transform;
 }
 
+@:native('Ammo.btGeneric6DofSpringConstraint')
+extern class Generic6DofSpringConstraint extends Generic6DofConstraint {
+	public function new(rbA:RigidBody, rbB:RigidBody, frameInA:Transform, frameInB:Transform, useLinearReferenceFrameB:Bool):Void;
+	public function enableSpring(index:Int, onOff:Bool):Void;
+    public function setStiffness(index:Int,stiffness:Float):Void;
+  	public function setDamping(index:Int,damping:Float):Void;
+}
+
 @:native('Ammo.btHingeConstraint')
 extern class HingeConstraint extends TypedConstraint {
 	public function new(rbA:RigidBody, rbB:RigidBody, pivotInA:Vector3, pivotInB:Vector3, axisInA:Vector3, axisInB:Vector3, useReferenceFrameA:Bool = false):Void;
 	public function setLimit(low:Float, high:Float, _softness:Float = 0.9, _biasFactor:Float = 0.3, _relaxationFactor:Float = 1.0):Void;
+}
+
+@:native('Ammo.btSliderConstraint')
+extern class SliderConstraint extends TypedConstraint {
+	public function new(rbA:RigidBody, rbB:RigidBody, frameInA:Transform, frameInB:Transform, useReferenceFrameA:Bool):Void;
+	public function setLowerLinLimit(lowerLimit:Float):Void;
+    public function setUpperLinLimit(upperLimit:Float):Void;
+    public function setLowerAngLimit(lowerAngLimit:Float):Void;
+    public function setUpperAngLimit(upperAngLimit:Float):Void;
+}
+
+@:native('Ammo.btPoint2PointConstraint')
+extern class Point2PointConstraint extends TypedConstraint {
+	public function new(rbA:RigidBody, rbB:RigidBody, pivotInA:Vector3, pivotInB:Vector3):Void;
+	public function setPivotA(pivotA:Vector3):Void;
+	public function setPivotB(pivotB:Vector3):Void;
+	public function getPivotInA():Vector3;
+	public function getPivotInB():Vector3;	
 }
 
 @:native('Ammo.Config')
@@ -725,6 +752,8 @@ extern class KinematicCharacterController extends ActionInterface {
 	public function setUseGhostSweepTest(useGhostObjectSweepTest:Bool):Void;
 	public function setUpInterpolate(value:Bool):Void;
 }
+
+
 
 @:native('Ammo')
 extern class Ammo {
