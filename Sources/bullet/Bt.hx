@@ -140,6 +140,7 @@ extern class CollisionObject {
 @:native('Ammo.btRigidBody')
 extern class RigidBody extends CollisionObject {
 	public function new(constructionInfo:RigidBodyConstructionInfo):Void;
+	public function setMassProps(mass:Float, inertia:Vector3):Void;
 	public function getMotionState():MotionState;
 	public function applyCentralForce(force:Vector3):Void;
 	public function applyForce(force:Vector3, rel_pos:Vector3):Void;
