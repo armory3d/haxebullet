@@ -802,11 +802,13 @@ interface Node {
 	[Value] attribute btVector3 m_n;
 };
 
-[Prefix="btSoftBody::"]
-interface tNodeArray {
-	[Const] long size();
-	[Const, Ref] Node at(long n);
-};
+// Throws "Type name should start with an uppercase letter" in Haxe 4.0
+// We can comment these out as no access from Haxe is necessary
+// [Prefix="btSoftBody::"]
+// interface tNodeArray {
+// 	[Const] long size();
+// 	[Const, Ref] Node at(long n);
+// };
 
 [Prefix="btSoftBody::"]
 interface Material {
@@ -816,11 +818,11 @@ interface Material {
 	attribute long m_flags;
 };
 
-[Prefix="btSoftBody::"]
-interface tMaterialArray {
-	[Const] long size();
-	Material at(long n);
-};
+// [Prefix="btSoftBody::"]
+// interface tMaterialArray {
+// 	[Const] long size();
+// 	Material at(long n);
+// };
 
 [Prefix="btSoftBody::"]
 interface Config {
@@ -855,8 +857,8 @@ interface btSoftBody {
 	void btSoftBody(btSoftBodyWorldInfo worldInfo, long node_count, btVector3 x, float[] m);
 
 	[Value] attribute Config m_cfg;
-	[Value] attribute tNodeArray m_nodes;
-	[Value] attribute tMaterialArray m_materials;
+	// [Value] attribute tNodeArray m_nodes;
+	// [Value] attribute tMaterialArray m_materials;
 
 	[Const] boolean checkLink( long node0, long node1);
 	[Const] boolean checkFace( long node0, long node1, long node2);
