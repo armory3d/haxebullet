@@ -108,11 +108,6 @@ extern class CollisionObject {
 	public static inline var DISABLE_DEACTIVATION = 4;
 	public static inline var DISABLE_SIMULATION = 5;
 
-	public static inline var CF_STATIC_OBJECT= 1;
-	public static inline var CF_KINEMATIC_OBJECT= 2;
-	public static inline var CF_NO_CONTACT_RESPONSE = 4;
-	public static inline var CF_CHARACTER_OBJECT = 16;
-
 	public function getWorldTransform():Transform;
 	public function setWorldTransform(trans:Transform):Void;
 	public function activate(forceActivation:Bool = false):Void;
