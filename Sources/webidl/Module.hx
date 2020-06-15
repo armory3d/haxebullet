@@ -1,11 +1,11 @@
 package webidl;
 
+#if macro
 import webidl.Data;
 import haxe.macro.Context;
 import haxe.macro.Expr;
 
 class Module {
-
 	var p : Position;
 	var hl : Bool;
 	var pack : Array<String>;
@@ -21,7 +21,7 @@ class Module {
 
 	function makeName( name : String ) {
 		if( opts.chopPrefix != null && StringTools.startsWith(name, opts.chopPrefix) ) name = name.substr(opts.chopPrefix.length);
-		return name;
+		return capitalize(name);
 	}
 
 	function buildModule( decls : Array<Definition> ) {
@@ -91,7 +91,7 @@ class Module {
 			{ expr : EReturn(defVal(ret)), pos : p };
 
 		var access : Array<Access> = [];
-		// if( !hl ) access.push(AInline); // TODO
+		if( !hl ) access.push(AInline);
 		if( pub ) access.push(APublic);
 		if( isConstr ) access.push(AStatic);
 
@@ -124,7 +124,7 @@ class Module {
 					if( f.name == name )
 						switch( f.kind ) {
 						case FMethod(args, ret):
-							fl.push({args:args, ret:ret});
+							fl.push({args:args, ret:ret,pos:f.pos});
 						default:
 						}
 				return fl;
@@ -151,6 +151,9 @@ class Module {
 						// create dispatching code
 						var maxArgs = 0;
 						for( v in vars ) if( v.args.length > maxArgs ) maxArgs = v.args.length;
+
+						if( vars.length > 1 && maxArgs == 0 )
+							Context.error("Duplicate method declaration", makePosition(vars.pop().pos));
 
 						var targs : Array<FunctionArg> = [];
 						var argsTypes = [];
@@ -266,6 +269,16 @@ class Module {
 							args : [{ name : "_v", type : tt }],
 						}),
 					});
+				case DConst(name, type, value):
+					dfields.push({
+						pos : p,
+						name : name,
+						access : [APublic, AStatic, AInline],
+						kind : FVar(
+							makeType({t : type, attr : []}),
+							macro $i{value}
+						)
+					});
 				}
 			}
 			var td : TypeDefinition = {
@@ -288,14 +301,14 @@ class Module {
 								if( f.access == null ) f.access = [];
 								switch( f.kind ) {
 								case FFun(df):
-									var call = "_eb_" + switch( m.params[1].expr ) { case EConst(CString(name)): name; default: throw "!"; };
+									var call = opts.nativeLib + "._eb_" + switch( m.params[1].expr ) { case EConst(CString(name)): name; default: throw "!"; };
 									var args : Array<Expr> = [for( a in df.args ) { expr : EConst(CIdent(a.name)), pos : p }];
 									if( f.access.indexOf(AStatic) < 0 )
 										args.unshift(macro this);
 									df.expr = macro return untyped $i{call}($a{args});
 								default: throw "assert";
 								}
-								f.access.push(AInline);
+								if (f.access.indexOf(AInline) == -1) f.access.push(AInline);
 								f.meta.remove(m);
 								break;
 							}
@@ -331,7 +344,20 @@ class Module {
 								if( t2.name == intf )
 									switch( t2.kind ) {
 									case TDAbstract(a2, _, to):
-										// TODO : copy fields !
+										for ( inheritedField in t2.fields ) {
+											// Search for existing field
+											var fieldExists = false;
+											for ( existingField in t.fields ) {
+												if ( inheritedField.name == existingField.name ) {
+													fieldExists = true;
+													break;
+												}
+											}
+
+											if ( !fieldExists ) {
+												t.fields.push(inheritedField);
+											}
+										}
 									default:
 									}
 							}
@@ -358,12 +384,11 @@ class Module {
 		}
 	}
 
-	public static function build( opts : Options ) {
+	public static function buildTypes( opts : Options, hl : Bool = false ):Array<TypeDefinition> {
 		var p = Context.currentPos();
-		var hl = Context.defined("hl");
-		if( hl && opts.nativeLib == null ) {
+		if( opts.nativeLib == null ) {
 			Context.error("Missing nativeLib option for HL", p);
-			return macro : Void;
+			return null;
 		}
 		// load IDL
 		var file = opts.idlFile;
@@ -372,7 +397,7 @@ class Module {
 			sys.io.File.getBytes(file);
 		} catch( e : Dynamic ) {
 			Context.error("" + e, p);
-			return macro : Void;
+			return null;
 		}
 
 		// parse IDL
@@ -384,18 +409,51 @@ class Module {
 			var lines = content.toString().split("\n");
 			var start = lines.slice(0, parse.line-1).join("\n").length + 1;
 			Context.error(msg, Context.makePosition({ min : start, max : start + lines[parse.line-1].length, file : file }));
-			return macro : Void;
+			return null;
 		}
 
 		var module = Context.getLocalModule();
 		var pack = module.split(".");
 		pack.pop();
-		var types = new Module(p, pack, hl, opts).buildModule(decls);
+		return new Module(p, pack, hl, opts).buildModule(decls);
+	}
+
+	public static function build( opts : Options ) {
+		var file = opts.idlFile;
+		var module = Context.getLocalModule();
+		var types = buildTypes(opts, Context.defined("hl"));
+		if (types == null) return macro : Void;
+
+		// Add an init function for initializing the JS module
+		if (Context.defined("js")) {
+			types.push(macro class Init {
+				public static function init(onReady:Void->Void) {
+					untyped __js__('${opts.nativeLib} = ${opts.nativeLib}().then(onReady)');
+				}
+			});
+
+		// For HL no initialization is required so execute the callback immediately
+		} else if (Context.defined("hl")) {
+			types.push(macro class Init {
+				public static function init(onReady:Void->Void) {
+					onReady();
+				}
+			});
+		}
+
 		Context.defineModule(module, types);
 		Context.registerModuleDependency(module, file);
 
 		return macro : Void;
 	}
 
-
+    /**
+	 * Capitalize the first letter of a string
+	 * @param text The string to capitalize
+	 */
+	private static function capitalize(text:String) {
+		return text.charAt(0).toUpperCase() + text.substring(1);
+	}
 }
+
+#end
