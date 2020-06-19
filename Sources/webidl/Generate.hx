@@ -50,21 +50,21 @@ template <typename T> struct pref {
 #define HL_CONST
 
 template<typename T> void free_ref( pref<T> *r ) {
-	if( !r->finalize ) return;
+	if( !r->finalize ) hl_error(\"delete() is not allowed on const value.\");
 	delete r->value;
 	r->value = NULL;
 	r->finalize = NULL;
 }
 
 template<typename T> pref<T> *_alloc_ref( T *value, void (*finalize)( pref<T> * ) ) {
-	pref<T> *r = (pref<T>*)hl_gc_alloc_finalizer(sizeof(r));
+	pref<T> *r = (pref<T>*)hl_gc_alloc_finalizer(sizeof(pref<T>));
 	r->finalize = finalize;
 	r->value = value;
 	return r;
 }
 
 template<typename T> pref<T> *_alloc_const( const T *value ) {
-	pref<T> *r = (pref<T>*)hl_gc_alloc_noptr(sizeof(r));
+	pref<T> *r = (pref<T>*)hl_gc_alloc_noptr(sizeof(pref<T>));
 	r->finalize = NULL;
 	r->value = (T*)value;
 	return r;
@@ -72,7 +72,17 @@ template<typename T> pref<T> *_alloc_const( const T *value ) {
 
 ";
 
+	static function initOpts( opts : Options ) {
+		if( opts.outputDir == null )
+			opts.outputDir = "";
+		else if( !StringTools.endsWith(opts.outputDir,"/") )
+			opts.outputDir += "/";
+	}
+
 	public static function generateCpp( opts : Options ) {
+
+		initOpts(opts);
+
 		var file = opts.idlFile;
 		var content = sys.io.File.getBytes(file);
 		var parse = new webidl.Parser();
@@ -252,7 +262,10 @@ template<typename T> pref<T> *_alloc_const( const T *value ) {
 										case TCustom(id): id;
 										default: throw "assert";
 										}
-										output.add('alloc_ref(new ${typeNames.get(refRet).constructor}(');
+										if( a == ARef && tret.attr.indexOf(AConst) >= 0 )
+											output.add('alloc_ref_const(&('); // we shouldn't call delete() on this one !
+										else
+											output.add('alloc_ref(new ${typeNames.get(refRet).constructor}(');
 									default:
 									}
 								}
@@ -371,6 +384,7 @@ template<typename T> pref<T> *_alloc_const( const T *value ) {
 						add('DEFINE_PRIM($td,${name}_get_${f.name},_IDL);');
 						add('DEFINE_PRIM($td,${name}_set_${f.name},_IDL $td);');
 						add('');
+					case DConst(_, _, _):
 					}
 				}
 
@@ -380,7 +394,7 @@ template<typename T> pref<T> *_alloc_const( const T *value ) {
 
 		add("}"); // extern C
 
-		sys.io.File.saveContent(opts.nativeLib+".cpp", output.toString());
+		sys.io.File.saveContent(opts.outputDir + opts.nativeLib+".cpp", output.toString());
 	}
 
 	static function command( cmd, args : Array<String> ) {
@@ -392,6 +406,8 @@ template<typename T> pref<T> *_alloc_const( const T *value ) {
 	public static function generateJs( opts : Options, sources : Array<String>, ?params : Array<String> ) {
 		if( params == null )
 			params = [];
+
+		initOpts(opts);
 
 		var hasOpt = false;
 		for( p in params )
@@ -411,16 +427,16 @@ template<typename T> pref<T> *_alloc_const( const T *value ) {
 		var outFiles = [];
 		sources.push(lib+".cpp");
 		for( cfile in sources ) {
-			var out = cfile.substr(0, -4) + ".bc";
+			var out = opts.outputDir + cfile.substr(0, -4) + ".bc";
 			var args = params.concat(["-c", cfile, "-o", out]);
 			command( emcc, args);
 			outFiles.push(out);
 		}
 
 		// link : because too many files, generate Makefile
-		var tmp = "Makefile.tmp";
+		var tmp = opts.outputDir + "Makefile.tmp";
 		var args = params.concat([
-			"-s", 'EXPORT_NAME="\'$lib\'"',
+			"-s", 'EXPORT_NAME="\'$lib\'"', "-s", "MODULARIZE=1",
 			"--memory-init-file", "0",
 			"-o", '$lib.js'
 		]);

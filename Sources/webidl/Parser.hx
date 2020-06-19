@@ -139,9 +139,9 @@ class Parser {
 		case "void": TVoid;
 		case "float": TFloat;
 		case "double": TDouble;
-		case "long": TInt; // long ensures 32 bits
+		case "long", "int": TInt; // long ensures 32 bits
 		case "short": TShort;
-		case "boolean": TBool;
+		case "boolean", "bool": TBool;
 		case "any": TAny;
 		case "VoidPtr": TVoidPtr;
 		default: TCustom(id);
@@ -166,6 +166,15 @@ class Parser {
 			var name = ident();
 			ensure(TSemicolon);
 			return { name : name, kind : FAttribute({ t : t, attr : attr }), pos : makePos(pmin) };
+		}
+
+		if( maybe(TId("const")) ) {
+			var type = type();
+			var name = ident();
+			ensure(TOp("="));
+			var value = tokenString(token());
+			ensure(TSemicolon);
+			return { name: name, kind : DConst(name, type, value), pos : makePos(pmin) };
 		}
 
 		var tret = type();

@@ -28,6 +28,7 @@ typedef Field = {
 enum FieldKind {
 	FMethod( args : Array<FArg>, ret : TypeAttr );
 	FAttribute( t : TypeAttr );
+	DConst( name : String, type : Type, value : String );
 }
 
 typedef FArg = { name : String, opt : Bool, t : TypeAttr };
