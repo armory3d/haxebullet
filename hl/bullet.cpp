@@ -2072,6 +2072,11 @@ HL_PRIM void HL_NAME(btGeneric6DofConstraint_setAngularUpperLimit1)(_ref(btGener
 }
 DEFINE_PRIM(_VOID, btGeneric6DofConstraint_setAngularUpperLimit1, _IDL _IDL);
 
+HL_PRIM _ref(btTransform)* HL_NAME(btGeneric6DofConstraint_getFrameOffsetA0)(_ref(btGeneric6DofConstraint)* _this) {
+	return &_this->getFrameOffsetA();
+}
+DEFINE_PRIM(_IDL, btGeneric6DofConstraint_getFrameOffsetA0, _IDL);
+
 HL_PRIM _ref(btGeneric6DofSpringConstraint)* HL_NAME(btGeneric6DofSpringConstraint_new5)(_ref(btRigidBody)* rbA, _ref(btRigidBody)* rbB, _ref(btTransform)* frameInA, _ref(btTransform)* frameInB, bool useLinearFrameReferenceFrameA) {
 	return alloc_ref((new btGeneric6DofSpringConstraint(*_unref(rbA), *_unref(rbB), *_unref(frameInA), *_unref(frameInB), useLinearFrameReferenceFrameA)),btGeneric6DofSpringConstraint);
 }
