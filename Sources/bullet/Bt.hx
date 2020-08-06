@@ -2,6 +2,14 @@
 
 package bullet;
 
+enum abstract CollisionObjectActivationState(Int) from Int to Int {
+	var ACTIVE_TAG = 1;
+	var ISLAND_SLEEPING = 2;
+	var WANTS_DEACTIVATION = 3;
+	var DISABLE_DEACTIVATION = 4;
+	var DISABLE_SIMULATION = 5;
+}
+
 #if hl
 
 typedef Bt = haxe.macro.MacroType<[webidl.Module.build({ idlFile : "Sources/bullet/bullet.idl", chopPrefix : "bt", autoGC : false, nativeLib : "bullet" })]>;
@@ -102,16 +110,16 @@ extern class RigidBodyConstructionInfo {
 
 @:native('Ammo.btCollisionObject')
 extern class CollisionObject {
-	public static inline var ACTIVE_TAG = 1;
-	public static inline var ISLAND_SLEEPING = 2;
-	public static inline var WANTS_DEACTIVATION = 3;
-	public static inline var DISABLE_DEACTIVATION = 4;
-	public static inline var DISABLE_SIMULATION = 5;
+	public static inline var ACTIVE_TAG = CollisionObjectActivationState.ACTIVE_TAG;
+	public static inline var ISLAND_SLEEPING = CollisionObjectActivationState.ISLAND_SLEEPING;
+	public static inline var WANTS_DEACTIVATION = CollisionObjectActivationState.WANTS_DEACTIVATION;
+	public static inline var DISABLE_DEACTIVATION = CollisionObjectActivationState.DISABLE_DEACTIVATION;
+	public static inline var DISABLE_SIMULATION = CollisionObjectActivationState.DISABLE_SIMULATION;
 
 	public function getWorldTransform():Transform;
 	public function setWorldTransform(trans:Transform):Void;
 	public function activate(forceActivation:Bool = false):Void;
-	public function setActivationState(newState:Int):Void;
+	public function setActivationState(newState:CollisionObjectActivationState):Void;
 	public function getUserIndex():Int;
 	public function setUserIndex(index:Int):Void;
 	public function getUserPointer():Dynamic;
