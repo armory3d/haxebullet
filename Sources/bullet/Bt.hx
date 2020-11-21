@@ -575,7 +575,7 @@ extern class Generic6DofConstraint extends TypedConstraint {
 	public function new(rbB:RigidBody, frameInB:Transform, useLinearReferenceFrameB:Bool):Void;
 	public static inline function new2(rbA:RigidBody, rbB:RigidBody, frameInA:Transform, frameInB:Transform, useLinearReferenceFrameB:Bool = false):Generic6DofConstraint {
 		var _r1 = rbA, _r2 = rbB, _fa = frameInA, _fb = frameInB, _b = useLinearReferenceFrameB;
-		return untyped __js__("new Ammo.btGeneric6DofConstraint(_r1, _r2, _fa, _fb, _b)");
+		return untyped js.Syntax.code("new Ammo.btGeneric6DofConstraint(_r1, _r2, _fa, _fb, _b)");
 	}
 	public function setLinearLowerLimit(linearLower:Vector3):Void;
 	public function setLinearUpperLimit(linearUpper:Vector3):Void;
