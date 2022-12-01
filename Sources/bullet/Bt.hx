@@ -254,6 +254,27 @@ extern class CollisionWorld {
 	public function removeCollisionObject(collisionObject:CollisionObject):Void;
 	@:native("addCollisionObject")
 	public function addCollisionObjectToGroup(collisionObject:CollisionObject, collisionFilterGroup:Int, collisionFilterMask:Int):Void;
+	public function convexSweepTest(castShape:ConvexShape, from:Transform, to:Transform, resultCallback:ConvexResultCallback, allowedCcdPenetration:Float):Void;
+}
+
+@:native('Ammo.ConvexResultCallback')
+extern class ConvexResultCallback {
+	public function hasHit():Bool;
+	public function new():Void;
+	public function get_m_collisionFilterGroup():Int;
+	public function set_m_collisionFilterGroup(g:Int):Void;
+	public function get_m_collisionFilterMask():Int;
+	public function set_m_collisionFilterMask(m:Int):Void;
+	public function get_m_closestHitFraction():Float;
+}
+
+@:native('Ammo.ClosestConvexResultCallback')
+extern class ClosestConvexResultCallback extends ConvexResultCallback {
+	public function new(convexFromWorld:Vector3, convexToWorld: Vector3):Void;
+	public function get_m_convexFromWorld():Vector3;
+	public function get_m_convexToWorld():Vector3;
+	public function get_m_hitNormalWorld():Vector3;
+	public function get_m_hitPointWorld():Vector3;
 }
 
 @:native('Ammo.btDynamicsWorld')
