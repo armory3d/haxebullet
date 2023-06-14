@@ -3778,6 +3778,16 @@ HL_PRIM _ref(btSoftBody)* HL_NAME(btSoftBody_new4)(_ref(btSoftBodyWorldInfo)* wo
 }
 DEFINE_PRIM(_IDL, btSoftBody_new4, _IDL _I32 _IDL _BYTES);
 
+HL_PRIM _ref(btSoftBody)* HL_NAME(btSoftBody_new1)(_ref(btSoftBodyWorldInfo)* worldInfo) {
+	return alloc_ref((new btSoftBody(_unref(worldInfo))),btSoftBody);
+}
+DEFINE_PRIM(_IDL, btSoftBody_new1, _IDL);
+
+HL_PRIM void HL_NAME(btSoftBody_updateBounds0)(_ref(btSoftBody)* _this) {
+	_unref(_this)->updateBounds();
+}
+DEFINE_PRIM(_VOID, btSoftBody_updateBounds0, _IDL);
+
 HL_PRIM _ref(btSoftBody::Config)* HL_NAME(btSoftBody_get_m_cfg)( _ref(btSoftBody)* _this ) {
 	return alloc_ref(new btSoftBody::Config(_unref(_this)->m_cfg),Config);
 }

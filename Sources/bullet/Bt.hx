@@ -714,11 +714,15 @@ extern class SoftBody extends CollisionObject {
 	public function get_m_cfg():Config;
 	public function get_m_materials():TMaterialArray;
 	public function get_m_anchors():TAnchorArray;
+	public function appendMaterial(): Material;
+	public function updateBounds(): Void;
 	public function setTotalMass(mass:Float, fromfaces:Bool = false):Void;
 	public function generateClusters(k:Int, maxiterations:Int = 8192):Void;
 	public function generateBendingConstraints(distance:Int, mat:Dynamic = 0):Void;
+	public function appendNode(x:Vector3, m:Float):Void;
 	public function appendAnchor(node:Int, body:RigidBody, disableCollisionBetweenLinkedBodies:Bool, influence:Float):Void;
-	public function appendLink(node:Node, node1:Node, mat:Material, bcheckexist:Bool=false):Void;
+	public function appendLink(node:Int, node1:Int, mat:Material, bcheckexist:Bool=false):Void;
+	public function appendFace(node:Int, node1:Int, node3:Int, mat:Material):Void;
 	public function addForce(f:Vector3, node:Int):Void;
 }
 
