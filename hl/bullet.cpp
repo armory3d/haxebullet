@@ -78,6 +78,8 @@
 #include <BulletCollision/Gimpact/btGImpactShape.h>
 #include <BulletCollision/Gimpact/btGImpactCollisionAlgorithm.h>
 
+#include <btCustomArray.h>
+
 extern "C" {
 
 static void finalize_btVector3( _ref(btVector3)* _this ) { free_ref(_this); }
@@ -3993,5 +3995,71 @@ HL_PRIM _ref(btSoftBody)* HL_NAME(btSoftBodyHelpers_CreateFromConvexHull4)(_ref(
 	return alloc_ref((_unref(_this)->CreateFromConvexHull(*_unref(worldInfo), _unref(vertices), nvertices, randomizeConstraints)),btSoftBody);
 }
 DEFINE_PRIM(_IDL, btSoftBodyHelpers_CreateFromConvexHull4, _IDL _IDL _IDL _I32 _BOOL);
+
+//Custom Int Array
+
+static void finalize_btIntArray( _ref(btIntArray)* _this ) { free_ref(_this); }
+HL_PRIM void HL_NAME(btIntArray_delete)(_ref(btIntArray)* _this) {
+	free_ref(_this);
+}
+DEFINE_PRIM(_VOID, btIntArray_delete, _IDL);
+
+HL_PRIM _ref(btIntArray)* HL_NAME(btIntArray_new1)(int num) {
+	return alloc_ref((new btIntArray(num)),btIntArray);
+}
+DEFINE_PRIM(_IDL, btIntArray_new1, _I16);
+
+HL_PRIM int HL_NAME(btIntArray_set2)(_ref(btIntArray)* _this, int pos, int value) {
+	return _unref(_this)->set(pos, value);
+}
+DEFINE_PRIM(_I16, btIntArray_set2, _IDL, _I16, _I16);
+
+HL_PRIM int HL_NAME(btIntArray_size0)(_ref(btIntArray)* _this) {
+	return _unref(_this)->size();
+}
+DEFINE_PRIM(_I16, btIntArray_size0);
+
+HL_PRIM int* HL_NAME(btIntArray_get_raw)(_ref(btIntArray)* _this) {
+	return _unref(_this)->raw;
+}
+DEFINE_PRIM(_BYTES, btIntArray_get_raw);
+
+HL_PRIM int HL_NAME(btIntArray_at1)(_ref(btIntArray)* _this, int pos) {
+	return _unref(_this)->at(pos);
+}
+DEFINE_PRIM(_I16, btIntArray_at1, _IDL _I16);
+
+//Custom Float Array
+
+static void finalize_btFloatArray( _ref(btFloatArray)* _this ) { free_ref(_this); }
+HL_PRIM void HL_NAME(btFloatArray_delete)(_ref(btFloatArray)* _this) {
+	free_ref(_this);
+}
+DEFINE_PRIM(_VOID, btFloatArray_delete, _IDL);
+
+HL_PRIM _ref(btFloatArray)* HL_NAME(btFloatArray_new1)(int num) {
+	return alloc_ref((new btFloatArray(num)),btFloatArray);
+}
+DEFINE_PRIM(_IDL, btFloatArray_new1, _I16);
+
+HL_PRIM int HL_NAME(btFloatArray_set2)(_ref(btFloatArray)* _this, int pos, float value) {
+	return _unref(_this)->set(pos, value);
+}
+DEFINE_PRIM(_I16, btFloatArray_set2, _IDL, _I16, _F32);
+
+HL_PRIM int HL_NAME(btFloatArray_size0)(_ref(btFloatArray)* _this) {
+	return _unref(_this)->size();
+}
+DEFINE_PRIM(_I16, btFloatArray_size0);
+
+HL_PRIM float* HL_NAME(btFloatArray_get_raw)(_ref(btFloatArray)* _this) {
+	return _unref(_this)->raw;
+}
+DEFINE_PRIM(_BYTES, btFloatArray_get_raw);
+
+HL_PRIM float HL_NAME(btFloatArray_at1)(_ref(btFloatArray)* _this, int pos) {
+	return _unref(_this)->at(pos);
+}
+DEFINE_PRIM(_F32, btFloatArray_at1, _IDL _I16);
 
 }

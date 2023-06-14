@@ -921,3 +921,19 @@ interface btSoftBodyHelpers {
 	btSoftBody CreateFromTriMesh([Ref] btSoftBodyWorldInfo worldInfo, float[] vertices, long[] triangles, long ntriangles, boolean randomizeConstraints);
 	btSoftBody CreateFromConvexHull([Ref] btSoftBodyWorldInfo worldInfo, [Const] btVector3 vertices, long nvertices, boolean randomizeConstraints);
 };
+
+interface btFloatArray {
+	attribute float[] raw;
+	void btFloatArray(long num);
+	[Const] long size();
+	[Const] float at(long n);
+	[Const] long set(long n, float value);
+};
+
+interface btIntArray {
+	attribute long[] raw;
+	void btIntArray(long num);
+	[Const] long size();
+	[Const] long at(long n);
+	[Const] long set(long n, long value);
+};
