@@ -588,6 +588,7 @@ interface btCollisionWorld {
 	void contactPairTest([Const] btCollisionObject colObjA, [Const] btCollisionObject colObjB, [Ref] ContactResultCallback resultCallback);
 	void contactTest([Const] btCollisionObject colObj, [Ref] ContactResultCallback resultCallback);
 	void updateSingleAabb(btCollisionObject colObj);
+	void debugDrawWorld();
 };
 
 interface btContactSolverInfo {

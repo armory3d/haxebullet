@@ -2423,6 +2423,11 @@ HL_PRIM void HL_NAME(btCollisionWorld_updateSingleAabb1)(_ref(btCollisionWorld)*
 }
 DEFINE_PRIM(_VOID, btCollisionWorld_updateSingleAabb1, _IDL _IDL);
 
+HL_PRIM void HL_NAME(btCollisionWorld_debugDrawWorld0)(_ref(btCollisionWorld)* _this) {
+	_unref(_this)->debugDrawWorld();
+}
+DEFINE_PRIM(_VOID, btCollisionWorld_debugDrawWorld0 _IDL);
+
 HL_PRIM int HL_NAME(btContactSolverInfo_get_m_splitImpulse)( _ref(btContactSolverInfo)* _this ) {
 	return _unref(_this)->m_splitImpulse;
 }
