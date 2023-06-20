@@ -4,5 +4,6 @@ project.addFile('bullet/**');
 project.addIncludeDir('bullet');
 
 project.addFile('hl/bullet.cpp');
+project.addFile('hl/DebugDrawer.cpp');
 
 resolve(project);

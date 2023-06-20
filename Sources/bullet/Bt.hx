@@ -11,6 +11,20 @@ enum abstract CollisionObjectActivationState(Int) from Int to Int {
 }
 
 #if hl
+abstract BulletString(hl.Bytes) from hl.Bytes to hl.Bytes {
+#else
+abstract BulletString(String) from String to String {
+#end
+	public inline function toHaxeString(): String {
+		#if js
+			return js.Syntax.code("Ammo.UTF8ToString({0})", this);
+		#elseif hl
+			return @:privateAccess String.fromUTF8(this);
+		#end
+	}
+}
+
+#if hl
 
 typedef Bt = haxe.macro.MacroType<[webidl.Module.build({ idlFile : "Sources/bullet/bullet.idl", chopPrefix : "bt", autoGC : false, nativeLib : "bullet" })]>;
 
@@ -81,13 +95,25 @@ extern class Transform {
 }
 
 @:native('Ammo.btIDebugDraw')
-extern class IDebugDraw  {
-	public function drawLine(from:Vector3, to:Vector3, color:Vector3):Void;
-	public function drawContactPoint(pointOnB:Vector3, normalOnB:Vector3, distance:Float, lifeTime:Int, color:Vector3):Void;
-	public function reportErrorWarning(warningString:String):Void;
-	public function draw3dText(location:Vector3, textString:String):Void;
-	public function setDebugMode(debugMode:Int):Void;
-	public function getDebugMode():Int;
+extern class IDebugDraw {
+	public function new():Void;
+	public dynamic function drawLine(from:Vector3, to:Vector3, color:Vector3): Void;
+	public dynamic function drawContactPoint(pointOnB:Vector3, normalOnB:Vector3, distance:Float, lifeTime:Int, color:Vector3):Void;
+	public dynamic function reportErrorWarning(warningString:BulletString):Void;
+	public dynamic function draw3dText(location:Vector3, textString:BulletString):Void;
+	public dynamic function setDebugMode(debugMode:Int): Void;
+	public dynamic function getDebugMode():Int;
+}
+
+@:native('Ammo.DebugDrawer')
+extern class DebugDrawer {
+	public function new():Void;
+	public dynamic function drawLine(from:Vector3, to:Vector3, color:Vector3): Void;
+	public dynamic function drawContactPoint(pointOnB:Vector3, normalOnB:Vector3, distance:Float, lifeTime:Int, color:Vector3):Void;
+	public dynamic function reportErrorWarning(warningString:BulletString):Void;
+	public dynamic function draw3dText(location:Vector3, textString:BulletString):Void;
+	public dynamic function setDebugMode(debugMode:Int): Void;
+	public dynamic function getDebugMode():Int;
 }
 
 @:native('Ammo.btMotionState')
@@ -154,8 +180,8 @@ extern class RigidBody extends CollisionObject {
 	public function clearForces():Void;
 	public function setDamping(linear:Float, angular:Float):Void;
 	public function updateInertiaTensor():Void;
-	public function getCenterOfMassPosition():Vector3;
-	public function getCenterOfMassTransform():Transform; 
+	// public function getCenterOfMassPosition():Vector3;  // Not implemented in Ammo
+	public function getCenterOfMassTransform():Transform;
 	public function setCenterOfMassTransform(trans:Transform):Void;
 	public function getLinearVelocity():Vector3;
 	public function setLinearVelocity(lin_vel:Vector3):Void;
@@ -255,6 +281,9 @@ extern class CollisionWorld {
 	@:native("addCollisionObject")
 	public function addCollisionObjectToGroup(collisionObject:CollisionObject, collisionFilterGroup:Int, collisionFilterMask:Int):Void;
 	public function convexSweepTest(castShape:ConvexShape, from:Transform, to:Transform, resultCallback:ConvexResultCallback, allowedCcdPenetration:Float):Void;
+	public function setDebugDrawer(debugDrawer:DebugDrawer):Void;
+	public function getDebugDrawer():DebugDrawer;
+	public function debugDrawWorld():Void;
 }
 
 @:native('Ammo.ConvexResultCallback')
@@ -295,7 +324,6 @@ extern class DynamicsWorld extends CollisionWorld {
 @:native('Ammo.btDiscreteDynamicsWorld')
 extern class DiscreteDynamicsWorld extends DynamicsWorld {
 	public function new(dispatcher:Dispatcher, pairCache:BroadphaseInterface, constraintSolver:ConstraintSolver, collisionConfiguration:CollisionConfiguration):Void;
-	public function debugDrawWorld():Void;
 }
 
 @:native('Ammo.btSoftBodyWorldInfo')
@@ -635,7 +663,7 @@ extern class Point2PointConstraint extends TypedConstraint {
 	public function setPivotA(pivotA:Vector3):Void;
 	public function setPivotB(pivotB:Vector3):Void;
 	public function getPivotInA():Vector3;
-	public function getPivotInB():Vector3;	
+	public function getPivotInB():Vector3;
 }
 
 @:native('Ammo.Config')
