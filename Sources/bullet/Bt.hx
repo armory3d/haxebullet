@@ -13,15 +13,30 @@ enum abstract CollisionObjectActivationState(Int) from Int to Int {
 #if hl
 abstract BulletString(hl.Bytes) from hl.Bytes to hl.Bytes {
 #else
-abstract BulletString(String) from String to String {
+abstract BulletString(Int) from Int to Int {
 #end
 	public inline function toHaxeString(): String {
 		#if js
-			return js.Syntax.code("Ammo.UTF8ToString({0})", this);
+			// Not available in currently used version of ammo.js
+			// TODO remove custom utf8 conversion code when updating ammo
+			// return js.Syntax.code("Ammo.UTF8ToString({0})", this);
+
+			return js_UTF8ToString(this);
 		#elseif hl
 			return @:privateAccess String.fromUTF8(this);
 		#end
 	}
+
+	#if js
+	function js_UTF8ToString(heapOffset: Int) {
+		final heap: js.lib.Uint8Array = js.Syntax.code("Ammo.HEAPU8");
+		var end = heapOffset;
+		while (heap[end] != 0) {
+			end++;
+		}
+		return haxe.io.Bytes.ofData(heap.buffer).getString(heapOffset, end - heapOffset, UTF8);
+	}
+	#end
 }
 
 #if hl
