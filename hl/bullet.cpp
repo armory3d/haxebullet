@@ -2428,7 +2428,7 @@ DEFINE_PRIM(_VOID, btCollisionWorld_updateSingleAabb1, _IDL _IDL);
 HL_PRIM void HL_NAME(btCollisionWorld_debugDrawWorld0)(_ref(btCollisionWorld)* _this) {
 	_unref(_this)->debugDrawWorld();
 }
-DEFINE_PRIM(_VOID, btCollisionWorld_debugDrawWorld0 _IDL);
+DEFINE_PRIM(_VOID, btCollisionWorld_debugDrawWorld0, _IDL);
 
 HL_PRIM int HL_NAME(btContactSolverInfo_get_m_splitImpulse)( _ref(btContactSolverInfo)* _this ) {
 	return _unref(_this)->m_splitImpulse;
@@ -4017,17 +4017,17 @@ DEFINE_PRIM(_IDL, btIntArray_new1, _I16);
 HL_PRIM int HL_NAME(btIntArray_set2)(_ref(btIntArray)* _this, int pos, int value) {
 	return _unref(_this)->set(pos, value);
 }
-DEFINE_PRIM(_I16, btIntArray_set2, _IDL, _I16, _I16);
+DEFINE_PRIM(_I16, btIntArray_set2, _IDL _I16 _I16);
 
 HL_PRIM int HL_NAME(btIntArray_size0)(_ref(btIntArray)* _this) {
 	return _unref(_this)->size();
 }
-DEFINE_PRIM(_I16, btIntArray_size0);
+DEFINE_PRIM(_I16, btIntArray_size0, _IDL);
 
 HL_PRIM int* HL_NAME(btIntArray_get_raw)(_ref(btIntArray)* _this) {
 	return _unref(_this)->raw;
 }
-DEFINE_PRIM(_BYTES, btIntArray_get_raw);
+DEFINE_PRIM(_BYTES, btIntArray_get_raw, _IDL);
 
 HL_PRIM int HL_NAME(btIntArray_at1)(_ref(btIntArray)* _this, int pos) {
 	return _unref(_this)->at(pos);
@@ -4050,17 +4050,17 @@ DEFINE_PRIM(_IDL, btFloatArray_new1, _I16);
 HL_PRIM int HL_NAME(btFloatArray_set2)(_ref(btFloatArray)* _this, int pos, float value) {
 	return _unref(_this)->set(pos, value);
 }
-DEFINE_PRIM(_I16, btFloatArray_set2, _IDL, _I16, _F32);
+DEFINE_PRIM(_I16, btFloatArray_set2, _IDL _I16 _F32);
 
 HL_PRIM int HL_NAME(btFloatArray_size0)(_ref(btFloatArray)* _this) {
 	return _unref(_this)->size();
 }
-DEFINE_PRIM(_I16, btFloatArray_size0);
+DEFINE_PRIM(_I16, btFloatArray_size0, _IDL);
 
 HL_PRIM float* HL_NAME(btFloatArray_get_raw)(_ref(btFloatArray)* _this) {
 	return _unref(_this)->raw;
 }
-DEFINE_PRIM(_BYTES, btFloatArray_get_raw);
+DEFINE_PRIM(_BYTES, btFloatArray_get_raw, _IDL);
 
 HL_PRIM float HL_NAME(btFloatArray_at1)(_ref(btFloatArray)* _this, int pos) {
 	return _unref(_this)->at(pos);
